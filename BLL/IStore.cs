@@ -6,6 +6,6 @@ namespace BLL
     interface IStore
     {
         string Path { get; set; }  
-        IEnumerable<DataModel> Read();
+        IEnumerable<DataModel> Read(); 
     }
 }
