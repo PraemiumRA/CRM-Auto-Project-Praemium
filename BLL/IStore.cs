@@ -5,7 +5,7 @@ namespace BLL
 {
     interface IStore
     {
-        string Path { get; set; }
+        string Path { get; set; } 
         IEnumerable<DataModel> Read();
     }
 }
