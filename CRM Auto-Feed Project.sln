@@ -13,6 +13,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileGenerator", "FileGenera
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataModelLibrary", "DataModelLibrary\DataModelLibrary.csproj", "{7D4799D7-3993-4FC6-A4C6-E312ECD3C404}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StoredProcedures", "StoredProcedures", "{91E42862-9809-4F72-BD18-6853A32B1AA4}"
+	ProjectSection(SolutionItems) = preProject
+		StoredProcedures\DBStructure.sql = StoredProcedures\DBStructure.sql
+		StoredProcedures\Delete.sql = StoredProcedures\Delete.sql
+		StoredProcedures\InsertOrUpdate.sql = StoredProcedures\InsertOrUpdate.sql
+		StoredProcedures\Select.sql = StoredProcedures\Select.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
