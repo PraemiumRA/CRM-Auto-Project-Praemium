@@ -11,6 +11,8 @@ namespace UIForm
     public partial class UIMainForm : Form
     {
         AppConfiguration appConfiguration;
+        FolderWatcher watcher;//
+
         string monitoringPath = "";
         string directoryPathForJsonCreation = "";
 
@@ -29,10 +31,11 @@ namespace UIForm
             this.textBoxMonitoringDirectory.Text = monitoringPath;
             this.textBoxDirectoryForJsonCreation.Text = directoryPathForJsonCreation;
 
-            FolderWatcher watcher = new FolderWatcher(monitoringPath, directoryPathForJsonCreation);
+            watcher = new FolderWatcher(monitoringPath, directoryPathForJsonCreation);
             watcher.Run();
         }
 
+    
         private void ButtonDelete_Click(object sender, EventArgs e)
         {
             Delete delete = new Delete();

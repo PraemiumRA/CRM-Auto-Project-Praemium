@@ -60,7 +60,7 @@ namespace BLL
             this.JsonDirectory = new DirectoryInfo(jsonPath);
             this.storeData = new StoreData(JsonDirectory);
         }
-
+        //
         public void Run()
         {
             watcher = new FileSystemWatcher()
@@ -74,6 +74,7 @@ namespace BLL
             watcher.EnableRaisingEvents = true;
         }
 
+        
         //Hundel for Delete
         private void Watcher_Deleted(object sender, FileSystemEventArgs e)
         {

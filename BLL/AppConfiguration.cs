@@ -131,7 +131,7 @@ namespace BLL
         }
         private string GetMonitoringDefoultDirectory()
         {
-            return  Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory);         
+            return  Environment.GetFolderPath(Environment.SpecialFolder.Desktop);         
         }
 
        
