@@ -12,11 +12,14 @@ namespace BLL
         string filePath;
         string newFilePath;
         string defaultPath;
+        string jsonPath;//
 
-        public JsonMaker(DataModel DataModel, string FilePath)
+        public JsonMaker(DataModel DataModel, string FilePath, string jsonPath)
         {
             this.dataModel = DataModel;
             this.filePath = FilePath;
+            this.jsonPath = jsonPath;
+
             JsonFromatMaker();
         }
 
@@ -99,25 +102,25 @@ namespace BLL
 
         private void JsonFileWriter(StringBuilder builder)
         {
-            defaultPath = @".\Json Files";
+            defaultPath = jsonPath;//@".\Json Files";
             if (!Directory.Exists(defaultPath))
                 Directory.CreateDirectory(defaultPath);
 
-            try
-            {
-                newFilePath = string.IsNullOrEmpty(ConfigurationManager.AppSettings["JsonPath"]) ? defaultPath : ConfigurationManager.AppSettings["JsonPath"];
-                if (!Directory.Exists(newFilePath))
-                    newFilePath = defaultPath;
-            }
-            catch (ConfigurationErrorsException ex)
-            {
-                throw;
-            }
+            //try
+            //{
+            //    newFilePath = string.IsNullOrEmpty(ConfigurationManager.AppSettings["JsonPath"]) ? defaultPath : ConfigurationManager.AppSettings["JsonPath"];
+            //    if (!Directory.Exists(newFilePath))
+            //        newFilePath = defaultPath;
+            //}
+            //catch (ConfigurationErrorsException ex)
+            //{
+            //    throw;
+            //}
 
             filePath = Path.ChangeExtension(Path.GetFileName(filePath), "Json");
 
 
-            using (StreamWriter write = new StreamWriter(newFilePath + "\\" + filePath, true))
+            using (StreamWriter write = new StreamWriter(defaultPath /*newFilePath*/ + "\\" + filePath, true))
             {
                 write.WriteLine(builder);
                 write.Write(write.NewLine);

@@ -15,6 +15,7 @@ namespace BLL
         bool isStoreDataBase;
         int prcentOfMachineCore;
         string watchingDirectory;
+        string jsonCreationDirectory;
 
         public AppConfiguration()
         {
@@ -22,6 +23,7 @@ namespace BLL
             PrcentOfMachineCore();
             StoreToDataBase();
             StoreToJson();
+            JsonDirectory();
         }
 
         //Propertes
@@ -40,6 +42,10 @@ namespace BLL
         public string GetToMnitorDirectory
         {
             get { return this.watchingDirectory; }
+        }
+        public string JsonCreationDirectory
+        {
+            get { return this.jsonCreationDirectory; }
         }
 
         //Methods
@@ -90,34 +96,44 @@ namespace BLL
         }
         private void MonitorDirectory()
         {
-            string temp = @".\..\..\..\MonitoringDirectory\"; 
+            string temp = GetMonitoringDefoultDirectory();
+
             try
             {
-                temp = ConfigurationManager.AppSettings["MonitoringDirectory"] ?? GetMonitoringDirectory();
+                temp = ConfigurationManager.AppSettings["MonitoringDirectory"] ?? GetMonitoringDefoultDirectory();
+                if (!Directory.Exists(temp))
+                    Directory.CreateDirectory(temp);
             }
             catch (Exception)
             {
-                temp = GetMonitoringDirectory();
+                temp = GetMonitoringDefoultDirectory();
             }
-            if (!Directory.Exists(temp))
-                Directory.CreateDirectory(temp);
-
+           
             this.watchingDirectory = temp;
             
         }
-        private string GetMonitoringDirectory()
+        private void JsonDirectory()
         {
-            string directoryName = @".\..\..\..\..\MonitoringDirectory";
+            string temp = GetMonitoringDefoultDirectory();
 
-            DirectoryInfo directory = new DirectoryInfo(directoryName);
-            if (!directory.Exists)
+            try
             {
-                directory = Directory.CreateDirectory(directoryName);
+                temp = ConfigurationManager.AppSettings["JsonPath"] ?? GetMonitoringDefoultDirectory();
+                if (!Directory.Exists(temp))
+                    Directory.CreateDirectory(temp);
             }
-            
-            return directory.FullName;
+            catch (Exception)
+            {
+                temp = GetMonitoringDefoultDirectory();
+            }
+
+            this.jsonCreationDirectory = temp;
+        }
+        private string GetMonitoringDefoultDirectory()
+        {
+            return  Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory);         
         }
 
-      
+       
     }
 }

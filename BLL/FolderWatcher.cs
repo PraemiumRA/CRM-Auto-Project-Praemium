@@ -12,6 +12,7 @@ namespace BLL
     public class FolderWatcher 
     {
         DirectoryInfo directory;
+        DirectoryInfo jsonDirectory;
         FileSystemWatcher watcher;
         StoreData   storeData;
 
@@ -27,6 +28,19 @@ namespace BLL
             }
         }
 
+        //
+        public DirectoryInfo JsonDirectory
+        {
+            get { return this.jsonDirectory; }
+            set
+            {
+                if (value.Exists)
+                {
+                    this.jsonDirectory = value;
+                }
+            }
+        }
+
         public FolderWatcher()
         {
 
@@ -36,7 +50,15 @@ namespace BLL
         {
             this.Directory = new DirectoryInfo(path);
             this.storeData = new StoreData();
-           
+            
+        }
+
+        //
+        public FolderWatcher(string path, string jsonPath)
+        {
+            this.Directory = new DirectoryInfo(path);
+            this.JsonDirectory = new DirectoryInfo(jsonPath);
+            this.storeData = new StoreData(JsonDirectory);
         }
 
         public void Run()

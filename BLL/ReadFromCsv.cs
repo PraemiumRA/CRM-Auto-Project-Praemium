@@ -8,9 +8,12 @@ namespace BLL
     {
         public string Path { get; set; }
 
-        public ReadFromCsv(string path)
+        public string jsonPath { get; set; }//
+
+        public ReadFromCsv(string path, string jsonPath)
         {
             this.Path = path;
+            this.jsonPath = jsonPath;
         }
 
         public IEnumerable<DataModel> Read()

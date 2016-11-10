@@ -10,6 +10,7 @@ namespace BLL
     {
         AppConfiguration appConfig;
         string path;
+        string jsonPath;
         bool isJson = false;
         bool isDB = false;
 
@@ -28,6 +29,8 @@ namespace BLL
         {
             this.storeData = storeData;
             this.path = storeData.Path;
+            this.jsonPath = storeData.jsonPath;
+
             StoreDataFromFile();
         }
 
@@ -45,7 +48,7 @@ namespace BLL
                     {
                         if (isJson)
                         {
-                            jsonMaker = new JsonMaker(currentDataModel, path);
+                            jsonMaker = new JsonMaker(currentDataModel, path, jsonPath);
                         }
 
                         if (isDB)

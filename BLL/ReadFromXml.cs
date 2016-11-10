@@ -14,10 +14,12 @@ namespace BLL
 
         public  string path;
         public string Path { get; set; }
+        public string jsonPath { get; set; }//
 
-        public ReadFromXml(string path)
+        public ReadFromXml(string path, string jsonPath)
         {
             this.Path = path;
+            this.jsonPath = jsonPath;
         }
 
         public IEnumerable<DataModel> Read()

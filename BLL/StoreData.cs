@@ -18,6 +18,7 @@ namespace BLL
             get; set;
         }
         public int TaskCount { get; set; }
+        public DirectoryInfo JsonDirectory { get; set; }
 
         public ObservableCollection<string> collection = new ObservableCollection<string>();
         List<Task> tasks = new List<Task>();
@@ -26,6 +27,16 @@ namespace BLL
 
         public StoreData()
         {
+            collection.CollectionChanged += Collection_CollectionChanged;
+            ConfigurateStore();
+            timeToAction = new System.Timers.Timer(1000);
+            timeToAction.Elapsed += (sender, e) => StartAction();
+        }
+
+        //
+        public StoreData(DirectoryInfo jsonPath)
+        {
+            this.JsonDirectory = jsonPath;
             collection.CollectionChanged += Collection_CollectionChanged;
             ConfigurateStore();
             timeToAction = new System.Timers.Timer(1000);
@@ -46,7 +57,6 @@ namespace BLL
 
             TaskCount = ParOptions.MaxDegreeOfParallelism == 1 ? 2 : (int)((1.3) * ParOptions.MaxDegreeOfParallelism);
         }
-
         private void Collection_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
@@ -64,11 +74,11 @@ namespace BLL
 
             if (Path.GetExtension(path) == ".csv")
             {
-                storeData = new ReadFromCsv(path);
+                storeData = new ReadFromCsv(path, JsonDirectory.ToString());
             }
             else if (Path.GetExtension(path) == ".xml")
             {
-                storeData = new ReadFromXml(path);
+                storeData = new ReadFromXml(path, JsonDirectory.ToString());
             }
 
             StoreDB store = new StoreDB(storeData);
