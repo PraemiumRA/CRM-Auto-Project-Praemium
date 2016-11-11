@@ -15,51 +15,28 @@ namespace BLL
         DirectoryInfo jsonDirectory;
         FileSystemWatcher watcher;
         StoreData   storeData;
+        AppConfiguration appConfiguration;
 
         public DirectoryInfo Directory
         {
             get { return this.directory; }
-            set
-            {
-                if (value.Exists)
-                {
-                    this.directory = value;
-                }
-            }
+            set { this.directory = value; }
+            
         }
-
-        //
         public DirectoryInfo JsonDirectory
         {
             get { return this.jsonDirectory; }
-            set
-            {
-                if (value.Exists)
-                {
-                    this.jsonDirectory = value;
-                }
-            }
+            set { this.jsonDirectory = value; }
+           
         }
-
-        //public FolderWatcher()
-        //{
-
-        //}
-
-        //public FolderWatcher(string path)
-        //{
-        //    this.Directory = new DirectoryInfo(path);
-        //    this.storeData = new StoreData();
-            
-        //}
-
-        //
-
-        public FolderWatcher(string path, string jsonPath)
+          
+        public FolderWatcher()
         {
-            this.Directory = new DirectoryInfo(path);
-            this.JsonDirectory = new DirectoryInfo(jsonPath);
+            appConfiguration = new AppConfiguration();
+            this.Directory = new DirectoryInfo(appConfiguration.GetToMnitorDirectory); //new DirectoryInfo(path);
+            this.JsonDirectory = new DirectoryInfo(appConfiguration.JsonCreationDirectory); //new DirectoryInfo(jsonPath);
             this.storeData = new StoreData(JsonDirectory);
+                       
         }
         
         public void Run()
@@ -69,7 +46,7 @@ namespace BLL
                 Path = this.Directory.FullName,
                 IncludeSubdirectories = true
             };
-                       
+
             watcher.Created += Watcher_Created;
             watcher.Deleted += Watcher_Deleted;
 
