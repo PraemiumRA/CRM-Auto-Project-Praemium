@@ -42,7 +42,7 @@
             this.label2.ForeColor = System.Drawing.SystemColors.Highlight;
             this.label2.Location = new System.Drawing.Point(54, 67);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(48, 20);
+            this.label2.Size = new System.Drawing.Size(47, 20);
             this.label2.TabIndex = 14;
             this.label2.Text = "Value";
             // 
@@ -105,7 +105,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(290, 261);
+            this.ClientSize = new System.Drawing.Size(290, 260);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBox_ColumnName);
@@ -115,6 +115,7 @@
             this.MinimumSize = new System.Drawing.Size(306, 299);
             this.Name = "Delete";
             this.Text = "Delete";
+            this.Load += new System.EventHandler(this.Delete_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -3,10 +3,10 @@ using DataModelLibrary;
 
 namespace BLL
 {
-    interface IStore
+    public interface IStore
     {
-        string Path { get; set; }
-        string jsonPath { get; set; }//
+        string path { get; set; }
+        string jsonPath { get; set; }
         IEnumerable<DataModel> Read(); 
     }
 }

@@ -54,7 +54,6 @@
     <Compile Include="ReadFromCsv.cs" />
     <Compile Include="ReadFromXml.cs" />
     <Compile Include="StoreData.cs" />
-    <Compile Include="StoreDB.cs" />
     <Compile Include="TeamMemberProjectBLL.cs" />
   </ItemGroup>
   <ItemGroup>

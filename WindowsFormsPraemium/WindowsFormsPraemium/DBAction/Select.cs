@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SqlClient;
-using System.Threading;
 using BLL;
 
 namespace UIForm.DBAction
@@ -40,6 +32,11 @@ namespace UIForm.DBAction
             {
                 value_textbox.Enabled = true;
             }
+        }
+
+        private void Select_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

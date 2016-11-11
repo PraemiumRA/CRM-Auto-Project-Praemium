@@ -34,6 +34,9 @@ namespace UIForm.DBAction
             }
         }
 
+        private void Delete_Load(object sender, EventArgs e)
+        {
 
+        }
     }
 }

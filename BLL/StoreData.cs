@@ -13,27 +13,15 @@ namespace BLL
 {
     class StoreData
     {
-        public ParallelOptions ParOptions
-        {
-            get; set;
-        }
-        public int TaskCount { get; set; }
+        public ParallelOptions ParOptions { get; set; }
         public DirectoryInfo JsonDirectory { get; set; }
-
+        public int TaskCount { get; set; }
         public ObservableCollection<string> collection = new ObservableCollection<string>();
+
         List<Task> tasks = new List<Task>();
         System.Timers.Timer timeToAction;
         AppConfiguration appConfiguration;
 
-        public StoreData()
-        {
-            collection.CollectionChanged += Collection_CollectionChanged;
-            ConfigurateStore();
-            timeToAction = new System.Timers.Timer(1000);
-            timeToAction.Elapsed += (sender, e) => StartAction();
-        }
-
-        //
         public StoreData(DirectoryInfo jsonPath)
         {
             this.JsonDirectory = jsonPath;
@@ -81,9 +69,8 @@ namespace BLL
                 storeData = new ReadFromXml(path, JsonDirectory.ToString());
             }
 
-            StoreDB store = new StoreDB(storeData);
+            TeamMemberProjectBLL store = new TeamMemberProjectBLL(storeData);
 
-            File.Delete(path);
             collection.Remove(path);
         }
 

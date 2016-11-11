@@ -20,7 +20,6 @@ namespace UIForm
         {
             InitializeComponent();
             appConfiguration = new AppConfiguration();
-
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -63,5 +62,6 @@ namespace UIForm
 
             directoryPathForJsonCreation = this.textBoxDirectoryForJsonCreation.Text;
         }
+
     }
 }

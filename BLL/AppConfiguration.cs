@@ -10,23 +10,13 @@ namespace BLL
 {
     public class AppConfiguration
     {
-        //Fileds
-        bool isStoreToJson;
-        bool isStoreDataBase;
-        int prcentOfMachineCore;
-        string watchingDirectory;
-        string jsonCreationDirectory;
 
-        public AppConfiguration()
-        {
-            MonitorDirectory();
-            PrcentOfMachineCore();
-            StoreToDataBase();
-            StoreToJson();
-            JsonDirectory();
-        }
+        private bool isStoreToJson;
+        private bool isStoreDataBase;
+        private int prcentOfMachineCore;
+        private string watchingDirectory;
+        private string jsonCreationDirectory;
 
-        //Propertes
         public bool IsStoreToJson
         {
             get { return isStoreToJson; }
@@ -48,7 +38,15 @@ namespace BLL
             get { return this.jsonCreationDirectory; }
         }
 
-        //Methods
+        public AppConfiguration()
+        {
+            MonitorDirectory();
+            PrcentOfMachineCore();
+            StoreToDataBase();
+            StoreToJson();
+            JsonDirectory();
+        }
+
         private void StoreToDataBase()
         {
             bool temp = false;
@@ -62,13 +60,12 @@ namespace BLL
                 //TODO: Logging                
                 temp = false;
             }
-            this.isStoreDataBase= temp;
-            
+            this.isStoreDataBase = temp;
+
         }
         private void StoreToJson()
         {
             bool temp = false;
-
             try
             {
                 temp = Convert.ToBoolean(ConfigurationManager.AppSettings["StorDataInJSON"] ?? "true");
@@ -90,14 +87,13 @@ namespace BLL
             catch (Exception)
             {
                 //TODO: Logging
-                temp = 50;       
+                temp = 50;
             }
             this.prcentOfMachineCore = temp;
         }
         private void MonitorDirectory()
         {
             string temp = GetMonitoringDefoultDirectory();
-
             try
             {
                 temp = ConfigurationManager.AppSettings["MonitoringDirectory"] ?? GetMonitoringDefoultDirectory();
@@ -108,14 +104,13 @@ namespace BLL
             {
                 temp = GetMonitoringDefoultDirectory();
             }
-           
+
             this.watchingDirectory = temp;
-            
+
         }
         private void JsonDirectory()
         {
             string temp = GetMonitoringDefoultDirectory();
-
             try
             {
                 temp = ConfigurationManager.AppSettings["JsonPath"] ?? GetMonitoringDefoultDirectory();
@@ -129,11 +124,13 @@ namespace BLL
 
             this.jsonCreationDirectory = temp;
         }
+
+        //Default
         private string GetMonitoringDefoultDirectory()
         {
-            return  Environment.GetFolderPath(Environment.SpecialFolder.Desktop);         
+            return Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
         }
 
-       
+
     }
 }

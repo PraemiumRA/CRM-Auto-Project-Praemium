@@ -6,19 +6,18 @@ namespace BLL
 {
     public class ReadFromCsv : IStore
     {
-        public string Path { get; set; }
-
-        public string jsonPath { get; set; }//
+        public string path { get; set; }
+        public string jsonPath { get; set; }
 
         public ReadFromCsv(string path, string jsonPath)
         {
-            this.Path = path;
+            this.path = path;
             this.jsonPath = jsonPath;
         }
 
         public IEnumerable<DataModel> Read()
         {
-            using (FileStream stream = new FileStream(Path, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite))
+            using (FileStream stream = new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite))
             {
                 using (StreamReader reader = new StreamReader(stream))
                 {
@@ -76,5 +75,6 @@ namespace BLL
 
             }
         }
+
     }
 }

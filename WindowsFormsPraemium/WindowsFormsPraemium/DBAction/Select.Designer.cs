@@ -53,14 +53,11 @@
             this.comboBoxValue.ForeColor = System.Drawing.SystemColors.MenuHighlight;
             this.comboBoxValue.FormattingEnabled = true;
             this.comboBoxValue.Items.AddRange(new object[] {
-            "TeamID",
             "TeamName",
-            "MemberID",
             "MemberName",
             "MemberSurname",
-            "ProjectID",
             "ProjectName",
-            "ProjectCreatedDate",
+            "ProjectCreated Date",
             "ProjectDueDate",
             "AllTeams",
             "AllMembers",
@@ -118,6 +115,7 @@
             this.MinimumSize = new System.Drawing.Size(774, 454);
             this.Name = "Select";
             this.Text = "Select";
+            this.Load += new System.EventHandler(this.Select_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewValue)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

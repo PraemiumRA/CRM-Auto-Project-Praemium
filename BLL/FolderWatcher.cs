@@ -41,26 +41,27 @@ namespace BLL
             }
         }
 
-        public FolderWatcher()
-        {
+        //public FolderWatcher()
+        //{
 
-        }
+        //}
 
-        public FolderWatcher(string path)
-        {
-            this.Directory = new DirectoryInfo(path);
-            this.storeData = new StoreData();
+        //public FolderWatcher(string path)
+        //{
+        //    this.Directory = new DirectoryInfo(path);
+        //    this.storeData = new StoreData();
             
-        }
+        //}
 
         //
+
         public FolderWatcher(string path, string jsonPath)
         {
             this.Directory = new DirectoryInfo(path);
             this.JsonDirectory = new DirectoryInfo(jsonPath);
             this.storeData = new StoreData(JsonDirectory);
         }
-        //
+        
         public void Run()
         {
             watcher = new FileSystemWatcher()
@@ -71,6 +72,7 @@ namespace BLL
                        
             watcher.Created += Watcher_Created;
             watcher.Deleted += Watcher_Deleted;
+
             watcher.EnableRaisingEvents = true;
         }
 

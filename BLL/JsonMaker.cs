@@ -10,14 +10,13 @@ namespace BLL
     {
         DataModel dataModel;
         string filePath;
-        string newFilePath;
         string defaultPath;
-        string jsonPath;//
+        string jsonPath;
 
-        public JsonMaker(DataModel DataModel, string FilePath, string jsonPath)
+        public JsonMaker(DataModel dataModel, string filePath, string jsonPath)
         {
-            this.dataModel = DataModel;
-            this.filePath = FilePath;
+            this.dataModel = dataModel;
+            this.filePath = filePath;
             this.jsonPath = jsonPath;
 
             JsonFromatMaker();
@@ -34,17 +33,15 @@ namespace BLL
             }
             catch (NullReferenceException ex)
             {
-                throw;
+
             }
 
             StringBuilder builder = new StringBuilder();
-
             builder.AppendLine("{");
 
             WriteTeamAndMemberData(builder);
-
-
-            if (dataModel.Projects.Length > 1)
+            
+            if (dataModel.Projects.Length > 0)
             {
                 builder.Insert(builder.Length - 1, ",");
                 builder.AppendLine();
@@ -53,7 +50,6 @@ namespace BLL
 
                 for (int i = 0; i < dataModel.Projects.Length; i++)
                 {
-
                     builder.AppendLine("{");
                     WriteProjectData(builder, dataModel.Projects[i]);
 
@@ -65,28 +61,22 @@ namespace BLL
                 }
                 builder.AppendLine("]");
             }
-            else if (dataModel.Projects.Length == 1)
-            {
-                builder.Insert(builder.Length - 1, ",");
-                builder.AppendLine();
-                WriteProjectData(builder, dataModel.Projects[0]);
-            }
 
             builder.AppendLine("}");
-
-
+            
             JsonFileWriter(builder);
-            Console.WriteLine($"Data was successfully written in {filePath}");
+
+           // TODO: Logging "Data was successfully written in {filePath}"
         }
 
         private StringBuilder WriteTeamAndMemberData(StringBuilder builder)
         {
             builder.AppendLine($"  \"{nameof(dataModel.TeamID)}\" : {dataModel.TeamID},");
             builder.AppendLine($"  \"{nameof(dataModel.TeamName)}\" : \"{dataModel.TeamName}\",");
-
             builder.AppendLine($"  \"{nameof(dataModel.MemberID)}\" : {dataModel.MemberID},");
             builder.AppendLine($"  \"{nameof(dataModel.MemberName)}\" : \"{dataModel.MemberName}\",");
             builder.AppendLine($"  \"{nameof(dataModel.MemberSurname)}\" : \"{dataModel.MemberSurname}\"");
+
             return builder;
         }
 
@@ -97,6 +87,7 @@ namespace BLL
             builder.AppendLine($"  \"{nameof(Project.ProjectCreatedDate)}\" : \"{projects.ProjectCreatedDate}\",");
             builder.AppendLine($"  \"{nameof(Project.ProjectDueDate)}\" : \"{projects.ProjectDueDate}\",");
             builder.AppendLine($"  \"{nameof(Project.ProjectDescription)}\" : \"{projects.ProjectDescription}\"");
+
             return builder;
         }
 
