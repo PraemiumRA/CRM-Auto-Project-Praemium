@@ -5,6 +5,7 @@ using DataModelLibrary;
 using System.Threading.Tasks;
 using System.IO;
 using System.Text;
+using System.Windows.Forms;
 
 namespace FileGenerator
 {
@@ -20,6 +21,8 @@ namespace FileGenerator
             builder = new StringBuilder();
         }
 
+        object block = new object();
+
         /// <summary>
         /// Method, which creates a file asynchronously
         /// </summary>
@@ -33,49 +36,51 @@ namespace FileGenerator
         /// </summary>
         public  void Create()
         {
-            List<DataModel> dataList = base.DataList;
-            string fileName = base.fileinformation.FileName;
-            try
+            lock (block)
             {
-                using (FileStream stream = new FileStream(base.GetFullName(fileName), FileMode.CreateNew, FileAccess.ReadWrite, FileShare.ReadWrite))
+                List<DataModel> dataList = base.DataList;
+                string fileName = base.fileinformation.FileName;
+                try
                 {
-                    using (StreamWriter writer = new StreamWriter(stream))
+
+                    using (FileStream stream = new FileStream(base.GetFullName(fileName), FileMode.CreateNew, FileAccess.ReadWrite, FileShare.ReadWrite))
                     {
-                        for (int i = 0; i < dataList.Count; i++)
+                        using (StreamWriter writer = new StreamWriter(stream))
                         {
-                            bool worked = false;
-                            string dataLine = ConcateDataModelFileds(dataList[i]);
-                            string[] projectLine = new string[dataList[i].Projects.Length];
-                            string currentLine = "";
-
-                            for (int j = 0; j < dataList[i].Projects.Length; j++)
+                            for (int i = 0; i < dataList.Count; i++)
                             {
-                                projectLine[j] = ConcateProjectFields(dataList[i].Projects[j]);
-                                if (!worked)
-                                {
-                                    currentLine = dataLine + projectLine[j];
-                                    worked = true;
-                                }
-                                else
-                                {
-                                     //currentLine = new string(';', (byte)DataSource.count - 5) + projectLine[j];
-                                    currentLine = new string(';', (byte)1) + projectLine[j];
-                                }
+                                bool worked = false;
+                                string dataLine = ConcateDataModelFileds(dataList[i]);
+                                string[] projectLine = new string[dataList[i].Projects.Length];
+                                string currentLine = "";
 
-                                //writer.WriteLine(currentLine);
-                                writer.Write(currentLine);
+                                for (int j = 0; j < dataList[i].Projects.Length; j++)
+                                {
+                                    projectLine[j] = ConcateProjectFields(dataList[i].Projects[j]);
+                                    if (!worked)
+                                    {
+                                        currentLine = dataLine + projectLine[j];
+                                        worked = true;
+                                    }
+                                    else
+                                    {
+                                        currentLine = new string(';', (byte)1) + projectLine[j];
+                                    }
+
+                                    writer.Write(currentLine);
+                                }
+                                writer.Write(Environment.NewLine);
                             }
-                            writer.Write(Environment.NewLine);
                         }
+
                     }
                 }
+                catch (Exception excetion)
+                {
+                    //TODO: logging
+                    MessageBox.Show(excetion.Message);
+                }
             }
-            catch(Exception excetion)
-            {
-                //TODO: logging
-                throw new Exception("",excetion);
-            }
-
         }
 
         /// <summary>

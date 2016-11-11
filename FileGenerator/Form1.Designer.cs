@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog(); //
+            this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.checkBoxAutoOpen = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.comboBoxFileCount = new System.Windows.Forms.ComboBox();
@@ -39,7 +39,6 @@
             this.textBoxDestination = new System.Windows.Forms.TextBox();
             this.buttonGenerate = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.radioButtonRandom = new System.Windows.Forms.RadioButton();
             this.radioButtonXML = new System.Windows.Forms.RadioButton();
             this.radioButtonCSV = new System.Windows.Forms.RadioButton();
             this.listBoxOfFiles = new System.Windows.Forms.ListBox();
@@ -52,9 +51,9 @@
             this.groupBox1.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.SuspendLayout();
-            //
-            //folderBrowserDialog
-            //
+            // 
+            // folderBrowserDialog
+            // 
             this.folderBrowserDialog.Description = "Please select directory where will creat file.";
             // 
             // checkBoxAutoOpen
@@ -70,7 +69,7 @@
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.comboBoxFileCount);
-            this.groupBox4.Location = new System.Drawing.Point(220, 61);
+            this.groupBox4.Location = new System.Drawing.Point(127, 62);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(127, 42);
             this.groupBox4.TabIndex = 13;
@@ -85,18 +84,17 @@
             this.comboBoxFileCount.Name = "comboBoxFileCount";
             this.comboBoxFileCount.Size = new System.Drawing.Size(111, 21);
             this.comboBoxFileCount.TabIndex = 0;
-            //this.comboBoxFileCount.SelectedIndex = 0;//
             this.comboBoxFileCount.SelectedIndexChanged += new System.EventHandler(this.ComboBoxFileCount_SelectedIndexChanged);
             // 
             // textBoxProjectCount
             // 
             this.textBoxProjectCount.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxProjectCount.Enabled = false;
             this.textBoxProjectCount.Location = new System.Drawing.Point(6, 18);
             this.textBoxProjectCount.MaxLength = 2;
             this.textBoxProjectCount.Name = "textBoxProjectCount";
-            this.textBoxProjectCount.Size = new System.Drawing.Size(77, 20);
+            this.textBoxProjectCount.Size = new System.Drawing.Size(95, 20);
             this.textBoxProjectCount.TabIndex = 4;
-            this.textBoxProjectCount.Enabled = false;//
             this.textBoxProjectCount.Text = "1";
             // 
             // groupBox3
@@ -104,7 +102,7 @@
             this.groupBox3.Controls.Add(this.textBoxProjectCount);
             this.groupBox3.Location = new System.Drawing.Point(13, 110);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(89, 51);
+            this.groupBox3.Size = new System.Drawing.Size(108, 51);
             this.groupBox3.TabIndex = 12;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Project Count";
@@ -151,26 +149,14 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.radioButtonRandom);
             this.groupBox1.Controls.Add(this.radioButtonXML);
             this.groupBox1.Controls.Add(this.radioButtonCSV);
             this.groupBox1.Location = new System.Drawing.Point(12, 62);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(202, 41);
+            this.groupBox1.Size = new System.Drawing.Size(109, 41);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "File type";
-            // 
-            // radioButtonRandom
-            // 
-            this.radioButtonRandom.AutoSize = true;
-            this.radioButtonRandom.Location = new System.Drawing.Point(109, 14);
-            this.radioButtonRandom.Name = "radioButtonRandom";
-            this.radioButtonRandom.Size = new System.Drawing.Size(65, 17);
-            this.radioButtonRandom.TabIndex = 2;
-            this.radioButtonRandom.TabStop = true;
-            this.radioButtonRandom.Text = "Random";
-            this.radioButtonRandom.UseVisualStyleBackColor = true;
             // 
             // radioButtonXML
             // 
@@ -186,13 +172,13 @@
             // radioButtonCSV
             // 
             this.radioButtonCSV.AutoSize = true;
+            this.radioButtonCSV.Checked = true;
             this.radioButtonCSV.Location = new System.Drawing.Point(7, 14);
             this.radioButtonCSV.Name = "radioButtonCSV";
             this.radioButtonCSV.Size = new System.Drawing.Size(45, 17);
             this.radioButtonCSV.TabIndex = 0;
             this.radioButtonCSV.TabStop = true;
             this.radioButtonCSV.Text = ".csv";
-            this.radioButtonCSV.Checked = true;//
             this.radioButtonCSV.UseVisualStyleBackColor = true;
             // 
             // listBoxOfFiles
@@ -220,9 +206,9 @@
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.textBoxMemeberCount);
-            this.groupBox5.Location = new System.Drawing.Point(109, 110);
+            this.groupBox5.Location = new System.Drawing.Point(127, 110);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(105, 51);
+            this.groupBox5.Size = new System.Drawing.Size(127, 51);
             this.groupBox5.TabIndex = 17;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Member Count";
@@ -230,12 +216,12 @@
             // textBoxMemeberCount
             // 
             this.textBoxMemeberCount.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxMemeberCount.Enabled = false;
             this.textBoxMemeberCount.Location = new System.Drawing.Point(6, 18);
             this.textBoxMemeberCount.MaxLength = 2;
             this.textBoxMemeberCount.Name = "textBoxMemeberCount";
-            this.textBoxMemeberCount.Size = new System.Drawing.Size(90, 20);
+            this.textBoxMemeberCount.Size = new System.Drawing.Size(113, 20);
             this.textBoxMemeberCount.TabIndex = 3;
-            this.textBoxMemeberCount.Enabled = false;//
             this.textBoxMemeberCount.Text = "1";
             // 
             // BaseForm
@@ -283,7 +269,6 @@
         private System.Windows.Forms.TextBox textBoxDestination;
         private System.Windows.Forms.Button buttonGenerate;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RadioButton radioButtonRandom;
         private System.Windows.Forms.RadioButton radioButtonXML;
         private System.Windows.Forms.RadioButton radioButtonCSV;
         private System.Windows.Forms.ListBox listBoxOfFiles;

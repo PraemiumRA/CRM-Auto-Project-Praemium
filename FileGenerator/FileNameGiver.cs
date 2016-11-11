@@ -46,7 +46,7 @@ namespace FileGenerator
                     }
                 }
             } while (File.Exists(fileDirectory + nameFromConfig + index));
-
+                        
             return nameFromConfig + index;
         }
 

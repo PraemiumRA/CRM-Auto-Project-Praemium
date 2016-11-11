@@ -6,12 +6,13 @@ using System.Windows.Forms;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
+using System.Collections.Generic;
 using System.Threading;
 using DataModelLibrary;
 
 namespace FileGenerator
 {
-    
+
     public partial class BaseForm : Form
     {
         DirectoryChoose checkService;
@@ -36,7 +37,7 @@ namespace FileGenerator
 
             checkService = new DirectoryChoose();
             chooseFileType = new ChooseFileType();
-            
+
             //Get directory for creating file
             try
             {
@@ -58,6 +59,7 @@ namespace FileGenerator
             this.textBoxMemeberCount.TextChanged += CheckInputText;
             this.textBoxProjectCount.TextChanged += CheckInputText;
 
+            GetAllFilesFromSelectedDirectory();
         }
 
         /// <summary>
@@ -70,7 +72,7 @@ namespace FileGenerator
             builder.Clear();
             folderBrowserDialog.ShowDialog();
 
-           builder.Append(folderBrowserDialog.SelectedPath);
+            builder.Append(folderBrowserDialog.SelectedPath);
 
             if (checkService.IsDirectoryExist(builder.ToString()))
             {
@@ -84,10 +86,31 @@ namespace FileGenerator
         /// Show all file names in chose directory
         /// </summary>
         /// <param name="taker"></param>
-        private void ShowAllFilesName(FileNameGiver taker)
+        private void ShowAllFilesName(FileNameGiver taker = null)
         {
-            this.listBoxOfFiles.DataSource = taker.fileList;
+            if (taker == null)
+                this.listBoxOfFiles.DataSource = GetAllFilesFromSelectedDirectory();
+            else
+                this.listBoxOfFiles.DataSource = taker.fileList;
+
             this.listBoxOfFiles.DisplayMember = "ToString();";
+        }
+
+
+        private List<string> GetAllFilesFromSelectedDirectory()
+        {
+            List<string> filesInDirectory = new List<string>();
+            string[] files = Directory.GetFiles(fileDirectory);
+
+            for (int i = 0; i < files.Length; i++)
+            {
+                if (Path.GetExtension(files[i]) == ".xml" || Path.GetExtension(files[i]) == ".csv")
+                {
+                    filesInDirectory.Add(files[i]);
+                }
+            }
+
+            return filesInDirectory;
         }
 
         /// <summary>
@@ -99,7 +122,7 @@ namespace FileGenerator
         {
             int memberCount = Check.CheckNumber(this.textBoxMemeberCount.Text);
             int projectCount = Check.CheckNumber(this.textBoxProjectCount.Text);
-            
+
             if (memberCount == -1 || projectCount == -1)
             {
                 //TODO: Logging
@@ -129,28 +152,6 @@ namespace FileGenerator
             {
                 tempType = FileType.Xml;
             }
-            else
-            {
-                //Choose Random type
-                switch (random.Next(1, 3))
-                {
-                    case 1:
-                        {
-                            tempType = FileType.Csv;
-                            break;
-                        }
-                    case 2:
-                        {
-                            tempType = FileType.Xml;
-                            break;
-                        }
-                    default:
-                        {
-                            tempType = FileType.Xml;
-                            break;
-                        }
-                }
-            }
 
             if (checkService.IsDirectoryExist(this.textBoxDestination.Text))
             {
@@ -171,14 +172,19 @@ namespace FileGenerator
                 FileDirectory = fileDirectory,
                 FileName = fileNameGiver.GetFileName(tempType)
             };
-
-            //Generate random data and create file
-            if (chooseFileType.GenerateTheFile(tempType, fileInformation))
+            try
             {
-                //Show all file names in listBox
-                ShowAllFilesName(fileNameGiver);
+                //Generate random data and create file
+                if (chooseFileType.GenerateTheFile(tempType, fileInformation))
+                {
+                    //Show all file names in listBox
+                    ShowAllFilesName(fileNameGiver);
+                }
             }
-
+            catch(Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
             //open file after generate
             if (this.checkBoxAutoOpen.Checked)
             {
@@ -220,14 +226,16 @@ namespace FileGenerator
                     break;
             } while (true);
 
-            try {
+            try
+            {
                 Process.Start(builder.ToString());
-            }catch(FileNotFoundException fileNotFound)
+            }
+            catch (FileNotFoundException fileNotFound)
             {
                 //TODO: Logging
                 MessageBox.Show(fileNotFound.Message);
             }
-            catch(Exception exception)
+            catch (Exception exception)
             {
                 //TODO: Logging
                 MessageBox.Show(exception.Message);

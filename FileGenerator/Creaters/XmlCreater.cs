@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using DataModelLibrary;
 using System;
+using System.Windows.Forms;
 
 namespace FileGenerator
 {
@@ -19,6 +20,7 @@ namespace FileGenerator
 
         }
 
+        object block = new object();
         /// <summary>
         /// Method, which creates a file asynchronously
         /// </summary>
@@ -37,15 +39,18 @@ namespace FileGenerator
 
             try
             {
-                using (FileStream stream = new FileStream(base.GetFullName(fileName), FileMode.CreateNew, FileAccess.ReadWrite, FileShare.ReadWrite))
+                lock (block)
                 {
-                    serializer.Serialize(stream, dataList);
+                    using (FileStream stream = new FileStream(base.GetFullName(fileName), FileMode.CreateNew, FileAccess.ReadWrite, FileShare.ReadWrite))
+                    {
+                        serializer.Serialize(stream, dataList);
+                    }
                 }
             }
-            catch 
+            catch (Exception exception)
             {
                 //TODO: Logging
-                
+                MessageBox.Show(exception.Message);
             }
 
         }

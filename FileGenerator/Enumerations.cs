@@ -17,8 +17,7 @@
     {
         Csv = 0,
         Xml = 1,
-        Random = 2,
-        Count = 3
+        Count = 2
     }
 
     /// <summary>

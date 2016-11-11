@@ -3,6 +3,7 @@ using System.Text;
 using System.Collections.Generic;
 using DataModelLibrary;
 using System;
+using System.Windows.Forms;
 
 namespace FileGenerator
 {
@@ -66,7 +67,8 @@ namespace FileGenerator
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message, ex);
+                //TODO: Logging
+                MessageBox.Show(ex.Message);
             }
         }
 

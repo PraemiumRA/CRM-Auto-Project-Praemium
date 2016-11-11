@@ -11,7 +11,7 @@ namespace FileGenerator
 
         public ChooseFileType()
         {
-   
+
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace FileGenerator
             return true;
         }
 
-       
-        
+
+
     }
 }
