@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Select));
             this.dataGridViewValue = new System.Windows.Forms.DataGridView();
             this.comboBoxValue = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -67,7 +68,7 @@
             "AllMembers",
             "AllProjects",
             "All"});
-            this.comboBoxValue.Location = new System.Drawing.Point(95, 14);
+            this.comboBoxValue.Location = new System.Drawing.Point(267, 34);
             this.comboBoxValue.Name = "comboBoxValue";
             this.comboBoxValue.Size = new System.Drawing.Size(228, 26);
             this.comboBoxValue.TabIndex = 36;
@@ -78,7 +79,7 @@
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Trebuchet MS", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label11.Location = new System.Drawing.Point(1, 14);
+            this.label11.Location = new System.Drawing.Point(263, 9);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(84, 20);
             this.label11.TabIndex = 35;
@@ -87,9 +88,9 @@
             // buttonSelect
             // 
             this.buttonSelect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonSelect.Font = new System.Drawing.Font("Stencil", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSelect.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonSelect.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.buttonSelect.Location = new System.Drawing.Point(95, 89);
+            this.buttonSelect.Location = new System.Drawing.Point(267, 109);
             this.buttonSelect.Name = "buttonSelect";
             this.buttonSelect.Size = new System.Drawing.Size(228, 37);
             this.buttonSelect.TabIndex = 34;
@@ -100,7 +101,7 @@
             // value_textbox
             // 
             this.value_textbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.value_textbox.Location = new System.Drawing.Point(95, 46);
+            this.value_textbox.Location = new System.Drawing.Point(267, 66);
             this.value_textbox.Multiline = true;
             this.value_textbox.Name = "value_textbox";
             this.value_textbox.Size = new System.Drawing.Size(228, 37);
@@ -116,6 +117,7 @@
             this.Controls.Add(this.label11);
             this.Controls.Add(this.buttonSelect);
             this.Controls.Add(this.value_textbox);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(774, 454);
             this.MinimumSize = new System.Drawing.Size(774, 454);
             this.Name = "Select";

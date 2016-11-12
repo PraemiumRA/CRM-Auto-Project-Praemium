@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Delete));
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.comboBox_ColumnName = new System.Windows.Forms.ComboBox();
@@ -40,7 +41,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Trebuchet MS", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label2.Location = new System.Drawing.Point(54, 67);
+            this.label2.Location = new System.Drawing.Point(54, 74);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(47, 20);
             this.label2.TabIndex = 14;
@@ -59,6 +60,7 @@
             // 
             // comboBox_ColumnName
             // 
+            this.comboBox_ColumnName.BackColor = System.Drawing.SystemColors.HighlightText;
             this.comboBox_ColumnName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_ColumnName.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.comboBox_ColumnName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -82,10 +84,10 @@
             // 
             // textBox_Value
             // 
-            this.textBox_Value.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.textBox_Value.BackColor = System.Drawing.SystemColors.HighlightText;
             this.textBox_Value.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox_Value.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.textBox_Value.Location = new System.Drawing.Point(58, 90);
+            this.textBox_Value.Location = new System.Drawing.Point(58, 97);
             this.textBox_Value.Multiline = true;
             this.textBox_Value.Name = "textBox_Value";
             this.textBox_Value.Size = new System.Drawing.Size(171, 36);
@@ -94,13 +96,13 @@
             // delete_button
             // 
             this.delete_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.delete_button.Font = new System.Drawing.Font("Stencil", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.delete_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.delete_button.ForeColor = System.Drawing.SystemColors.Highlight;
             this.delete_button.Location = new System.Drawing.Point(58, 161);
             this.delete_button.Name = "delete_button";
             this.delete_button.Size = new System.Drawing.Size(172, 42);
             this.delete_button.TabIndex = 10;
-            this.delete_button.Text = "Delete";
+            this.delete_button.Text = "DELETE";
             this.delete_button.UseVisualStyleBackColor = true;
             this.delete_button.Click += new System.EventHandler(this.delete_button_Click);
             // 
@@ -108,12 +110,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(290, 260);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBox_ColumnName);
             this.Controls.Add(this.textBox_Value);
             this.Controls.Add(this.delete_button);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(306, 299);
             this.MinimumSize = new System.Drawing.Size(306, 299);
             this.Name = "Delete";

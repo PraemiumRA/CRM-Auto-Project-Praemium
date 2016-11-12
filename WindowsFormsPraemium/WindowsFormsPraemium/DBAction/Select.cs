@@ -36,7 +36,7 @@ namespace UIForm.DBAction
 
         private void Select_Load(object sender, EventArgs e)
         {
-
+            CenterToScreen();
         }
     }
 }

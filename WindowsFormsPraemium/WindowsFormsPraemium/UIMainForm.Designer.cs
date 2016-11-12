@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UIMainForm));
             this.buttonSelect = new System.Windows.Forms.Button();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
@@ -82,6 +83,7 @@
             this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.buttonSelect);
             this.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(540, 220);
             this.MinimumSize = new System.Drawing.Size(540, 220);
             this.Name = "UIMainForm";

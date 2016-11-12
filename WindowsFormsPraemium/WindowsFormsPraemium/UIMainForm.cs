@@ -18,7 +18,8 @@ namespace UIForm
         }
 
         private void Form1_Load(object sender, EventArgs e)
-        {      
+        {
+            CenterToScreen();
             directoryWatcher = new FolderWatcher();
             directoryWatcher.Run();
         }

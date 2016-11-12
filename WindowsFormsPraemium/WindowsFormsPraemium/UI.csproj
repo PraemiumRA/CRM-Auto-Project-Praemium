@@ -109,6 +109,7 @@
   <ItemGroup>
     <Content Include="Resource\parse.png" />
     <Content Include="Resource\praemium.jpg" />
+    <Content Include="Resource\Praemium_Icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
