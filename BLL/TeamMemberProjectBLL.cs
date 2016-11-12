@@ -66,61 +66,61 @@ namespace BLL
                     case "TeamID":
                         {
                             parameters.Add("@TeamID", Convert.ToInt32(textBoxValue));
-                            database.ExecuteDelete("spDynamicDelete", parameters);
+                            database.ExecuteInsertUpdateDelete("spDynamicDelete", parameters);
                             break;
                         }
                     case "TeamName":
                         {
                             parameters.Add("@TeamName", Convert.ToString(textBoxValue));
-                            database.ExecuteDelete("spDynamicDelete", parameters);
+                            database.ExecuteInsertUpdateDelete("spDynamicDelete", parameters);
                             break;
                         }
                     case "MemberID":
                         {
                             parameters.Add("@MemberID", Convert.ToInt32(textBoxValue));
-                            database.ExecuteDelete("spDynamicDelete", parameters);
+                            database.ExecuteInsertUpdateDelete("spDynamicDelete", parameters);
                             break;
                         }
                     case "MemberName":
                         {
                             parameters.Add("@MemberName", Convert.ToString(textBoxValue));
-                            database.ExecuteDelete("spDynamicDelete", parameters);
+                            database.ExecuteInsertUpdateDelete("spDynamicDelete", parameters);
                             break;
                         }
                     case "MemberSurname":
                         {
                             parameters.Add("@MemberSurname", Convert.ToString(textBoxValue));
-                            database.ExecuteDelete("spDynamicDelete", parameters);
+                            database.ExecuteInsertUpdateDelete("spDynamicDelete", parameters);
                             break;
                         }
                     case "ProjectID":
                         {
                             parameters.Add("@ProjectID", Convert.ToInt32(textBoxValue));
-                            database.ExecuteDelete("spDynamicDelete", parameters);
+                            database.ExecuteInsertUpdateDelete("spDynamicDelete", parameters);
                             break;
                         }
                     case "ProjectName":
                         {
                             parameters.Add("@ProjectName", Convert.ToString(textBoxValue));
-                            database.ExecuteDelete("spDynamicDelete", parameters);
+                            database.ExecuteInsertUpdateDelete("spDynamicDelete", parameters);
                             break;
                         }
                     case "ProjectCreatedDate":
                         {
                             parameters.Add("@ProjectCreatedDate", Convert.ToDateTime(textBoxValue));
-                            database.ExecuteDelete("spDynamicDelete", parameters);
+                            database.ExecuteInsertUpdateDelete("spDynamicDelete", parameters);
                             break;
                         }
                     case "ProjectDueDate":
                         {
                             parameters.Add("@ProjectDueDate", Convert.ToDateTime(textBoxValue));
-                            database.ExecuteDelete("spDynamicDelete", parameters);
+                            database.ExecuteInsertUpdateDelete("spDynamicDelete", parameters);
                             break;
                         }
                     case "MemberProjectID":
                         {
                             parameters.Add("@MemberProjectID", Convert.ToInt32(textBoxValue));
-                            database.ExecuteDelete("spDynamicDelete", parameters);
+                            database.ExecuteInsertUpdateDelete("spDynamicDelete", parameters);
                             break;
                         }
                 }
@@ -255,7 +255,7 @@ namespace BLL
                             parameters.Add("@ProjectDueDate", currentDataModel.Projects[i].ProjectDueDate);
                             parameters.Add("@ProjectDescription", currentDataModel.Projects[i].ProjectDescription);
 
-                            database.ExecuteInsertUpdate("spDynamicInsertOrUpdate", parameters);
+                            database.ExecuteInsertUpdateDelete("spDynamicInsertOrUpdate", parameters);
                             parameters.Remove("@ProjectID");
                             parameters.Remove("@ProjectName");
                             parameters.Remove("@ProjectCreatedDate");

@@ -18,7 +18,7 @@ namespace DAL
             this.connectionString = ConnectionString;
         }
 
-        public void ExecuteInsertUpdate(string spName, Dictionary<string, object> parameters)
+        public int ExecuteInsertUpdateDelete(string spName, Dictionary<string, object> parameters)
         {
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             {
@@ -34,14 +34,16 @@ namespace DAL
                         {
                             sqlCommand.Parameters.AddWithValue(parameter.Key, parameter.Value);
                         }
-                        sqlCommand.ExecuteNonQuery();
+                        affectedRowsCount = sqlCommand.ExecuteNonQuery();
+
+                        transaction.Commit();
                     }
-                    transaction.Commit();
                 }
                 catch
                 {
                     transaction.Rollback();
                 }
+                return affectedRowsCount;
             }
         }
 
@@ -70,25 +72,5 @@ namespace DAL
                 }
             }
         }
-
-        public int ExecuteDelete(string spName, Dictionary<string, object> parameters)
-        {
-            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
-            {
-                sqlConnection.Open();
-
-                using (SqlCommand sqlCommand = new SqlCommand(spName, sqlConnection))
-                {
-                    sqlCommand.CommandType = CommandType.StoredProcedure;
-
-                    foreach (KeyValuePair<string, object> parameter in parameters)
-                    {
-                        sqlCommand.Parameters.AddWithValue(parameter.Key, parameter.Value);
-                    }
-                    return affectedRowsCount = sqlCommand.ExecuteNonQuery();
-                }
-            }
-        }
-
     }
 }
