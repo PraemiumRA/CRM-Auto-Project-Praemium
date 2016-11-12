@@ -84,27 +84,26 @@ namespace FileGenerator
         /// Show all file names in chose directory
         /// </summary>
         /// <param name="taker"></param>
-        private void ShowAllFilesName(FileNameGiver taker = null)
+        private async void ShowAllFilesName()
         {
-            if (taker == null)
-                this.listBoxOfFiles.DataSource = GetAllFilesFromSelectedDirectory();
-            else
-                this.listBoxOfFiles.DataSource = taker.fileList;
-
-            this.listBoxOfFiles.DisplayMember = "ToString();";
+            this.listBoxOfFiles.DataSource = await Task.Factory.StartNew(GetAllFilesFromSelectedDirectory);
+            this.listBoxOfFiles.DisplayMember = "ToString()";
         }
 
+        List<string> filesInDirectory;
 
         private List<string> GetAllFilesFromSelectedDirectory()
         {
-            List<string> filesInDirectory = new List<string>();
+
+            filesInDirectory = new List<string>();
+
             string[] files = Directory.GetFiles(fileDirectory);
 
             for (int i = 0; i < files.Length; i++)
             {
                 if (Path.GetExtension(files[i]) == ".xml" || Path.GetExtension(files[i]) == ".csv")
                 {
-                    filesInDirectory.Add(files[i]);
+                    filesInDirectory.Add(Path.GetFileName(files[i]));
                 }
             }
 
@@ -168,14 +167,14 @@ namespace FileGenerator
                 //Generate random data and create file
                 if (chooseFileType.GenerateTheFile(tempType, fileInformation))
                 {
-                    //Show all file names in listBox
-                    ShowAllFilesName(fileNameGiver);
+                    ShowAllFilesName();                       
                 }
             }
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message);
             }
+
             //open file after generate
             if (this.checkBoxAutoOpen.Checked)
             {
@@ -194,6 +193,7 @@ namespace FileGenerator
                 }
             }
 
+            
         }
 
         /// <summary>

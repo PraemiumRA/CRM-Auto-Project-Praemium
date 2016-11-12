@@ -40,7 +40,10 @@ namespace FileGenerator
         /// <returns></returns>
         private string GetGenerateDirectory()
         {
-            string directoryName = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string directoryName = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\Monitoring";
+
+            if (!Directory.Exists(directoryName))
+                Directory.CreateDirectory(directoryName);
 
             return directoryName;
         }
