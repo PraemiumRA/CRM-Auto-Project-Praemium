@@ -30,9 +30,6 @@
         {
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.checkBoxAutoOpen = new System.Windows.Forms.CheckBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.comboBoxFileCount = new System.Windows.Forms.ComboBox();
-            this.textBoxProjectCount = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.buttonBrowse = new System.Windows.Forms.Button();
@@ -44,12 +41,14 @@
             this.listBoxOfFiles = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.textBoxMemeberCount = new System.Windows.Forms.TextBox();
-            this.groupBox4.SuspendLayout();
+            this.numericOfProjectCount = new System.Windows.Forms.NumericUpDown();
+            this.numericOfMemberCount = new System.Windows.Forms.NumericUpDown();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericOfProjectCount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericOfMemberCount)).BeginInit();
             this.SuspendLayout();
             // 
             // folderBrowserDialog
@@ -59,48 +58,17 @@
             // checkBoxAutoOpen
             // 
             this.checkBoxAutoOpen.AutoSize = true;
-            this.checkBoxAutoOpen.Location = new System.Drawing.Point(13, 179);
+            this.checkBoxAutoOpen.Location = new System.Drawing.Point(12, 128);
             this.checkBoxAutoOpen.Name = "checkBoxAutoOpen";
             this.checkBoxAutoOpen.Size = new System.Drawing.Size(192, 17);
             this.checkBoxAutoOpen.TabIndex = 14;
             this.checkBoxAutoOpen.Text = "Authomaticaly open file after create";
             this.checkBoxAutoOpen.UseVisualStyleBackColor = true;
             // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.comboBoxFileCount);
-            this.groupBox4.Location = new System.Drawing.Point(127, 62);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(127, 42);
-            this.groupBox4.TabIndex = 13;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Content";
-            // 
-            // comboBoxFileCount
-            // 
-            this.comboBoxFileCount.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxFileCount.FormattingEnabled = true;
-            this.comboBoxFileCount.Location = new System.Drawing.Point(8, 15);
-            this.comboBoxFileCount.Name = "comboBoxFileCount";
-            this.comboBoxFileCount.Size = new System.Drawing.Size(111, 21);
-            this.comboBoxFileCount.TabIndex = 0;
-            this.comboBoxFileCount.SelectedIndexChanged += new System.EventHandler(this.ComboBoxFileCount_SelectedIndexChanged);
-            // 
-            // textBoxProjectCount
-            // 
-            this.textBoxProjectCount.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBoxProjectCount.Enabled = false;
-            this.textBoxProjectCount.Location = new System.Drawing.Point(6, 18);
-            this.textBoxProjectCount.MaxLength = 2;
-            this.textBoxProjectCount.Name = "textBoxProjectCount";
-            this.textBoxProjectCount.Size = new System.Drawing.Size(95, 20);
-            this.textBoxProjectCount.TabIndex = 4;
-            this.textBoxProjectCount.Text = "1";
-            // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.textBoxProjectCount);
-            this.groupBox3.Location = new System.Drawing.Point(13, 110);
+            this.groupBox3.Controls.Add(this.numericOfProjectCount);
+            this.groupBox3.Location = new System.Drawing.Point(239, 62);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(108, 51);
             this.groupBox3.TabIndex = 12;
@@ -153,7 +121,7 @@
             this.groupBox1.Controls.Add(this.radioButtonCSV);
             this.groupBox1.Location = new System.Drawing.Point(12, 62);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(109, 41);
+            this.groupBox1.Size = new System.Drawing.Size(109, 51);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "File type";
@@ -161,7 +129,7 @@
             // radioButtonXML
             // 
             this.radioButtonXML.AutoSize = true;
-            this.radioButtonXML.Location = new System.Drawing.Point(59, 14);
+            this.radioButtonXML.Location = new System.Drawing.Point(59, 19);
             this.radioButtonXML.Name = "radioButtonXML";
             this.radioButtonXML.Size = new System.Drawing.Size(43, 17);
             this.radioButtonXML.TabIndex = 1;
@@ -173,7 +141,7 @@
             // 
             this.radioButtonCSV.AutoSize = true;
             this.radioButtonCSV.Checked = true;
-            this.radioButtonCSV.Location = new System.Drawing.Point(7, 14);
+            this.radioButtonCSV.Location = new System.Drawing.Point(7, 19);
             this.radioButtonCSV.Name = "radioButtonCSV";
             this.radioButtonCSV.Size = new System.Drawing.Size(45, 17);
             this.radioButtonCSV.TabIndex = 0;
@@ -205,24 +173,27 @@
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.textBoxMemeberCount);
-            this.groupBox5.Location = new System.Drawing.Point(127, 110);
+            this.groupBox5.Controls.Add(this.numericOfMemberCount);
+            this.groupBox5.Location = new System.Drawing.Point(126, 62);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(127, 51);
+            this.groupBox5.Size = new System.Drawing.Size(109, 51);
             this.groupBox5.TabIndex = 17;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Member Count";
             // 
-            // textBoxMemeberCount
+            // numericOfProjectCount
             // 
-            this.textBoxMemeberCount.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBoxMemeberCount.Enabled = false;
-            this.textBoxMemeberCount.Location = new System.Drawing.Point(6, 18);
-            this.textBoxMemeberCount.MaxLength = 2;
-            this.textBoxMemeberCount.Name = "textBoxMemeberCount";
-            this.textBoxMemeberCount.Size = new System.Drawing.Size(113, 20);
-            this.textBoxMemeberCount.TabIndex = 3;
-            this.textBoxMemeberCount.Text = "1";
+            this.numericOfProjectCount.Location = new System.Drawing.Point(6, 19);
+            this.numericOfProjectCount.Name = "numericOfProjectCount";
+            this.numericOfProjectCount.Size = new System.Drawing.Size(96, 20);
+            this.numericOfProjectCount.TabIndex = 18;
+            // 
+            // numericOfMemberCount
+            // 
+            this.numericOfMemberCount.Location = new System.Drawing.Point(7, 19);
+            this.numericOfMemberCount.Name = "numericOfMemberCount";
+            this.numericOfMemberCount.Size = new System.Drawing.Size(96, 20);
+            this.numericOfMemberCount.TabIndex = 19;
             // 
             // BaseForm
             // 
@@ -233,7 +204,6 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.listBoxOfFiles);
             this.Controls.Add(this.checkBoxAutoOpen);
-            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.buttonGenerate);
@@ -244,15 +214,14 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "File Generator";
             this.Load += new System.EventHandler(this.BaseForm_Load);
-            this.groupBox4.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericOfProjectCount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericOfMemberCount)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -261,8 +230,6 @@
         #endregion
 
         private System.Windows.Forms.CheckBox checkBoxAutoOpen;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.ComboBox comboBoxFileCount;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button buttonBrowse;
@@ -273,10 +240,10 @@
         private System.Windows.Forms.RadioButton radioButtonCSV;
         private System.Windows.Forms.ListBox listBoxOfFiles;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBoxProjectCount;
         private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.TextBox textBoxMemeberCount;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;//
+        private System.Windows.Forms.NumericUpDown numericOfProjectCount;
+        private System.Windows.Forms.NumericUpDown numericOfMemberCount;
     }
 }
 

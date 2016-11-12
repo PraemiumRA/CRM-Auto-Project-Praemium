@@ -32,8 +32,8 @@ namespace DataModelLibrary
             int tempCount = 0;
             int.TryParse(count, out tempCount);
 
-            if (tempCount == 0)
-                return -1;
+            if (tempCount <= 0)
+                tempCount = 1;
 
             return tempCount;
         }

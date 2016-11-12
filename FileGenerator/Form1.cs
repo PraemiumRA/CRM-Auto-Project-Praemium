@@ -34,6 +34,11 @@ namespace FileGenerator
 
         private void BaseForm_Load(object sender, EventArgs e)
         {
+            this.numericOfMemberCount.Minimum = 1;
+            this.numericOfMemberCount.Maximum = 99;
+
+            this.numericOfProjectCount.Minimum = 1;
+            this.numericOfProjectCount.Maximum = 99;
 
             checkService = new DirectoryChoose();
             chooseFileType = new ChooseFileType();
@@ -48,16 +53,9 @@ namespace FileGenerator
                 MessageBox.Show(exception.Message);
             }
 
-            for (FileCount i = FileCount.Single; i < FileCount.Count; i++)
-            {
-                this.comboBoxFileCount.Items.Add(i.ToString());
-            }
-
-            //Settings
-            this.comboBoxFileCount.SelectedIndex = 0;
             this.textBoxDestination.Text = fileDirectory;
-            this.textBoxMemeberCount.TextChanged += CheckInputText;
-            this.textBoxProjectCount.TextChanged += CheckInputText;
+            this.numericOfMemberCount.TextChanged += CheckInputText;
+            this.numericOfProjectCount.TextChanged += CheckInputText;
 
             GetAllFilesFromSelectedDirectory();
         }
@@ -120,15 +118,8 @@ namespace FileGenerator
         /// <param name="e"></param>
         private async void ButtonGenerate_Click(object sender, EventArgs e)
         {
-            int memberCount = Check.CheckNumber(this.textBoxMemeberCount.Text);
-            int projectCount = Check.CheckNumber(this.textBoxProjectCount.Text);
-
-            if (memberCount == -1 || projectCount == -1)
-            {
-                //TODO: Logging
-                MessageBox.Show("Not currect input value. Please check all input fields.");
-                return;
-            }
+            int memberCount = Check.CheckNumber(((int)this.numericOfMemberCount.Value).ToString());
+            int projectCount = Check.CheckNumber(((int)this.numericOfProjectCount.Value).ToString());
 
             try
             {
@@ -181,7 +172,7 @@ namespace FileGenerator
                     ShowAllFilesName(fileNameGiver);
                 }
             }
-            catch(Exception exception)
+            catch (Exception exception)
             {
                 MessageBox.Show(exception.Message);
             }
@@ -242,30 +233,8 @@ namespace FileGenerator
             }
 
             builder.Clear();
-
         }
 
-        /// <summary>
-        /// ComboBox Content hundle
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ComboBoxFileCount_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ComboBox comboBox = sender as ComboBox;
-
-            if (comboBox.SelectedIndex == (int)FileCount.Multiple)
-            {
-                this.textBoxMemeberCount.Enabled = true;
-                this.textBoxProjectCount.Enabled = true;
-            }
-            else
-            {
-                this.textBoxMemeberCount.Enabled = false;
-                this.textBoxProjectCount.Enabled = false;
-            }
-            this.textBoxMemeberCount.Text = "1";
-        }
 
         /// <summary>
         /// checker for input text
@@ -274,22 +243,40 @@ namespace FileGenerator
         /// <param name="e"></param>
         private void CheckInputText(object sender, EventArgs e)
         {
-            TextBox textBox = sender as TextBox;
+            NumericUpDown numberUpDown = sender as NumericUpDown;
+            decimal temp = numberUpDown.Maximum;
+
             builder.Clear();
             builder.Append(@"^\d{1,");
-            builder.Append(textBox.MaxLength.ToString());
+            builder.Append(numberUpDown.Maximum.ToString());
             builder.Append("}$");
 
-            if (!Regex.IsMatch(textBox.Text, builder.ToString()))
+            if (!Regex.IsMatch(numberUpDown.Text, builder.ToString()))
             {
-                textBox.BackColor = Color.FromArgb(202, 108, 109);
+                numberUpDown.BackColor = Color.FromArgb(202, 108, 109);
                 this.buttonGenerate.Enabled = false;
             }
             else
             {
                 this.buttonGenerate.Enabled = true;
-                textBox.BackColor = Color.White;
+                numberUpDown.BackColor = Color.White;
             }
+
+            try
+            {
+                if (numberUpDown.Text.Length > 2)
+                {
+                    if (decimal.TryParse(numberUpDown.Value.ToString().Remove(2, numberUpDown.Text.Length - 2), out temp))
+                    {
+                        numberUpDown.Value = Math.Abs(temp);
+                    }
+                }
+            }
+            catch
+            {
+                numberUpDown.Value = numberUpDown.Minimum;
+            }
+
         }
     }
 }
