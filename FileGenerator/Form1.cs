@@ -34,6 +34,10 @@ namespace FileGenerator
 
         private void BaseForm_Load(object sender, EventArgs e)
         {
+            this.listBoxOfFiles.Sorted = true;
+            this.listBoxOfFiles.DataSource = filesInDirectory;
+            this.listBoxOfFiles.DisplayMember = "ToString()";
+
             this.numericOfMemberCount.Minimum = 1;
             this.numericOfMemberCount.Maximum = 99;
 
@@ -57,7 +61,7 @@ namespace FileGenerator
             this.numericOfMemberCount.TextChanged += CheckInputText;
             this.numericOfProjectCount.TextChanged += CheckInputText;
 
-            GetAllFilesFromSelectedDirectory();
+            ShowAllFilesName();
         }
 
         /// <summary>
@@ -65,7 +69,7 @@ namespace FileGenerator
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ButtonBrowse_Click(object sender, EventArgs e)
+        private  void ButtonBrowse_Click(object sender, EventArgs e)
         {
             builder.Clear();
             folderBrowserDialog.ShowDialog();
@@ -78,6 +82,7 @@ namespace FileGenerator
                 this.fileDirectory = builder.ToString();
             }
 
+            ShowAllFilesName();
         }
 
         /// <summary>
@@ -86,17 +91,17 @@ namespace FileGenerator
         /// <param name="taker"></param>
         private async void ShowAllFilesName()
         {
-            this.listBoxOfFiles.DataSource = await Task.Factory.StartNew(GetAllFilesFromSelectedDirectory);
-            this.listBoxOfFiles.DisplayMember = "ToString()";
+             this.listBoxOfFiles.DataSource = await Task.Factory.StartNew(GetAllFilesFromSelectedDirectory);
+             this.listBoxOfFiles.DisplayMember = "ToString()";
         }
 
+        /// <summary>
+        /// Get all file names in selected directory
+        /// </summary>
         List<string> filesInDirectory;
-
         private List<string> GetAllFilesFromSelectedDirectory()
         {
-
             filesInDirectory = new List<string>();
-
             string[] files = Directory.GetFiles(fileDirectory);
 
             for (int i = 0; i < files.Length; i++)
@@ -167,7 +172,7 @@ namespace FileGenerator
                 //Generate random data and create file
                 if (chooseFileType.GenerateTheFile(tempType, fileInformation))
                 {
-                    ShowAllFilesName();                       
+                    ShowAllFilesName();
                 }
             }
             catch (Exception exception)
@@ -193,7 +198,7 @@ namespace FileGenerator
                 }
             }
 
-            
+
         }
 
         /// <summary>
