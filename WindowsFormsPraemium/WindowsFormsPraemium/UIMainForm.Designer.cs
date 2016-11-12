@@ -82,6 +82,8 @@
             this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.buttonSelect);
             this.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.MaximumSize = new System.Drawing.Size(540, 220);
+            this.MinimumSize = new System.Drawing.Size(540, 220);
             this.Name = "UIMainForm";
             this.Text = "CRM Auto-Feed Project";
             this.Load += new System.EventHandler(this.Form1_Load);

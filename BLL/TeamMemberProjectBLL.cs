@@ -71,7 +71,7 @@ namespace BLL
                         }
                     case "TeamName":
                         {
-                            parameters.Add("@TeamName", Convert.ToString(textBoxValue));
+                            parameters.Add("@TeamName", textBoxValue);
                             database.ExecuteInsertUpdateDelete("spDynamicDelete", parameters);
                             break;
                         }
@@ -83,13 +83,13 @@ namespace BLL
                         }
                     case "MemberName":
                         {
-                            parameters.Add("@MemberName", Convert.ToString(textBoxValue));
+                            parameters.Add("@MemberName", textBoxValue);
                             database.ExecuteInsertUpdateDelete("spDynamicDelete", parameters);
                             break;
                         }
                     case "MemberSurname":
                         {
-                            parameters.Add("@MemberSurname", Convert.ToString(textBoxValue));
+                            parameters.Add("@MemberSurname", textBoxValue);
                             database.ExecuteInsertUpdateDelete("spDynamicDelete", parameters);
                             break;
                         }
@@ -101,7 +101,7 @@ namespace BLL
                         }
                     case "ProjectName":
                         {
-                            parameters.Add("@ProjectName", Convert.ToString(textBoxValue));
+                            parameters.Add("@ProjectName", textBoxValue);
                             database.ExecuteInsertUpdateDelete("spDynamicDelete", parameters);
                             break;
                         }
@@ -142,27 +142,45 @@ namespace BLL
                 Dictionary<string, object> parameters = new Dictionary<string, object>();
                 switch (comboBoxValue)
                 {
+                    case "TeamID":
+                        {
+                            parameters.Add("@TeamID", Convert.ToInt32(textBoxValue));
+                            dataTableValue = database.ExecuteSelect("spDynamicSelection", parameters);
+                            break;
+                        }
                     case "TeamName":
                         {
-                            parameters.Add("@TeamName", Convert.ToString(textBoxValue));
+                            parameters.Add("@TeamName", textBoxValue);
+                            dataTableValue = database.ExecuteSelect("spDynamicSelection", parameters);
+                            break;
+                        }
+                    case "MemberID":
+                        {
+                            parameters.Add("@MemberID", Convert.ToInt32(textBoxValue));
                             dataTableValue = database.ExecuteSelect("spDynamicSelection", parameters);
                             break;
                         }
                     case "MemberName":
                         {
-                            parameters.Add("@MemberName", Convert.ToString(textBoxValue));
+                            parameters.Add("@MemberName", textBoxValue);
                             dataTableValue = database.ExecuteSelect("spDynamicSelection", parameters);
                             break;
                         }
                     case "MemberSurname":
                         {
-                            parameters.Add("@MemberSurname", Convert.ToString(textBoxValue));
+                            parameters.Add("@MemberSurname", textBoxValue);
+                            dataTableValue = database.ExecuteSelect("spDynamicSelection", parameters);
+                            break;
+                        }
+                    case "ProjectID":
+                        {
+                            parameters.Add("@ProjectID", Convert.ToInt32(textBoxValue));
                             dataTableValue = database.ExecuteSelect("spDynamicSelection", parameters);
                             break;
                         }
                     case "ProjectName":
                         {
-                            parameters.Add("@ProjectName", Convert.ToString(textBoxValue));
+                            parameters.Add("@ProjectName", textBoxValue);
                             dataTableValue = database.ExecuteSelect("spDynamicSelection", parameters);
                             break;
                         }
@@ -193,6 +211,12 @@ namespace BLL
                     case "AllProjects":
                         {
                             parameters.Add("@All", 3);
+                            dataTableValue = database.ExecuteSelect("spDynamicSelection", parameters);
+                            break;
+                        }
+                    case "All":
+                        {
+                            parameters.Add("@All", 4);
                             dataTableValue = database.ExecuteSelect("spDynamicSelection", parameters);
                             break;
                         }

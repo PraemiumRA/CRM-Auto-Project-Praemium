@@ -60,6 +60,8 @@
             // comboBox_ColumnName
             // 
             this.comboBox_ColumnName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_ColumnName.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.comboBox_ColumnName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBox_ColumnName.ForeColor = System.Drawing.SystemColors.MenuHighlight;
             this.comboBox_ColumnName.FormattingEnabled = true;
             this.comboBox_ColumnName.Items.AddRange(new object[] {
@@ -75,13 +77,13 @@
             "MemberProjectID"});
             this.comboBox_ColumnName.Location = new System.Drawing.Point(57, 43);
             this.comboBox_ColumnName.Name = "comboBox_ColumnName";
-            this.comboBox_ColumnName.Size = new System.Drawing.Size(172, 21);
+            this.comboBox_ColumnName.Size = new System.Drawing.Size(172, 26);
             this.comboBox_ColumnName.TabIndex = 12;
             // 
             // textBox_Value
             // 
             this.textBox_Value.BackColor = System.Drawing.SystemColors.MenuBar;
-            this.textBox_Value.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox_Value.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox_Value.ForeColor = System.Drawing.SystemColors.WindowText;
             this.textBox_Value.Location = new System.Drawing.Point(58, 90);
             this.textBox_Value.Multiline = true;
@@ -91,6 +93,7 @@
             // 
             // delete_button
             // 
+            this.delete_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.delete_button.Font = new System.Drawing.Font("Stencil", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.delete_button.ForeColor = System.Drawing.SystemColors.Highlight;
             this.delete_button.Location = new System.Drawing.Point(58, 161);

@@ -24,7 +24,7 @@ namespace UIForm.DBAction
         private void comboBoxValue_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            if (comboBoxValue.SelectedIndex == 9 || comboBoxValue.SelectedIndex == 10 || comboBoxValue.SelectedIndex == 11)
+            if (comboBoxValue.SelectedIndex == 9 || comboBoxValue.SelectedIndex == 10 || comboBoxValue.SelectedIndex == 11 || comboBoxValue.SelectedIndex == 12)
             {
                 value_textbox.Enabled = false;
             }

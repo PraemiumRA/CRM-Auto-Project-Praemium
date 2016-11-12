@@ -49,19 +49,24 @@
             // comboBoxValue
             // 
             this.comboBoxValue.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxValue.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.comboBoxValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxValue.ForeColor = System.Drawing.SystemColors.MenuHighlight;
             this.comboBoxValue.FormattingEnabled = true;
             this.comboBoxValue.Items.AddRange(new object[] {
+            "TeamID",
             "TeamName",
+            "MemberID",
             "MemberName",
             "MemberSurname",
+            "ProjectID",
             "ProjectName",
             "ProjectCreated Date",
             "ProjectDueDate",
             "AllTeams",
             "AllMembers",
-            "AllProjects"});
+            "AllProjects",
+            "All"});
             this.comboBoxValue.Location = new System.Drawing.Point(95, 14);
             this.comboBoxValue.Name = "comboBoxValue";
             this.comboBoxValue.Size = new System.Drawing.Size(228, 26);
@@ -94,7 +99,7 @@
             // 
             // value_textbox
             // 
-            this.value_textbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.value_textbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.value_textbox.Location = new System.Drawing.Point(95, 46);
             this.value_textbox.Multiline = true;
             this.value_textbox.Name = "value_textbox";
