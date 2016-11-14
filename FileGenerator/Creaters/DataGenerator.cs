@@ -73,7 +73,7 @@ namespace FileGenerator
                 projects[i - 1].ProjectCreatedDate = GenerateRandomDateTime();
                 projects[i - 1].ProjectDueDate = GenerateRandomDateTime(true);
                 projects[i - 1].ProjectName = ProjectNames[i-1];
-                projects[i - 1].ProjectID =  GetIdNumberProject(projects[i - 1].ProjectName)  +100;
+                projects[i - 1].ProjectID = GetIdNumberProject(projects[i - 1].ProjectName)  +100;
                 projects[i - 1].ProjectDescription = $"Description - {projects[i - 1].ProjectID+100}";
 
             }

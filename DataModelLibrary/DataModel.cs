@@ -10,7 +10,6 @@ namespace DataModelLibrary
     [XmlRoot("Data")]
     public class DataModel
     {
-        [XmlIgnore]
         private int teamID;
         private string teamName = String.Empty;
         private long memberID;
@@ -96,7 +95,6 @@ namespace DataModelLibrary
         }
 
         [XmlArray("Projects")]
-        [XmlArrayItem("Project")]
         public Project[] Projects
         {
             get { return projects; }

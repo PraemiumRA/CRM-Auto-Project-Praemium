@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DataModelLibrary;
 using System;
 using System.Windows.Forms;
+using System.Runtime.Serialization;
 
 namespace FileGenerator
 {
@@ -13,7 +14,7 @@ namespace FileGenerator
     /// </summary>
     class XmlCreater : FileCreater
     {
-        XmlSerializer serializer = new XmlSerializer(typeof(List<DataModel>));
+        XmlSerializer serializer = new XmlSerializer(typeof(Records)); //new XmlSerializer(typeof(List<DataModel>));
         public XmlCreater(FileInformation fileInformation, FileType fileExtension)
             : base(fileInformation, fileExtension)
         {
@@ -32,10 +33,10 @@ namespace FileGenerator
         /// <summary>
         /// The base method for create file
         /// </summary>
-        public  void Create()
+        public void Create()
         {
-            List<DataModel> dataList = base.DataList;
             string fileName = base.fileinformation.FileName;
+            Records modifie = new Records(base.DataList);
 
             try
             {
@@ -43,7 +44,7 @@ namespace FileGenerator
                 {
                     using (FileStream stream = new FileStream(base.GetFullName(fileName), FileMode.CreateNew, FileAccess.ReadWrite, FileShare.ReadWrite))
                     {
-                        serializer.Serialize(stream, dataList);
+                        serializer.Serialize(stream, modifie);
                     }
                 }
             }
@@ -56,4 +57,84 @@ namespace FileGenerator
         }
 
     }
+
+    [Serializable]
+    public class Records
+    {
+        [XmlElement("Member")]
+        public List<DataModel> Memebers;
+
+        [XmlArray("Projects")]
+        [XmlArrayItem("Project")]
+        public List<MProject> Projects = new List<MProject>();
+
+        public Records() { }
+
+        public Records(List<DataModel> dataModel)
+        {
+            this.Memebers = dataModel;
+            GetProjectList1(this.Memebers);
+        }
+        
+        private void GetProjectList1(List<DataModel> memebers)
+        {
+            foreach (DataModel item in memebers)
+            {
+                MProject[] mprojects = GetMProjects(item);
+
+                for (int i = 0; i < mprojects.Length; i++)
+                {
+                    if (!isContain(mprojects[i]))
+                        Projects.Add(mprojects[i]);
+                }
+            }
+
+
+        }
+        private bool isContain(MProject mProject)
+        {
+            for (int i = 0; i < Projects.Count; i++)
+            {
+                if(Projects[i].ProjectId == mProject.ProjectId)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        private MProject[] GetMProjects(DataModel dataModel)
+        {
+            MProject[] mProjects = new MProject[dataModel.Projects.Length];
+            for (int i = 0; i < mProjects.Length; i++)
+            {
+                mProjects[i] = new MProject()
+                {
+                    ProjectId = dataModel.Projects[i].ProjectID,
+                    ProjectName = dataModel.Projects[i].ProjectName,
+                    ProjectCreatedDate = dataModel.Projects[i].ProjectCreatedDate,
+                    ProjectDueDate = dataModel.Projects[i].ProjectDueDate,
+                    ProjectDescription = dataModel.Projects[i].ProjectDescription
+                };
+            }
+
+            return mProjects;
+        }
+
+        /// <summary>
+        /// Equivalent class for Project class
+        /// </summary>
+        public class MProject
+        {
+            public int ProjectId { get; set; }
+            public string ProjectName { get; set; }
+            public DateTime ProjectCreatedDate { get; set; }
+            public DateTime ProjectDueDate { get; set; }
+            public string ProjectDescription { get; set; }
+
+            public MProject() { }
+           
+        }
+        
+    }
+
 }

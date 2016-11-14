@@ -11,7 +11,7 @@ namespace DataModelLibrary
         private DateTime projectCreatedDate;
         private DateTime projectDueDate;
 
-        [XmlElement("ProjectID")]
+        [XmlAttribute]
         public int ProjectID
         {
             get
@@ -28,7 +28,7 @@ namespace DataModelLibrary
             }
         }
 
-        [XmlElement("ProjectName")]
+        [XmlIgnore]
         public string ProjectName
         {
             get
@@ -49,7 +49,7 @@ namespace DataModelLibrary
             }
         }
 
-        [XmlElement("ProjectCreatedDate")]
+        [XmlIgnore]
         public DateTime ProjectCreatedDate
         {
             get
@@ -71,7 +71,7 @@ namespace DataModelLibrary
             }
         }
 
-        [XmlElement("ProjectDueDate")]
+        [XmlIgnore]
         public DateTime ProjectDueDate
         {
             get
@@ -100,7 +100,7 @@ namespace DataModelLibrary
             }
         }
 
-        [XmlElement("ProjectDescription")]
+        [XmlIgnore]
         public string ProjectDescription { get; set; }
 
         public Project() { }
