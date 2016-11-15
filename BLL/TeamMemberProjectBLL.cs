@@ -10,6 +10,7 @@ using System.Configuration;
 using System.Windows.Forms;
 using System.IO;
 using ProjectConfiguration;
+using Logging;
 
 namespace BLL
 {
@@ -133,6 +134,7 @@ namespace BLL
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                Logger.DoLogging(LogType.Error, ex);
             }
         }
         public void SelectAsync()
@@ -231,6 +233,7 @@ namespace BLL
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                Logger.DoLogging(LogType.Error, ex);
             }
         }
         private void IdValueCheaker()
@@ -292,9 +295,11 @@ namespace BLL
 
                 File.Delete(path);
 
+                Logger.DoLogging(LogType.Success, null, "Data succesfuly stored in Data Base.");
             }
             catch (Exception ex)
             {
+                Logger.DoLogging(LogType.Error, ex, "Error in process to storing data.");
                 MessageBox.Show(ex.Message);
                 //TODO: Loging
             }

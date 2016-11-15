@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows.Forms;
 using ProjectConfiguration;
+using Logging;
 
 namespace BLL
 {
@@ -57,12 +58,13 @@ namespace BLL
         }
 
         //Hundel for Create
-        private async void Watcher_Created(object sender, FileSystemEventArgs e)
+        private /*async*/ void Watcher_Created(object sender, FileSystemEventArgs e)
         {
             string extension = Path.GetExtension(e.FullPath);
             if (extension.Equals(".xml") || extension.Equals(".csv"))
             {
-                await Task.Factory.StartNew(() => { MessageBox.Show("Create: " + e.Name); });
+                Logger.DoLogging(LogType.Creation, null, $"{e.Name} was created.");
+                //await Task.Factory.StartNew(() => { MessageBox.Show("Create: " + e.Name); });
                 storeData.collection.Add(e.FullPath);
             }
         }

@@ -3,6 +3,7 @@ using System;
 using System.Configuration;
 using System.IO;
 using System.Text;
+using Logging;
 
 namespace BLL
 {
@@ -96,17 +97,24 @@ namespace BLL
             defaultPath = jsonPath;
             if (!Directory.Exists(defaultPath))
                 Directory.CreateDirectory(defaultPath);
-                    
+                  
 
             filePath = Path.ChangeExtension(Path.GetFileName(filePath), "Json");
 
-
-            using (StreamWriter write = new StreamWriter(defaultPath /*newFilePath*/ + "\\" + filePath, true))
+            try
             {
-                write.WriteLine(builder);
-                write.Write(write.NewLine);
+                using (StreamWriter write = new StreamWriter(defaultPath /*newFilePath*/ + "\\" + filePath, true))
+                {
+                    write.WriteLine(builder);
+                    write.Write(write.NewLine);
+                    
+                    Logger.DoLogging(LogType.Success, null, "Data succesfuly stored in json format.");
+                }
             }
-
+            catch (Exception exception)
+            {
+                Logger.DoLogging(LogType.Error, exception, "Error in process to storing json format.");
+            }
         }
     }
 }

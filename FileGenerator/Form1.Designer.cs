@@ -31,6 +31,7 @@
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.checkBoxAutoOpen = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.numericOfProjectCount = new System.Windows.Forms.NumericUpDown();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.buttonBrowse = new System.Windows.Forms.Button();
             this.textBoxDestination = new System.Windows.Forms.TextBox();
@@ -41,13 +42,12 @@
             this.listBoxOfFiles = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.numericOfProjectCount = new System.Windows.Forms.NumericUpDown();
             this.numericOfMemberCount = new System.Windows.Forms.NumericUpDown();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericOfProjectCount)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericOfProjectCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericOfMemberCount)).BeginInit();
             this.SuspendLayout();
             // 
@@ -74,6 +74,13 @@
             this.groupBox3.TabIndex = 12;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Project Count";
+            // 
+            // numericOfProjectCount
+            // 
+            this.numericOfProjectCount.Location = new System.Drawing.Point(6, 19);
+            this.numericOfProjectCount.Name = "numericOfProjectCount";
+            this.numericOfProjectCount.Size = new System.Drawing.Size(96, 20);
+            this.numericOfProjectCount.TabIndex = 18;
             // 
             // groupBox2
             // 
@@ -181,13 +188,6 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Member Count";
             // 
-            // numericOfProjectCount
-            // 
-            this.numericOfProjectCount.Location = new System.Drawing.Point(6, 19);
-            this.numericOfProjectCount.Name = "numericOfProjectCount";
-            this.numericOfProjectCount.Size = new System.Drawing.Size(96, 20);
-            this.numericOfProjectCount.TabIndex = 18;
-            // 
             // numericOfMemberCount
             // 
             this.numericOfMemberCount.Location = new System.Drawing.Point(7, 19);
@@ -211,16 +211,16 @@
             this.MaximumSize = new System.Drawing.Size(620, 300);
             this.MinimumSize = new System.Drawing.Size(620, 300);
             this.Name = "BaseForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "File Generator";
             this.Load += new System.EventHandler(this.BaseForm_Load);
             this.groupBox3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericOfProjectCount)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericOfProjectCount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericOfMemberCount)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -14,26 +14,44 @@ namespace ProjectConfiguration
 
         private bool isStoreToJson;
         private bool isStoreDataBase;
-        private int prcentOfMachineCore;
+        private bool isLogTxtFile;
+
         private string watchingDirectory;
         private string jsonCreationDirectory;
+        private string txtFileCreationDirectory;
+
+        private int prcentOfMachineCore;
+
+        public bool IsStoreTxtFile
+        {
+            get { return isLogTxtFile; }
+        }
+
+        public string LogTextFileDirectory
+        {
+            get { return txtFileCreationDirectory; }
+        }
 
         public bool IsStoreToJson
         {
             get { return isStoreToJson; }
         }
+
         public bool IsStoreDataBase
         {
             get { return isStoreDataBase; }
         }
+
         public int GetPrecntOfMachineCore
         {
             get { return this.prcentOfMachineCore; }
         }
+
         public string GetToMnitorDirectory
         {
             get { return this.watchingDirectory; }
         }
+
         public string JsonCreationDirectory
         {
             get { return this.jsonCreationDirectory; }
@@ -46,6 +64,8 @@ namespace ProjectConfiguration
             StoreToDataBase();
             StoreToJson();
             JsonDirectory();
+            StoreToTxtFile();
+            TxtFileDirectory();
         }
 
         private void StoreToDataBase()
@@ -125,6 +145,48 @@ namespace ProjectConfiguration
 
 
             this.jsonCreationDirectory = temp;
+        }
+        private void StoreToTxtFile()
+        {
+            bool temp = false;
+
+            try
+            {
+                temp = Convert.ToBoolean(ConfigurationManager.AppSettings["LogInTxtFile"] ?? "true");
+            }
+            catch (Exception)
+            {
+                //TODO: Logging                
+                temp = false;
+            }
+            this.isLogTxtFile = temp;
+
+        }
+        private void TxtFileDirectory()
+        {
+            string temp = GetDefoultDirectoryForTxtFile();
+
+            try
+            {
+                temp = ConfigurationManager.AppSettings["LogFileDirectory"] ?? GetDefoultDirectoryForTxtFile();
+                if (!Directory.Exists(temp))
+                    Directory.CreateDirectory(temp);
+            }
+            catch (Exception)
+            {
+                temp = GetDefoultDirectoryForTxtFile();
+            }
+
+            this.txtFileCreationDirectory = temp;
+        }
+
+        /// <summary>
+        /// Get default Txt directory
+        /// </summary>
+        /// <returns></returns>
+        private string GetDefoultDirectoryForTxtFile()
+        {
+            return Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\LoggingTXT";
         }
 
         /// <summary>
