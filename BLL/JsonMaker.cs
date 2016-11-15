@@ -103,7 +103,7 @@ namespace BLL
 
             try
             {
-                using (StreamWriter write = new StreamWriter(defaultPath /*newFilePath*/ + "\\" + filePath, true))
+                using (StreamWriter write = new StreamWriter(defaultPath + "\\" + filePath, true))
                 {
                     write.WriteLine(builder);
                     write.Write(write.NewLine);

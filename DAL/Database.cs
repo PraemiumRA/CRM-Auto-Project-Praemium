@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Logging;
 
 namespace DAL
 {
@@ -36,12 +33,15 @@ namespace DAL
                         }
                         affectedRowsCount = sqlCommand.ExecuteNonQuery();
 
+                        Logger.DoLogging(LogType.Success, null, "Data succesfuly stored in Data Base.");
+
                         transaction.Commit();
                     }
                 }
-                catch
+                catch(System.Exception exception)
                 {
                     transaction.Rollback();
+                    Logger.DoLogging(LogType.Error, exception, "Error in process to storing data.");
                 }
                 return affectedRowsCount;
             }

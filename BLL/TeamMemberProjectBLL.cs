@@ -294,8 +294,7 @@ namespace BLL
                 }
 
                 File.Delete(path);
-
-                Logger.DoLogging(LogType.Success, null, "Data succesfuly stored in Data Base.");
+                                
             }
             catch (Exception ex)
             {

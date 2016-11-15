@@ -22,11 +22,11 @@ namespace Logging
             }
             if (logType == LogType.Warning)
             {
-                EventLog.WriteEntry(source, ex.Message, EventLogEntryType.Warning);
+                EventLog.WriteEntry(source, message, EventLogEntryType.Warning);
             }
             if (logType == LogType.Success)
             {
-                EventLog.WriteEntry(source, ex.Message, EventLogEntryType.SuccessAudit);
+                EventLog.WriteEntry(source, message, EventLogEntryType.SuccessAudit);
             }
 
             //if (!EventLog.SourceExists(source))
