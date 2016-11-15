@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.IO;
 using System.Diagnostics;
+using ProjectConfiguration;
+
 namespace BLL
 {
     class StoreData

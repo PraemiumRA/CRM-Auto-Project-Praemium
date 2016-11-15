@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Configuration;
 using System.IO;
 
-namespace BLL
+namespace ProjectConfiguration
 {
     public class AppConfiguration
     {
@@ -108,7 +108,6 @@ namespace BLL
 
             this.watchingDirectory = temp;
         }
-
         private void JsonDirectory()
         {
             string temp = GetDefoultDirectoryForJson();
