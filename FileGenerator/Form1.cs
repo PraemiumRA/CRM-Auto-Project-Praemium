@@ -222,9 +222,10 @@ namespace FileGenerator
                     break;
             } while (true);
 
+            Process process = null;
             try
             {
-                Process.Start(builder.ToString());
+                process = Process.Start(builder.ToString());
             }
             catch (FileNotFoundException fileNotFound)
             {
@@ -235,6 +236,10 @@ namespace FileGenerator
             {
                 //TODO: Logging
                 MessageBox.Show(exception.Message);
+            }
+            finally
+            {
+                process.Close();
             }
 
             builder.Clear();
