@@ -73,10 +73,10 @@ namespace FileGenerator
         public Records(List<DataModel> dataModel)
         {
             this.Memebers = dataModel;
-            GetProjectList1(this.Memebers);
+            GetProjectList(this.Memebers);
         }
         
-        private void GetProjectList1(List<DataModel> memebers)
+        private void GetProjectList(List<DataModel> memebers)
         {
             foreach (DataModel item in memebers)
             {
@@ -95,7 +95,7 @@ namespace FileGenerator
         {
             for (int i = 0; i < Projects.Count; i++)
             {
-                if(Projects[i].ProjectId == mProject.ProjectId)
+                if(Projects[i].ProjectID == mProject.ProjectID)
                 {
                     return true;
                 }
@@ -109,7 +109,7 @@ namespace FileGenerator
             {
                 mProjects[i] = new MProject()
                 {
-                    ProjectId = dataModel.Projects[i].ProjectID,
+                    ProjectID = dataModel.Projects[i].ProjectID,
                     ProjectName = dataModel.Projects[i].ProjectName,
                     ProjectCreatedDate = dataModel.Projects[i].ProjectCreatedDate,
                     ProjectDueDate = dataModel.Projects[i].ProjectDueDate,
@@ -125,7 +125,7 @@ namespace FileGenerator
         /// </summary>
         public class MProject
         {
-            public int ProjectId { get; set; }
+            public int ProjectID { get; set; }
             public string ProjectName { get; set; }
             public DateTime ProjectCreatedDate { get; set; }
             public DateTime ProjectDueDate { get; set; }

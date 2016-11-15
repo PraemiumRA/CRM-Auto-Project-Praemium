@@ -93,20 +93,10 @@ namespace BLL
 
         private void JsonFileWriter(StringBuilder builder)
         {
-            defaultPath = jsonPath;//@".\Json Files";
+            defaultPath = jsonPath;
             if (!Directory.Exists(defaultPath))
                 Directory.CreateDirectory(defaultPath);
-
-            //try
-            //{
-            //    newFilePath = string.IsNullOrEmpty(ConfigurationManager.AppSettings["JsonPath"]) ? defaultPath : ConfigurationManager.AppSettings["JsonPath"];
-            //    if (!Directory.Exists(newFilePath))
-            //        newFilePath = defaultPath;
-            //}
-            //catch (ConfigurationErrorsException ex)
-            //{
-            //    throw;
-            //}
+                    
 
             filePath = Path.ChangeExtension(Path.GetFileName(filePath), "Json");
 

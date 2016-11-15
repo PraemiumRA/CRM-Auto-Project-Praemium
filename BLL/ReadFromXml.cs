@@ -20,101 +20,139 @@ namespace BLL
 
         public IEnumerable<DataModel> Read()
         {
-            DataModel dataModel = new DataModel();
+            DataModel dataModel;
 
             XmlDocument document = new XmlDocument();
             document.Load(path);
 
             XmlNode root = document.DocumentElement;
-            XmlNodeList list = root.ChildNodes;
-
-            foreach (XmlNode listnodes in list)
+            foreach (XmlNode node in root.ChildNodes)
             {
-                XmlNodeList dataChild = listnodes.ChildNodes;
-                foreach (XmlNode node in dataChild)
+                dataModel = new DataModel();
+                if (node.Name == "Member")
                 {
-                    switch (node.Name)
+                    foreach (XmlNode nodeMemeber in node.ChildNodes)
                     {
-                        case "TeamID":
-                            {
-                                dataModel.TeamID = Convert.ToInt32(node.InnerText);
-                                break;
-                            }
-                        case "TeamName":
-                            {
-                                dataModel.TeamName = node.InnerText;
-                                break;
-                            }
-                        case "MemberID":
-                            {
-                                dataModel.MemberID = int.Parse(node.InnerText);
-                                break;
-                            }
-                        case "MemberName":
-                            {
-                                dataModel.MemberName = node.InnerText;
-                                break;
-                            }
-                        case "MemberSurname":
-                            {
-                                dataModel.MemberSurname = node.InnerText;
-                                break;
-                            }
-                        case "Projects":
-                            {
-                                projectsCount = node.ChildNodes.Count;
-                                dataModel.Projects = new Project[projectsCount];
-
-                                XmlNodeList projectsNodes = node.ChildNodes;
-
-                                int i = 0;
-
-                                foreach (XmlNode projNodes in projectsNodes)
+                        switch (nodeMemeber.Name)
+                        {
+                            case "TeamID":
                                 {
-                                    dataModel.Projects[i] = new Project();
-                                    foreach (XmlNode item in projNodes)
-                                    {
-                                        if (i < projectsCount)
-                                        {
-                                            switch (item.Name)
-                                            {
-                                                case "ProjectID":
-                                                    {
-                                                        dataModel.Projects[i].ProjectID = Convert.ToInt32(item.InnerText);
-                                                        break;
-                                                    }
-                                                case "ProjectName":
-                                                    {
-                                                        dataModel.Projects[i].ProjectName = item.InnerText;
-                                                        break;
-                                                    }
-                                                case "ProjectCreatedDate":
-                                                    {
-                                                        dataModel.Projects[i].ProjectCreatedDate = Convert.ToDateTime(item.InnerText);
-                                                        break;
-                                                    }
-                                                case "ProjectDueDate":
-                                                    {
-                                                        dataModel.Projects[i].ProjectDueDate = Convert.ToDateTime(item.InnerText);
-                                                        break;
-                                                    }
-                                                case "ProjectDescription":
-                                                    {
-                                                        dataModel.Projects[i].ProjectDescription = item.InnerText;
-                                                        break;
-                                                    }
-                                            }
-                                        }
-                                    }
-                                    i++;
+                                    dataModel.TeamID = int.Parse(nodeMemeber.InnerText);
+                                    break;
                                 }
-                                break;
-                            }
+                            case "TeamName":
+                                {
+                                    dataModel.TeamName = nodeMemeber.InnerText;
+                                    break;
+                                }
+                            case "MemberID":
+                                {
+                                    dataModel.MemberID = int.Parse(nodeMemeber.InnerText);
+                                    break;
+                                }
+                            case "MemberName":
+                                {
+                                    dataModel.MemberName = nodeMemeber.InnerText;
+                                    break;
+                                }
+                            case "MemberSurname":
+                                {
+                                    dataModel.MemberSurname = nodeMemeber.InnerText;
+                                    break;
+                                }
+                            case "Projects":
+                                {
+                                    dataModel.Projects = GetProjects(root, GetProjctsId(nodeMemeber));
+                                    break;
+                                }
+                        }
                     }
-
+                    yield return dataModel;
                 }
-                yield return dataModel;
+
             }
+
+
         }
+
+        private List<int> GetProjctsId(XmlNode node)
+        {
+            List<int> id = new List<int>();
+
+            foreach (XmlNode nod in node.ChildNodes)
+            {
+                if (nod.Name.Equals("Project"))
+                {
+                    int result = 0;
+                    int.TryParse(nod.Attributes["ProjectID"].InnerText, out result);
+
+                    id.Add(result);
+                }
+            }
+
+            return id;
+        }
+
+        private Project[] GetProjects(XmlNode root, List<int> array)
+        {
+            Project[] projects = new Project[root.LastChild.ChildNodes.Count];
+            XmlNode projectsNode = root.LastChild;
+
+            for (int i = 0; i < projects.Length; i++)
+            {
+                foreach (XmlNode node in projectsNode.ChildNodes)
+                {
+                    if (node.Name.Equals("Project"))
+                    {
+                        if (array[i] == GetProject(node).ProjectID)
+                        {
+                            projects[i] = GetProject(node);
+                        }
+                    }
+                }
+            }
+
+            return projects;
+        }
+
+        private Project GetProject(XmlNode node)
+        {
+            Project project = new Project();
+
+            foreach (XmlNode nod in node.ChildNodes)
+            {
+                switch (nod.Name)
+                {
+                    case "ProjectID":
+                        {
+                            project.ProjectID = Convert.ToInt32(nod.InnerText);
+                            break;
+                        }
+                    case "ProjectName":
+                        {
+                            project.ProjectName = nod.InnerText;
+                            break;
+                        }
+                    case "ProjectCreatedDate":
+                        {
+                            project.ProjectCreatedDate = Convert.ToDateTime(nod.InnerText);
+                            break;
+                        }
+                    case "ProjectDueDate":
+                        {
+                            project.ProjectDueDate = Convert.ToDateTime(nod.InnerText);
+                            break;
+                        }
+                    case "ProjectDescription":
+                        {
+                            project.ProjectDescription = nod.InnerText;
+                            break;
+                        }
+                }
+            }
+
+            return project;
+        }
+
     }
 }

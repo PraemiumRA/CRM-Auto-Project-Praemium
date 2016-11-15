@@ -10,6 +10,7 @@ namespace BLL
 {
     public class AppConfiguration
     {
+        private StringBuilder builder = new StringBuilder();
 
         private bool isStoreToJson;
         private bool isStoreDataBase;
@@ -93,44 +94,57 @@ namespace BLL
         }
         private void MonitorDirectory()
         {
-            string temp = GetMonitoringDefoultDirectory();
+            string temp = GetDefoultDirectoryForMonitoring();
             try
             {
-                temp = ConfigurationManager.AppSettings["MonitoringDirectory"] ?? GetMonitoringDefoultDirectory();
+                temp = ConfigurationManager.AppSettings["MonitoringDirectory"] ?? GetDefoultDirectoryForMonitoring();
                 if (!Directory.Exists(temp))
                     Directory.CreateDirectory(temp);
             }
             catch (Exception)
             {
-                temp = GetMonitoringDefoultDirectory();
+                temp = GetDefoultDirectoryForMonitoring();
             }
 
             this.watchingDirectory = temp;
-
         }
+
         private void JsonDirectory()
         {
-            string temp = GetMonitoringDefoultDirectory();
+            string temp = GetDefoultDirectoryForJson();
+
             try
             {
-                temp = ConfigurationManager.AppSettings["JsonPath"] ?? GetMonitoringDefoultDirectory();
+                temp = ConfigurationManager.AppSettings["JsonPath"] ?? GetDefoultDirectoryForJson();
                 if (!Directory.Exists(temp))
                     Directory.CreateDirectory(temp);
             }
             catch (Exception)
             {
-                temp = GetMonitoringDefoultDirectory();
+                temp = GetDefoultDirectoryForJson();
             }
+
 
             this.jsonCreationDirectory = temp;
         }
 
-        //Default
-        private string GetMonitoringDefoultDirectory()
+        /// <summary>
+        /// Get default Monitoring directory
+        /// </summary>
+        /// <returns></returns>
+        private string GetDefoultDirectoryForMonitoring()
         {
-            return Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            return Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\Monitoring";
         }
 
+        /// <summary>
+        /// Get default Json directory
+        /// </summary>
+        /// <returns></returns>
+        private string GetDefoultDirectoryForJson()
+        {
+            return Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\JsonDirectory";
+        }
 
     }
 }

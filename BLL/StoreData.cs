@@ -7,8 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Threading;
 using System.IO;
-
-
+using System.Diagnostics;
 namespace BLL
 {
     class StoreData
@@ -55,9 +54,9 @@ namespace BLL
         }
 
         IStore storeData;
-
         private void Store(object paths)
         {
+            
             string path = paths as string;
 
             if (Path.GetExtension(path) == ".csv")
@@ -72,6 +71,7 @@ namespace BLL
             TeamMemberProjectBLL store = new TeamMemberProjectBLL(storeData);
 
             collection.Remove(path);
+            //TODO: Logging fail sucessfuly stored.            
         }
 
         List<long> fileList;
