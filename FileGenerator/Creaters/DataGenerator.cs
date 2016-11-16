@@ -26,6 +26,7 @@ namespace FileGenerator
         public StringCollection MemberSurnames = new StringCollection();
         public StringCollection TeamNames = new StringCollection();
         public StringCollection ProjectNames = new StringCollection();
+        private List<int> ProjectIds = new List<int>();
 
         public DataGenerator(int dataCount, int projectCount)
         {
@@ -46,11 +47,11 @@ namespace FileGenerator
             for (int i = 1; i <= dataCount; i++)
             {
                 dataModel = new DataModel();
-                dataModel.MemberID = GeteranteInteger();//randNumbers[GeteranteInteger()];
+                dataModel.MemberID = GenerateInteger();//randNumbers[GeteranteInteger()];
                 dataModel.MemberName = MemberNames[random.Next(0, MemberNames.Count)];
                 dataModel.MemberSurname = MemberSurnames[random.Next(0, MemberSurnames.Count)];
                 dataModel.Projects = this.GenerateProjects();
-                dataModel.TeamName = TeamNames[random.Next(0, TeamNames.Count)];
+                dataModel.TeamName = TeamNames[i - 1];//TeamNames[random.Next(0, TeamNames.Count)];
                 dataModel.TeamID = Convert.ToInt32(dataModel.TeamName[dataModel.TeamName.Length - 1]) + random.Next(0, 1000);
                 
                 datas.Add(dataModel);
@@ -66,6 +67,7 @@ namespace FileGenerator
         private Project[] GenerateProjects()
         {
             Project[] projects = new Project[projectCount];
+            List<int> tempId = new List<int>();
 
             for (int i = 1; i <= projectCount; i++)
             {
@@ -73,12 +75,42 @@ namespace FileGenerator
                 projects[i - 1].ProjectCreatedDate = GenerateRandomDateTime();
                 projects[i - 1].ProjectDueDate = GenerateRandomDateTime(true);
                 projects[i - 1].ProjectName = ProjectNames[i-1];
-                projects[i - 1].ProjectID = GetIdNumberProject(projects[i - 1].ProjectName)  +100;
-                projects[i - 1].ProjectDescription = $"Description - {projects[i - 1].ProjectID+100}";
+                this.Swap(ref ProjectIds);
+                projects[i - 1].ProjectID = new Func<int>
+                    (() =>
+                    {
+                        int index = 0;
 
+                        while (tempId.Contains(ProjectIds[index]))
+                        {
+                            index++;
+                        }
+                        tempId.Add(ProjectIds[index]);
+                        return ProjectIds[index];
+                    }
+                    ).Invoke();
+
+                projects[i - 1].ProjectDescription = $"Description - {projects[i - 1].ProjectID+100}";
             }
 
             return projects;
+        }
+
+        /// <summary>
+        /// Generate All ids for Project
+        /// </summary>
+        private void GenerateAllProjectId()
+        {
+            int uniqeId = GenerateInteger();
+            int index = 0;
+
+            for(int i = 0; i< ProjectNames.Count; i++)
+            {
+                index = GetIdNumberProject(ProjectNames[i]);
+                index += uniqeId;
+                ProjectIds.Add(index);
+            }
+                       
         }
 
         /// <summary>
@@ -102,7 +134,7 @@ namespace FileGenerator
             char[] array = temp.ToCharArray();
             Array.Reverse(array);
             index = (char)(indexOfChar) + int.Parse(new string(array));
-
+            
             return index;
         }
 
@@ -140,13 +172,13 @@ namespace FileGenerator
         /// Generate Unique id
         /// </summary>
         /// <returns></returns>
-        private int GeteranteInteger()
+        private int GenerateInteger()
         {
             return Math.Abs(BitConverter.ToInt32(Guid.NewGuid().ToByteArray(), 0));
         }
 
         /// <summary>
-        /// Reade defoult data from files
+        /// Reade default data from files
         /// </summary>
         private void ReadStringValues()
         {
@@ -179,26 +211,13 @@ namespace FileGenerator
                             MemberSurnames.Add(item);
                         }
 
-                        values = reader.ReadLine().Split(',');
-                        foreach (string item in values)
-                        {
-                            TeamNames.Add(item);
-                        }
+                        //Get TeamNames
+                        GetNames(DataSource.TeamName, TeamNames, dataCount);
 
 
-                        int i = 0, k = 0;
-                        char temp = default(char);
-                        do
-                        {
-                            temp = (char)(k + 65);
-
-                            ProjectNames.Add(DataSource.ProjectName.ToString() + temp + i);
-                            if (char.ToLower(temp) == 'z') k = -1;
-
-                            k++; i++;
-                        } while (i <= projectCount);
-
-
+                        //Get ProjectsName
+                        GetNames(DataSource.ProjectName, ProjectNames, projectCount);
+                        GenerateAllProjectId();////
                     }
                 }
                 catch (FileNotFoundException fnf)
@@ -214,7 +233,28 @@ namespace FileGenerator
         }
 
         /// <summary>
-        /// Swaping words 
+        /// Get Projects and Teams Names
+        /// </summary>
+        /// <param name="dataSource"></param>
+        /// <param name="collection"></param>
+        /// <param name="count"></param>
+        private void GetNames(DataSource dataSource, StringCollection collection, int count)
+        {
+            int i = 0, k = 0;
+            char temp = default(char);
+            do
+            {
+                temp = (char)(k + 65);
+                collection.Add(dataSource.ToString() + temp + i);
+                if (char.ToLower(temp) == 'z') k = -1;
+
+                k++; i++;
+            } while (i < count);
+
+        }
+
+        /// <summary>
+        /// Swaping string 
         /// </summary>
         /// <param name="words"></param>
         private void Swap(ref string[] words)
@@ -225,6 +265,24 @@ namespace FileGenerator
             for (int i = 0; i < words.Length; i++)
             {
                 index = random.Next(0, words.Length);
+                temp = words[index];
+                words[index] = words[i];
+                words[i] = temp;
+            }
+        }
+
+        /// <summary>
+        /// Swaping integer
+        /// </summary>
+        /// <param name="words"></param>
+        private void Swap(ref List<int> words)
+        {
+            int temp = 0;
+            int index = 0;
+
+            for (int i = 0; i < words.Count; i++)
+            {
+                index = random.Next(0, words.Count);
                 temp = words[index];
                 words[index] = words[i];
                 words[i] = temp;

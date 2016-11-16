@@ -17,9 +17,10 @@ namespace UIForm.DBAction
         {
             TeamMemberProjectBLL tmpBLL = new TeamMemberProjectBLL(value_textbox.Text, comboBoxValue.SelectedItem.ToString());
             await Task.Factory.StartNew(tmpBLL.SelectAsync);
-            dataGridViewValue.DataSource = tmpBLL.dataTableValue;
+            dataGridViewValue.DataSource = tmpBLL.dataTableValue.Rows;
             value_textbox.Clear();
         }
+
 
         private void comboBoxValue_SelectedIndexChanged(object sender, EventArgs e)
         {
