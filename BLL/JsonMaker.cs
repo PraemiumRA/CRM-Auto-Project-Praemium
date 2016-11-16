@@ -34,7 +34,7 @@ namespace BLL
             }
             catch (NullReferenceException ex)
             {
-
+                //TODO:Logging
             }
 
             StringBuilder builder = new StringBuilder();
