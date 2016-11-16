@@ -28,16 +28,6 @@ namespace Logging
             {
                 EventLog.WriteEntry(source, message, EventLogEntryType.SuccessAudit);
             }
-
-            //if (!EventLog.SourceExists(source))
-            //{
-                
-            //}
-
-            //EventLog.WriteEntry(source, message);
-            //EventLog.WriteEntry(source, message, (EventLogEntryType)logType);
-            //EventLog.WriteEntry(source, message, (EventLogEntryType)logType, 234);
-
         }
     }
 }

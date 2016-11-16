@@ -8,7 +8,8 @@ CREATE PROCEDURE spDynamicDelete
 @ProjectName varchar(50) = null,
 @ProjectCreatedDate date   = null,
 @ProjectDueDate date = null,
-@MemberProjectID int = null
+@MemberProjectID int = null,
+@SelectedValue nvarchar(50)=null
 
 AS
 BEGIN	
@@ -42,5 +43,14 @@ BEGIN
 	
 	IF @MemberProjectID is not null
 		Delete MemberProject Where ID=@MemberProjectID
+
+	IF EXISTS (Select ProjectName from Project where ProjectName=@SelectedValue)
+		Delete Project Where ProjectName=@SelectedValue
+
+	IF EXISTS (Select MemberName from Member where MemberName=@SelectedValue)
+		Delete Member Where MemberName=@SelectedValue
+
+	IF EXISTS (Select TeamName from Team where TeamName=@SelectedValue)
+		Delete Team Where TeamName=@SelectedValue
 	
 END

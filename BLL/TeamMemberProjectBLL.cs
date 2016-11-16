@@ -26,6 +26,8 @@ namespace BLL
         string comboBoxValue;
         string path;
         string jsonPath;
+        DateTime dateTimeValue;
+        string selectedValue;
         int idValue;
         bool isJson = false;
         bool isDB = false;
@@ -47,21 +49,28 @@ namespace BLL
             StoreDataFromFile();
         }
 
-        public TeamMemberProjectBLL(object TextBoxValue, string ComboBoxValue)
+        public TeamMemberProjectBLL(object TextBoxValue, string ComboBoxValue, string SelectedValue = null)
         {
             database = new Database(ConfigurationManager.ConnectionStrings["Connection"].ConnectionString);
             dataModel = new DataModel();
             this.comboBoxValue = ComboBoxValue;
             this.textBoxValue = TextBoxValue;
+            this.selectedValue = SelectedValue;
         }
 
         public void DeleteAsync()
         {
             try
             {
-                IdValueCheaker();
-
                 Dictionary<string, object> parameters = new Dictionary<string, object>();
+
+                if (selectedValue != null)
+                {
+                    parameters.Add("@SelectedValue", selectedValue);
+                    database.ExecuteInsertUpdateDelete("spDynamicDelete", parameters);
+                }
+
+                IdValueCheaker();
 
                 switch (comboBoxValue)
                 {
@@ -126,9 +135,10 @@ namespace BLL
                             break;
                         }
                 }
-                if (database.affectedRowsCount != 0)
+                if (database.affectedRowsCount > 0)
                     MessageBox.Show(string.Format("{0} row(s) were deleted", database.affectedRowsCount.ToString()));
-
+                else if (string.IsNullOrEmpty(textBoxValue.ToString()))
+                    MessageBox.Show("Choose the line to delete");
                 else MessageBox.Show(string.Format("'{0}' does not exist in {1} column", textBoxValue, comboBoxValue));
             }
             catch (Exception ex)
@@ -240,7 +250,6 @@ namespace BLL
         {
             if ((comboBoxValue == "TeamID" || comboBoxValue == "MemberID" || comboBoxValue == "ProjectID" || comboBoxValue == "MemberProjectID"))
             {
-
                 if (int.TryParse(textBoxValue.ToString(), out idValue))
                 {
                     if (idValue <= 0)
@@ -249,9 +258,16 @@ namespace BLL
                     }
                 }
                 else
-                {
                     throw new FormatException("Argument must be a number");
+            }
+            else if (comboBoxValue == "ProjectCreatedDate" || comboBoxValue == "ProjectDueDate")
+            {
+                if (DateTime.TryParse(textBoxValue.ToString(), out dateTimeValue))
+                {
+
                 }
+                else
+                    throw new FormatException("Argument must be like 'dd/mm/yyyy'");
             }
         }
         public void StoreDataFromFile()
