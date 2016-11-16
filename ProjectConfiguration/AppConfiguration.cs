@@ -15,7 +15,6 @@ namespace ProjectConfiguration
         private bool isStoreToJson;
         private bool isStoreDataBase;
         private bool isLogTxtFile;
-
         private string watchingDirectory;
         private string jsonCreationDirectory;
         private string txtFileCreationDirectory;
@@ -26,32 +25,26 @@ namespace ProjectConfiguration
         {
             get { return isLogTxtFile; }
         }
-
         public string LogTextFileDirectory
         {
             get { return txtFileCreationDirectory; }
         }
-
         public bool IsStoreToJson
         {
             get { return isStoreToJson; }
         }
-
         public bool IsStoreDataBase
         {
             get { return isStoreDataBase; }
         }
-
         public int GetPrecntOfMachineCore
         {
             get { return this.prcentOfMachineCore; }
         }
-
         public string GetToMnitorDirectory
         {
             get { return this.watchingDirectory; }
         }
-
         public string JsonCreationDirectory
         {
             get { return this.jsonCreationDirectory; }
@@ -112,40 +105,6 @@ namespace ProjectConfiguration
             }
             this.prcentOfMachineCore = temp;
         }
-        private void MonitorDirectory()
-        {
-            string temp = GetDefoultDirectoryForMonitoring();
-            try
-            {
-                temp = ConfigurationManager.AppSettings["MonitoringDirectory"] ?? GetDefoultDirectoryForMonitoring();
-                if (!Directory.Exists(temp))
-                    Directory.CreateDirectory(temp);
-            }
-            catch (Exception)
-            {
-                temp = GetDefoultDirectoryForMonitoring();
-            }
-
-            this.watchingDirectory = temp;
-        }
-        private void JsonDirectory()
-        {
-            string temp = GetDefoultDirectoryForJson();
-
-            try
-            {
-                temp = ConfigurationManager.AppSettings["JsonPath"] ?? GetDefoultDirectoryForJson();
-                if (!Directory.Exists(temp))
-                    Directory.CreateDirectory(temp);
-            }
-            catch (Exception)
-            {
-                temp = GetDefoultDirectoryForJson();
-            }
-
-
-            this.jsonCreationDirectory = temp;
-        }
         private void StoreToTxtFile()
         {
             bool temp = false;
@@ -162,50 +121,90 @@ namespace ProjectConfiguration
             this.isLogTxtFile = temp;
 
         }
-        private void TxtFileDirectory()
-        {
-            string temp = GetDefoultDirectoryForTxtFile();
 
+        /// <summary>
+        /// Get directory for monitoring
+        /// </summary>
+        private void MonitorDirectory()
+        {
+            string temp = GetDefoultDirectory("Monitoring");
             try
             {
-                temp = ConfigurationManager.AppSettings["LogFileDirectory"] ?? GetDefoultDirectoryForTxtFile();
+                temp = ConfigurationManager.AppSettings["MonitoringDirectory"];
+                if (string.IsNullOrEmpty(temp))
+                    temp = GetDefoultDirectory("Monitoring");
+     
                 if (!Directory.Exists(temp))
                     Directory.CreateDirectory(temp);
             }
             catch (Exception)
             {
-                temp = GetDefoultDirectoryForTxtFile();
+                temp = GetDefoultDirectory("Monitoring");
+            }
+
+            this.watchingDirectory = temp;
+        }
+
+        /// <summary>
+        /// Get directory for writing Json files
+        /// </summary>
+        private void JsonDirectory()
+        {
+            string temp = GetDefoultDirectory("JsonDirectory");
+
+            try
+            {
+                temp = ConfigurationManager.AppSettings["JsonPath"];
+                if (string.IsNullOrEmpty(temp))
+                    temp = GetDefoultDirectory("JsonDirectory");
+
+                if (!Directory.Exists(temp))
+                    Directory.CreateDirectory(temp);
+            }
+            catch (Exception)
+            {
+                temp = GetDefoultDirectory("JsonDirectory");
+            }
+
+
+            this.jsonCreationDirectory = temp;
+        }
+
+        /// <summary>
+        /// Get directory for writing 'log' in txt format
+        /// </summary>
+        private void TxtFileDirectory()
+        {
+            string temp = GetDefoultDirectory("TextLogging");
+            try
+            {
+                temp = ConfigurationManager.AppSettings["LogFileDirectory"];
+                if (string.IsNullOrEmpty(temp))
+                    temp = GetDefoultDirectory("TextLogging");
+
+                if (!Directory.Exists(temp))
+                    Directory.CreateDirectory(temp);
+            }
+            catch (Exception)
+            {
+                temp = GetDefoultDirectory("TextLogging");
             }
 
             this.txtFileCreationDirectory = temp;
         }
 
-        /// <summary>
-        /// Get default Txt directory
-        /// </summary>
-        /// <returns></returns>
-        private string GetDefoultDirectoryForTxtFile()
-        {
-            return Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\LoggingTXT";
-        }
 
         /// <summary>
-        /// Get default Monitoring directory
+        /// Get default directory
         /// </summary>
+        /// <param name="directoryName"></param>
         /// <returns></returns>
-        private string GetDefoultDirectoryForMonitoring()
+        private string GetDefoultDirectory(string directoryName)
         {
-            return Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\Monitoring";
+            string temp =  Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\" + directoryName;
+            if (!Directory.Exists(temp))
+                Directory.CreateDirectory(temp);
+            return temp;
         }
-
-        /// <summary>
-        /// Get default Json directory
-        /// </summary>
-        /// <returns></returns>
-        private string GetDefoultDirectoryForJson()
-        {
-            return Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\JsonDirectory";
-        }
-
     }
 }

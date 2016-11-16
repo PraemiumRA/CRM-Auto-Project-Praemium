@@ -38,12 +38,13 @@ namespace BLL
         
         public void Run()
         {
+            //MessageBox.Show(this.Directory.FullName);
             watcher = new FileSystemWatcher()
             {
                 Path = this.Directory.FullName,
                 IncludeSubdirectories = true
             };
-
+            
             watcher.Created += Watcher_Created;
             watcher.Deleted += Watcher_Deleted;
 
