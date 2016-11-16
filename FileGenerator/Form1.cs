@@ -12,7 +12,6 @@ using DataModelLibrary;
 
 namespace FileGenerator
 {
-
     public partial class BaseForm : Form
     {
         DirectoryChoose checkService;
@@ -227,19 +226,22 @@ namespace FileGenerator
             {
                 process = Process.Start(builder.ToString());
             }
-            catch (FileNotFoundException fileNotFound)
+            catch (ObjectDisposedException disposedException)
             {
-                //TODO: Logging
-                MessageBox.Show(fileNotFound.Message);
+                MessageBox.Show(disposedException.Message);
+            }
+            catch (FileNotFoundException notFound)
+            {
+                MessageBox.Show(notFound.Message);
             }
             catch (Exception exception)
             {
-                //TODO: Logging
                 MessageBox.Show(exception.Message);
             }
             finally
             {
-                process.Close();
+                if (process != null)
+                    process.Close();
             }
 
             builder.Clear();
@@ -285,6 +287,48 @@ namespace FileGenerator
             catch
             {
                 numberUpDown.Value = numberUpDown.Minimum;
+            }
+
+        }
+
+        /// <summary>
+        /// Button handle for open selected directory
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonOpenDirectory_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (Directory.Exists(this.textBoxDestination.Text))
+                {
+                    Process process = null;
+                    try
+                    {
+                        process = Process.Start(this.textBoxDestination.Text);
+                    }
+                    finally
+                    {
+                        if (process != null)
+                            process.Close();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Directory doesn't exist.");
+                }
+            }
+            catch (ObjectDisposedException disposedException)
+            {
+                MessageBox.Show(disposedException.Message);
+            }
+            catch (FileNotFoundException notFound)
+            {
+                MessageBox.Show(notFound.Message);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
             }
 
         }

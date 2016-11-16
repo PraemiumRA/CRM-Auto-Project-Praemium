@@ -43,6 +43,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.numericOfMemberCount = new System.Windows.Forms.NumericUpDown();
+            this.buttonOpenDirectory = new System.Windows.Forms.Button();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericOfProjectCount)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -95,6 +96,7 @@
             // 
             // buttonBrowse
             // 
+            this.buttonBrowse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonBrowse.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonBrowse.Location = new System.Drawing.Point(290, 15);
             this.buttonBrowse.Name = "buttonBrowse";
@@ -114,6 +116,7 @@
             // 
             // buttonGenerate
             // 
+            this.buttonGenerate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonGenerate.Location = new System.Drawing.Point(71, 216);
             this.buttonGenerate.Name = "buttonGenerate";
             this.buttonGenerate.Size = new System.Drawing.Size(201, 33);
@@ -195,11 +198,23 @@
             this.numericOfMemberCount.Size = new System.Drawing.Size(96, 20);
             this.numericOfMemberCount.TabIndex = 19;
             // 
+            // buttonOpenDirectory
+            // 
+            this.buttonOpenDirectory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonOpenDirectory.Location = new System.Drawing.Point(239, 120);
+            this.buttonOpenDirectory.Name = "buttonOpenDirectory";
+            this.buttonOpenDirectory.Size = new System.Drawing.Size(108, 23);
+            this.buttonOpenDirectory.TabIndex = 18;
+            this.buttonOpenDirectory.Text = "Open Directory";
+            this.buttonOpenDirectory.UseVisualStyleBackColor = true;
+            this.buttonOpenDirectory.Click += new System.EventHandler(this.ButtonOpenDirectory_Click);
+            // 
             // BaseForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(604, 261);
+            this.Controls.Add(this.buttonOpenDirectory);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.listBoxOfFiles);
@@ -244,6 +259,7 @@
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;//
         private System.Windows.Forms.NumericUpDown numericOfProjectCount;
         private System.Windows.Forms.NumericUpDown numericOfMemberCount;
+        private System.Windows.Forms.Button buttonOpenDirectory;
     }
 }
 

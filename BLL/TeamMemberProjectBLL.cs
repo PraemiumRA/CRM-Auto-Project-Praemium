@@ -309,6 +309,7 @@ namespace BLL
                     }
                 }
 
+                Logger.DoLogging(LogType.Success, null, "Data succesfuly stored in Data Base.");
                 File.Delete(path);
                                 
             }

@@ -32,9 +32,7 @@ namespace DAL
                             sqlCommand.Parameters.AddWithValue(parameter.Key, parameter.Value);
                         }
                         affectedRowsCount = sqlCommand.ExecuteNonQuery();
-
-                        Logger.DoLogging(LogType.Success, null, "Data succesfuly stored in Data Base.");
-
+                                            
                         transaction.Commit();
                     }
                 }

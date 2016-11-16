@@ -108,6 +108,7 @@ namespace BLL
                     write.WriteLine(builder);
                     write.Write(write.NewLine);
                     
+                    //TODO: logingi texy poxel
                     Logger.DoLogging(LogType.Success, null, "Data succesfuly stored in json format.");
                 }
             }

@@ -13,8 +13,14 @@ namespace FileGenerator
     /// </summary>
     class DataGenerator : IDisposable
     {
-        private List<DataModel> datas;  
-        
+        private List<DataModel> datas;
+
+        public StringCollection MemberNames = new StringCollection();
+        public StringCollection MemberSurnames = new StringCollection();
+        public StringCollection TeamNames = new StringCollection();
+        public StringCollection ProjectNames = new StringCollection();
+        private List<int> ProjectIds = new List<int>();
+
         private int dataCount = 0;
         private int projectCount = 0;
         private DataModel dataModel;
@@ -22,11 +28,6 @@ namespace FileGenerator
         private string defoultDataPath = @"..\..\Creaters\Resourse\defoultData.dat";
         private Random random;
         private StringBuilder builder;
-        public StringCollection MemberNames = new StringCollection();
-        public StringCollection MemberSurnames = new StringCollection();
-        public StringCollection TeamNames = new StringCollection();
-        public StringCollection ProjectNames = new StringCollection();
-        private List<int> ProjectIds = new List<int>();
 
         public DataGenerator(int dataCount, int projectCount)
         {
@@ -53,7 +54,7 @@ namespace FileGenerator
                 dataModel.Projects = this.GenerateProjects();
                 dataModel.TeamName = TeamNames[i - 1];//TeamNames[random.Next(0, TeamNames.Count)];
                 dataModel.TeamID = Convert.ToInt32(dataModel.TeamName[dataModel.TeamName.Length - 1]) + random.Next(0, 1000);
-                
+
                 datas.Add(dataModel);
             }
 
@@ -74,7 +75,7 @@ namespace FileGenerator
                 projects[i - 1] = new Project();
                 projects[i - 1].ProjectCreatedDate = GenerateRandomDateTime();
                 projects[i - 1].ProjectDueDate = GenerateRandomDateTime(true);
-                projects[i - 1].ProjectName = ProjectNames[i-1];
+                projects[i - 1].ProjectName = ProjectNames[i - 1];
                 this.Swap(ref ProjectIds);
                 projects[i - 1].ProjectID = new Func<int>
                     (() =>
@@ -90,7 +91,7 @@ namespace FileGenerator
                     }
                     ).Invoke();
 
-                projects[i - 1].ProjectDescription = $"Description - {projects[i - 1].ProjectID+100}";
+                projects[i - 1].ProjectDescription = $"Description - {projects[i - 1].ProjectID + 100}";
             }
 
             return projects;
@@ -104,13 +105,12 @@ namespace FileGenerator
             int uniqeId = GenerateInteger();
             int index = 0;
 
-            for(int i = 0; i< ProjectNames.Count; i++)
+            for (int i = 0; i < ProjectNames.Count; i++)
             {
-                index = GetIdNumberProject(ProjectNames[i]);
-                index += uniqeId;
-                ProjectIds.Add(index);
+                index += uniqeId + i;
+                ProjectIds.Add(Math.Abs(index));
             }
-                       
+
         }
 
         /// <summary>
@@ -120,22 +120,22 @@ namespace FileGenerator
         /// <returns></returns>
         private int GetIdNumberProject(string project)
         {
-            string temp = "";
-            int index = project.Length - 1;
-            int indexOfChar = 0;
+            //string temp = "";
+            //int index = project.Length - 1;
+            //int indexOfChar = 0;
 
-            while (char.IsNumber(project[index]))
-            {
-                temp += project[index];
-                index--;
-                indexOfChar = index;
-            }
+            //while (char.IsNumber(project[index]))
+            //{
+            //    temp += project[index];
+            //    index--;
+            //    indexOfChar = index;
+            //}
 
-            char[] array = temp.ToCharArray();
-            Array.Reverse(array);
-            index = (char)(indexOfChar) + int.Parse(new string(array));
-            
-            return index;
+            //char[] array = temp.ToCharArray();
+            //Array.Reverse(array);
+            //index = (char)(indexOfChar) + int.Parse(new string(array));
+
+            return 37;//index;
         }
 
         /// <summary>
@@ -168,14 +168,6 @@ namespace FileGenerator
             return new DateTime(year, month, randomDay);
         }
 
-        /// <summary>
-        /// Generate Unique id
-        /// </summary>
-        /// <returns></returns>
-        private int GenerateInteger()
-        {
-            return Math.Abs(BitConverter.ToInt32(Guid.NewGuid().ToByteArray(), 0));
-        }
 
         /// <summary>
         /// Reade default data from files
@@ -229,7 +221,7 @@ namespace FileGenerator
                     throw;
                 }
             }
-                        
+
         }
 
         /// <summary>
@@ -241,14 +233,10 @@ namespace FileGenerator
         private void GetNames(DataSource dataSource, StringCollection collection, int count)
         {
             int i = 0, k = 0;
-            char temp = default(char);
             do
             {
-                temp = (char)(k + 65);
-                collection.Add(dataSource.ToString() + temp + i);
-                if (char.ToLower(temp) == 'z') k = -1;
-
-                k++; i++;
+                collection.Add(dataSource.ToString() + GenerateInteger());// + temp + i);
+                i++;
             } while (i < count);
 
         }
@@ -290,11 +278,20 @@ namespace FileGenerator
         }
 
         /// <summary>
+        /// Generate Unique integer number
+        /// </summary>
+        /// <returns></returns>
+        private int GenerateInteger()
+        {
+            return Math.Abs(BitConverter.ToInt32(Guid.NewGuid().ToByteArray(), 0));
+        }
+
+        /// <summary>
         /// Dispose
         /// </summary>
         public void Dispose()
         {
-            
+
         }
     }
 }
