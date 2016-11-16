@@ -13,7 +13,7 @@ namespace FileGenerator
     /// </summary>
     class DataGenerator : IDisposable
     {
-        private List<DataModel> datas;
+        private List<DataModel> datas;  
         
         private int dataCount = 0;
         private int projectCount = 0;
