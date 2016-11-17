@@ -111,6 +111,7 @@ namespace BLL
                     //TODO: logingi texy poxel
                     Logger.DoLogging(LogType.Success, null, "Data succesfuly stored in json format.");
                 }
+                
             }
             catch (Exception exception)
             {

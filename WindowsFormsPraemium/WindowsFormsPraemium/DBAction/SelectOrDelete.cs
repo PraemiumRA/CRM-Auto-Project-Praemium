@@ -56,7 +56,7 @@ namespace UIForm.DBAction
         {
             if (string.IsNullOrEmpty(value_textbox.Text.ToString()) && selectedRow == null && value_textbox.Enabled == true)
             {
-                MessageBox.Show("Please fill the value area");
+                MessageBox.Show("Please fill the value area.");
             }
             else
             {
