@@ -48,11 +48,11 @@ namespace FileGenerator
             for (int i = 1; i <= dataCount; i++)
             {
                 dataModel = new DataModel();
-                dataModel.MemberID = GenerateInteger();//randNumbers[GeteranteInteger()];
+                dataModel.MemberID = GenerateInteger();
                 dataModel.MemberName = MemberNames[random.Next(0, MemberNames.Count)];
                 dataModel.MemberSurname = MemberSurnames[random.Next(0, MemberSurnames.Count)];
                 dataModel.Projects = this.GenerateProjects();
-                dataModel.TeamName = TeamNames[i - 1];//TeamNames[random.Next(0, TeamNames.Count)];
+                dataModel.TeamName = TeamNames[i - 1];
                 dataModel.TeamID = Convert.ToInt32(dataModel.TeamName[dataModel.TeamName.Length - 1]) + random.Next(0, 1000);
 
                 datas.Add(dataModel);
@@ -79,16 +79,16 @@ namespace FileGenerator
                 this.Swap(ref ProjectIds);
                 projects[i - 1].ProjectID = new Func<int>
                     (() =>
-                    {
-                        int index = 0;
+                            {
+                                int index = 0;
 
-                        while (tempId.Contains(ProjectIds[index]))
-                        {
-                            index++;
-                        }
-                        tempId.Add(ProjectIds[index]);
-                        return ProjectIds[index];
-                    }
+                                while (tempId.Contains(ProjectIds[index]))
+                                {
+                                    index++;
+                                }
+                                tempId.Add(ProjectIds[index]);
+                                return ProjectIds[index];
+                            }
                     ).Invoke();
 
                 projects[i - 1].ProjectDescription = $"Description - {projects[i - 1].ProjectID + 100}";
@@ -113,31 +113,7 @@ namespace FileGenerator
 
         }
 
-        /// <summary>
-        /// Generate projectId
-        /// </summary>
-        /// <param name="project"></param>
-        /// <returns></returns>
-        private int GetIdNumberProject(string project)
-        {
-            //string temp = "";
-            //int index = project.Length - 1;
-            //int indexOfChar = 0;
-
-            //while (char.IsNumber(project[index]))
-            //{
-            //    temp += project[index];
-            //    index--;
-            //    indexOfChar = index;
-            //}
-
-            //char[] array = temp.ToCharArray();
-            //Array.Reverse(array);
-            //index = (char)(indexOfChar) + int.Parse(new string(array));
-
-            return 37;//index;
-        }
-
+     
         /// <summary>
         /// Generate Random DateTime
         /// </summary>
@@ -170,7 +146,7 @@ namespace FileGenerator
 
 
         /// <summary>
-        /// Reade default data from files
+        /// Read default data from file, or take
         /// </summary>
         private void ReadStringValues()
         {
@@ -206,20 +182,16 @@ namespace FileGenerator
                         //Get TeamNames
                         GetNames(DataSource.TeamName, TeamNames, dataCount);
 
-
                         //Get ProjectsName
                         GetNames(DataSource.ProjectName, ProjectNames, projectCount);
-                        GenerateAllProjectId();////
+                        GenerateAllProjectId();
                     }
                 }
                 catch (FileNotFoundException fnf)
                 {
                     throw new Exception("data.dat was not found.", fnf);
                 }
-                catch
-                {
-                    throw;
-                }
+               
             }
 
         }
@@ -232,13 +204,12 @@ namespace FileGenerator
         /// <param name="count"></param>
         private void GetNames(DataSource dataSource, StringCollection collection, int count)
         {
-            int i = 0, k = 0;
+            int i = 0;
             do
             {
-                collection.Add(dataSource.ToString() + GenerateInteger());// + temp + i);
+                collection.Add(dataSource.ToString() + GenerateInteger());
                 i++;
             } while (i < count);
-
         }
 
         /// <summary>

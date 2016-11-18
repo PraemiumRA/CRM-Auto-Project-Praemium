@@ -41,7 +41,6 @@ namespace FileGenerator
             }
 
             fileCreate.CreateAsync();
-
             return true;
         }
 

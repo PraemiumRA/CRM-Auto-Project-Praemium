@@ -67,7 +67,6 @@ namespace FileGenerator
             }
             catch (Exception ex)
             {
-                //TODO: Logging
                 MessageBox.Show(ex.Message);
             }
         }

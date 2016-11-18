@@ -24,7 +24,6 @@ namespace FileGenerator
             }
             catch 
             {
-                //TODO: Logging
                 tempDirectory = GetGenerateDirectory();
             }
 

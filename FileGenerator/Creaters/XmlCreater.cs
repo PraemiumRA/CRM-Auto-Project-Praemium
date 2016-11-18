@@ -22,6 +22,7 @@ namespace FileGenerator
         }
 
         object block = new object();
+
         /// <summary>
         /// Method, which creates a file asynchronously
         /// </summary>
@@ -50,7 +51,6 @@ namespace FileGenerator
             }
             catch (Exception exception)
             {
-                //TODO: Logging
                 MessageBox.Show(exception.Message);
             }
 
@@ -73,10 +73,15 @@ namespace FileGenerator
         public Records(List<DataModel> dataModel)
         {
             this.Memebers = dataModel;
-            GetProjectList(this.Memebers);
+            CopyProjects(this.Memebers);
         }
-        
-        private void GetProjectList(List<DataModel> memebers)
+
+
+        /// <summary>
+        /// Copy projects from member list to new project list, which will be serialized.
+        /// </summary>
+        /// <param name="memebers"></param>
+        private void CopyProjects(List<DataModel> memebers)
         {
             foreach (DataModel item in memebers)
             {
@@ -91,6 +96,7 @@ namespace FileGenerator
 
 
         }
+
         private bool isContain(MProject mProject)
         {
             for (int i = 0; i < Projects.Count; i++)
@@ -102,6 +108,7 @@ namespace FileGenerator
             }
             return false;
         }
+
         private MProject[] GetMProjects(DataModel dataModel)
         {
             MProject[] mProjects = new MProject[dataModel.Projects.Length];

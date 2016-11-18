@@ -93,21 +93,24 @@ namespace FileGenerator
             return string.Concat(builder.ToString().Split(new char[] { '\\', '/', ':', '*', '?', '"', '<', '>', '|' }));
         }
 
+        /// <summary>
+        /// Read file name from app.config
+        /// </summary>
+        /// <returns></returns>
         private string GetFileNameFromAppConfig()
         {
-            string temp = "";
+            string temp = "file";
             try
             {
-                temp = ConfigurationManager.AppSettings["FileName"] ?? "file";
+                temp = ConfigurationManager.AppSettings["FileName"];
+                if(string.IsNullOrEmpty(temp))
+                    temp = "file";
             }
             catch (ConfigurationErrorsException configError)
             {
-                //TODO: logging Key Not Found
+                temp = "file";
             }
-            catch (Exception exception)
-            {
-                //TODO: Logging 
-            }
+            
             return temp;
         }
 
