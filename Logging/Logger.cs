@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using ProjectConfiguration;
 using System.Windows.Forms;
 using System.Drawing;
@@ -57,6 +53,12 @@ namespace Logging
             log.Log(logType, ex, message);
         }
 
+        /// <summary>
+        /// RealTime logging in UI
+        /// </summary>
+        /// <param name="logType"></param>
+        /// <param name="exception"></param>
+        /// <param name="message"></param>
         private static void LogVisibleInWindow(LogType logType, Exception exception = null, string message = null)
         {
             Lazy<StringBuilder> builder = new Lazy<StringBuilder>();
@@ -66,7 +68,14 @@ namespace Logging
             {
                 int index = LogSource.Rows.Add();
                 if (logType == LogType.Error)
+                {
                     LogSource.Rows[index].DefaultCellStyle.BackColor = Color.FromArgb(255, 104, 114);
+                }
+
+                if(logType == LogType.Creation)
+                {
+                    LogSource.Rows[index].DefaultCellStyle.BackColor = Color.FromArgb(135, 255, 165);
+                }
 
                 LogSource.Rows[index].Cells[0].ValueType = typeof(LogType);
                 LogSource.Rows[index].Cells[0].Value = logType.ToString();

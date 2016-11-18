@@ -5,6 +5,7 @@
         Error,
         Warning,
         Success,
-        Creation
+        Creation,
+        Delete
     }
 }

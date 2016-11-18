@@ -27,6 +27,8 @@ namespace UIForm
             Logger.form = this;
 
             this.DataGridViewLogging.DoubleClick += LoggingView_DoubleClick;
+            this.DataGridViewLogging.DefaultCellStyle.SelectionBackColor = Color.FromArgb(90, 192, 255);
+
             directoryWatcher = new FolderWatcher();
             directoryWatcher.Run();
         }

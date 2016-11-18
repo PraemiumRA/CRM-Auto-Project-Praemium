@@ -30,6 +30,7 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UIMainForm));
             this.buttonSelect = new System.Windows.Forms.Button();
@@ -105,6 +106,14 @@
             this.DataGridViewLogging.Location = new System.Drawing.Point(206, 12);
             this.DataGridViewLogging.Name = "DataGridViewLogging";
             this.DataGridViewLogging.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataGridViewLogging.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.DataGridViewLogging.RowHeadersVisible = false;
             this.DataGridViewLogging.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.DataGridViewLogging.RowTemplate.Height = 18;
@@ -131,11 +140,10 @@
             // LogDataTime
             // 
             this.LogDataTime.HeaderText = "Date Time";
-            this.LogDataTime.MinimumWidth = 90;
+            this.LogDataTime.MinimumWidth = 100;
             this.LogDataTime.Name = "LogDataTime";
             this.LogDataTime.ReadOnly = true;
             this.LogDataTime.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.LogDataTime.Width = 90;
             // 
             // LogExceptionCode
             // 
