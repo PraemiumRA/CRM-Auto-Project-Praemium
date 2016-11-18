@@ -13,6 +13,7 @@ namespace BLL
         string filePath;
         string defaultPath;
         string jsonPath;
+        static object locker = new object();
 
         public JsonMaker(DataModel dataModel, string filePath, string jsonPath)
         {
@@ -100,22 +101,24 @@ namespace BLL
                   
 
             filePath = Path.ChangeExtension(Path.GetFileName(filePath), "Json");
-
-            try
+            lock (locker)
             {
-                using (StreamWriter write = new StreamWriter(defaultPath + "\\" + filePath, true))
+                try
                 {
-                    write.WriteLine(builder);
-                    write.Write(write.NewLine);
-                    
-                    //TODO: logingi texy poxel
-                    Logger.DoLogging(LogType.Success, null, "Data succesfuly stored in json format.");
+                    using (StreamWriter write = new StreamWriter(defaultPath + "\\" + filePath, true))
+                    {
+                        write.WriteLine(builder);
+                        write.Write(write.NewLine);
+
+                        //TODO: logingi texy poxel
+                        Logger.DoLogging(LogType.Success, null, "Data succesfuly stored in json format.");
+                    }
+
                 }
-                
-            }
-            catch (Exception exception)
-            {
-                Logger.DoLogging(LogType.Error, exception, "Error in process to storing json format.");
+                catch (Exception exception)
+                {
+                    Logger.DoLogging(LogType.Error, exception, "Error in process to storing json format.");
+                }
             }
         }
     }
