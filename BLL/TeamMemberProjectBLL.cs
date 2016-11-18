@@ -16,7 +16,7 @@ namespace BLL
 {
     public class TeamMemberProjectBLL
     {
-        AppConfiguration appConfig;
+        AppConfiguration appConfig = AppConfiguration.GetInstance;
         private DataModel dataModel;
         private Database database;
         public DataTable dataTableValue { get; set; }
@@ -35,7 +35,6 @@ namespace BLL
         public TeamMemberProjectBLL()
         {
             database = new Database(ConfigurationManager.ConnectionStrings["Connection"].ConnectionString);
-            appConfig = new AppConfiguration();
             isJson = appConfig.IsStoreToJson;
             isDB = appConfig.IsStoreDataBase;
         }

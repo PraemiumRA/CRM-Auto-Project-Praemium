@@ -1,97 +1,63 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Configuration;
 using System.IO;
 
 namespace ProjectConfiguration
 {
+    /// <summary>
+    /// Configuration class for application settings 
+    /// </summary>
     public class AppConfiguration
     {
-        private StringBuilder builder = new StringBuilder();
+        private static AppConfiguration instance = null;
+        /// <summary>
+        /// Get Single instance of object
+        /// </summary>
+        public static AppConfiguration GetInstance
+        {
+            get
+            {
+                return instance ?? new AppConfiguration();
+            }
+            
+        }
 
-        private bool isStoreToJson;
-        private bool isStoreDataBase;
-        private bool isLogTxtFile;
-        private string watchingDirectory;
-        private string jsonCreationDirectory;
-        private string txtFileCreationDirectory;
-
-        private int prcentOfMachineCore;
-
+        public int GetPrecntOfMachineCore
+        {
+            get { return PrcentOfMachineCore(); }
+        }
         public bool IsStoreTxtFile
         {
-            get { return isLogTxtFile; }
-        }
-        public string LogTextFileDirectory
-        {
-            get { return txtFileCreationDirectory; }
+            get { return StoreToTxtFile(); }
         }
         public bool IsStoreToJson
         {
-            get { return isStoreToJson; }
+            get { return StoreToJson(); }
         }
         public bool IsStoreDataBase
         {
-            get { return isStoreDataBase; }
+            get { return StoreToDataBase(); }
         }
-        public int GetPrecntOfMachineCore
+        public string LogTextFileDirectory
         {
-            get { return this.prcentOfMachineCore; }
+            get { return TxtFileDirectory(); }
         }
         public string GetToMnitorDirectory
         {
-            get { return this.watchingDirectory; }
+            get { return MonitorDirectory(); }
         }
         public string JsonCreationDirectory
         {
-            get { return this.jsonCreationDirectory; }
+            get { return JsonDirectory(); }
         }
 
-        public AppConfiguration()
-        {
-            MonitorDirectory();
-            PrcentOfMachineCore();
-            StoreToDataBase();
-            StoreToJson();
-            JsonDirectory();
-            StoreToTxtFile();
-            TxtFileDirectory();
-        }
+        private AppConfiguration() { }
 
-        private void StoreToDataBase()
-        {
-            bool temp = false;
-
-            try
-            {
-                temp = Convert.ToBoolean(ConfigurationManager.AppSettings["StorDataInDB"] ?? "true");
-            }
-            catch (Exception)
-            {
-                //TODO: Logging                
-                temp = false;
-            }
-            this.isStoreDataBase = temp;
-
-        }
-        private void StoreToJson()
-        {
-            bool temp = false;
-            try
-            {
-                temp = Convert.ToBoolean(ConfigurationManager.AppSettings["StorDataInJSON"] ?? "true");
-            }
-            catch (Exception)
-            {
-                //TODO: Logging                
-                temp = false;
-            }
-            this.isStoreToJson = temp;
-        }
-        private void PrcentOfMachineCore()
+        /// <summary>
+        /// Get percentages of machine core, which will determine the number of threads.
+        /// </summary>
+        /// <returns></returns>
+        private int PrcentOfMachineCore()
         {
             int temp = 50;
             try
@@ -100,32 +66,73 @@ namespace ProjectConfiguration
             }
             catch (Exception)
             {
-                //TODO: Logging
                 temp = 50;
             }
-            this.prcentOfMachineCore = temp;
+
+            return temp;
         }
-        private void StoreToTxtFile()
+
+        /// <summary>
+        /// Switch data to database.
+        /// </summary>
+        /// <returns></returns>
+        private bool StoreToDataBase()
         {
             bool temp = false;
 
             try
             {
-                temp = Convert.ToBoolean(ConfigurationManager.AppSettings["LogInTxtFile"] ?? "true");
+                temp = Convert.ToBoolean(ConfigurationManager.AppSettings["StorDataInDB"]);
             }
             catch (Exception)
-            {
-                //TODO: Logging                
+            {              
                 temp = false;
             }
-            this.isLogTxtFile = temp;
-
+            return temp;
         }
+
+        /// <summary>
+        /// Switch data to json file.
+        /// </summary>
+        /// <returns></returns>
+        private bool StoreToJson()
+        {
+            bool temp = false;
+            try
+            {
+                temp = Convert.ToBoolean(ConfigurationManager.AppSettings["StorDataInJSON"]);
+            }
+            catch
+            {               
+                temp = false;
+            }
+
+            return temp;
+        }
+
+        /// <summary>
+        /// Switch logging to text file.
+        /// </summary>
+        /// <returns></returns>
+        private bool StoreToTxtFile()
+        {
+            bool temp = false;
+            try
+            {
+                temp = Convert.ToBoolean(ConfigurationManager.AppSettings["LogInTxtFile"]);
+            }
+            catch (Exception)
+            {          
+                temp = false;
+            }
+
+            return temp;
+        } 
 
         /// <summary>
         /// Get directory for monitoring
         /// </summary>
-        private void MonitorDirectory()
+        private string MonitorDirectory()
         {
             string temp = GetDefoultDirectory("Monitoring");
             try
@@ -142,13 +149,13 @@ namespace ProjectConfiguration
                 temp = GetDefoultDirectory("Monitoring");
             }
 
-            this.watchingDirectory = temp;
+            return temp;
         }
 
         /// <summary>
         /// Get directory for writing Json files
         /// </summary>
-        private void JsonDirectory()
+        private string JsonDirectory()
         {
             string temp = GetDefoultDirectory("JsonDirectory");
 
@@ -165,15 +172,13 @@ namespace ProjectConfiguration
             {
                 temp = GetDefoultDirectory("JsonDirectory");
             }
-
-
-            this.jsonCreationDirectory = temp;
+            return temp;
         }
 
         /// <summary>
         /// Get directory for writing 'log' in txt format
         /// </summary>
-        private void TxtFileDirectory()
+        private string TxtFileDirectory()
         {
             string temp = GetDefoultDirectory("TextLogging");
             try
@@ -190,9 +195,8 @@ namespace ProjectConfiguration
                 temp = GetDefoultDirectory("TextLogging");
             }
 
-            this.txtFileCreationDirectory = temp;
+            return temp;
         }
-
 
         /// <summary>
         /// Get default directory
@@ -206,5 +210,6 @@ namespace ProjectConfiguration
                 Directory.CreateDirectory(temp);
             return temp;
         }
+
     }
 }

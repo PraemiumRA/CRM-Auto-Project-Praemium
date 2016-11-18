@@ -14,7 +14,7 @@ namespace Logging
 
         public static void DoLogging(LogType logType, Exception ex = null, string message = null)
         {
-            AppConfiguration appConfig = new AppConfiguration();
+            AppConfiguration appConfig = AppConfiguration.GetInstance;
 
             bool isTxt;
             ILogger log = null;
@@ -62,7 +62,6 @@ namespace Logging
         private static void LogVisibleInWindow(LogType logType, Exception exception = null, string message = null)
         {
             Lazy<StringBuilder> builder = new Lazy<StringBuilder>();
-
 
             lock (block)
             {

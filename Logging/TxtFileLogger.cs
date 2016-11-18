@@ -12,14 +12,14 @@ namespace Logging
 {
     class TxtFileLogger : ILogger
     {
-        AppConfiguration appConfig;
+        AppConfiguration appConfig = AppConfiguration.GetInstance;
         StringBuilder builder;
         static object locker = new object();
         string path { get; set; }
 
         public TxtFileLogger()
         {
-            appConfig = new AppConfiguration();
+            
             builder = new StringBuilder();
         }
 

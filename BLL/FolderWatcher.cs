@@ -12,7 +12,7 @@ namespace BLL
         DirectoryInfo jsonDirectory;
         FileSystemWatcher watcher;
         StoreData   storeData;
-        AppConfiguration appConfiguration;
+        AppConfiguration appConfiguration = AppConfiguration.GetInstance;
 
         public DirectoryInfo Directory
         {
@@ -29,7 +29,6 @@ namespace BLL
           
         public FolderWatcher()
         {
-            appConfiguration = new AppConfiguration();
             this.Directory = new DirectoryInfo(appConfiguration.GetToMnitorDirectory); //new DirectoryInfo(path);
             this.JsonDirectory = new DirectoryInfo(appConfiguration.JsonCreationDirectory); //new DirectoryInfo(jsonPath);
             this.storeData = new StoreData(JsonDirectory);

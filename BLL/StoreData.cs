@@ -21,7 +21,7 @@ namespace BLL
 
         List<Task> tasks = new List<Task>();
         System.Timers.Timer timeToAction;
-        AppConfiguration appConfiguration;
+        AppConfiguration appConfiguration = AppConfiguration.GetInstance;
 
         public StoreData(DirectoryInfo jsonPath)
         {
@@ -34,7 +34,7 @@ namespace BLL
 
         private void ConfigurateStore()
         {
-            appConfiguration = new AppConfiguration();
+            
 
             int prcent = appConfiguration.GetPrecntOfMachineCore;
             int processorCount = Environment.ProcessorCount;
