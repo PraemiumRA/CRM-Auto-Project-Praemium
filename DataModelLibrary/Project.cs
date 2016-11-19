@@ -6,13 +6,13 @@ namespace DataModelLibrary
     [XmlRoot("Project")]
     public class Project
     {
-        private int projectID;
+        private long projectID;
         private string projectName;
         private DateTime projectCreatedDate;
         private DateTime projectDueDate;
 
         [XmlAttribute]
-        public int ProjectID
+        public long ProjectID
         {
             get
             {
@@ -105,7 +105,7 @@ namespace DataModelLibrary
 
         public Project() { }
 
-        public Project(int projectId, string projectName, DateTime projectcreatDate, DateTime projectdueDate, string projectDiscraption)
+        public Project(long projectId, string projectName, DateTime projectcreatDate, DateTime projectdueDate, string projectDiscraption)
         {
             this.ProjectID = projectId;
             this.ProjectName = projectName;

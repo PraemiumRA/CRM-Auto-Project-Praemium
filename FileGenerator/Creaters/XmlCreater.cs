@@ -132,7 +132,7 @@ namespace FileGenerator
         /// </summary>
         public class MProject
         {
-            public int ProjectID { get; set; }
+            public long ProjectID { get; set; }
             public string ProjectName { get; set; }
             public DateTime ProjectCreatedDate { get; set; }
             public DateTime ProjectDueDate { get; set; }

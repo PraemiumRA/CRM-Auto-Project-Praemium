@@ -10,7 +10,7 @@ namespace DataModelLibrary
     [XmlRoot("Data")]
     public class DataModel
     {
-        private int teamID;
+        private long teamID;
         private string teamName = String.Empty;
         private long memberID;
         private string memberName = String.Empty;
@@ -18,7 +18,7 @@ namespace DataModelLibrary
         private Project[] projects = null;
 
         [XmlElement("TeamID")]
-        public int TeamID
+        public long TeamID
         {
             get
             {
@@ -107,7 +107,7 @@ namespace DataModelLibrary
 
         public DataModel() { }
 
-        public DataModel(int teamId, string teamName, int memberId, string memberName, string membersurName, Project[] projects)
+        public DataModel(long teamId, string teamName, long memberId, string memberName, string membersurName, Project[] projects)
         {
             this.Projects = projects;
             this.TeamID = teamId;

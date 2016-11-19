@@ -13,29 +13,25 @@ namespace FileGenerator
     /// </summary>
     class DataGenerator : IDisposable
     {
-        private List<DataModel> datas;
+        int dataCount = 0;
+        int projectCount = 0;
+        private string defoultDataPath = @"..\..\Creaters\Resourse\defoultData.dat";
 
+        private List<DataModel> allData;
+        DataModel dataModel;
         public StringCollection MemberNames = new StringCollection();
         public StringCollection MemberSurnames = new StringCollection();
-        public StringCollection TeamNames = new StringCollection();
-        public StringCollection ProjectNames = new StringCollection();
-        private List<int> ProjectIds = new List<int>();
+        Dictionary<long, string> TeamInfo = new Dictionary<long, string>();
+        Dictionary<long, string> ProjectInfo = new Dictionary<long, string>();
 
-        private int dataCount = 0;
-        private int projectCount = 0;
-        private DataModel dataModel;
-        private List<int> randNumbers = new List<int>();
-        private string defoultDataPath = @"..\..\Creaters\Resourse\defoultData.dat";
-        private Random random;
-        private StringBuilder builder;
+        Random random = new Random();
+
 
         public DataGenerator(int dataCount, int projectCount)
         {
             this.dataCount = dataCount;
             this.projectCount = projectCount;
-            builder = new StringBuilder();
-            random = new Random();
-            datas = new List<DataModel>(dataCount);
+            allData = new List<DataModel>();
             ReadStringValues();
         }
 
@@ -45,75 +41,133 @@ namespace FileGenerator
         /// <returns></returns>
         public List<DataModel> GetData()
         {
+            List<long> temp = new List<long>();
+            List<long> tempTeamKeyList = TeamInfo.Keys.ToList<long>();
+
             for (int i = 1; i <= dataCount; i++)
             {
                 dataModel = new DataModel();
+                dataModel.TeamID = new Func<long>
+                                                   (() =>
+                                                   {
+                                                       int index = 0;
+
+                                                       while (temp.Contains(tempTeamKeyList[index]))
+                                                       {
+                                                           index++;
+                                                       }
+                                                       temp.Add(tempTeamKeyList[index]);
+                                                       return tempTeamKeyList[index];
+                                                   }
+                   ).Invoke();
+                dataModel.TeamName = TeamInfo[dataModel.TeamID];
                 dataModel.MemberID = GenerateInteger();
                 dataModel.MemberName = MemberNames[random.Next(0, MemberNames.Count)];
                 dataModel.MemberSurname = MemberSurnames[random.Next(0, MemberSurnames.Count)];
                 dataModel.Projects = this.GenerateProjects();
-                dataModel.TeamName = TeamNames[i - 1];
-                dataModel.TeamID = Convert.ToInt32(dataModel.TeamName[dataModel.TeamName.Length - 1]) + random.Next(0, 1000);
 
-                datas.Add(dataModel);
+                allData.Add(dataModel);
             }
 
-            return this.datas;
+            return allData;
         }
 
-        /// <summary>
-        /// Generate array of projects for single record
-        /// </summary>
-        /// <returns></returns>
+        //Generate All Projects
         private Project[] GenerateProjects()
         {
+            List<long> temp = new List<long>();
             Project[] projects = new Project[projectCount];
-            List<int> tempId = new List<int>();
+            List<long> keyList = ProjectInfo.Keys.ToList<long>();//ProjectInfo
 
             for (int i = 1; i <= projectCount; i++)
             {
                 projects[i - 1] = new Project();
                 projects[i - 1].ProjectCreatedDate = GenerateRandomDateTime();
                 projects[i - 1].ProjectDueDate = GenerateRandomDateTime(true);
-                projects[i - 1].ProjectName = ProjectNames[i - 1];
-                this.Swap(ref ProjectIds);
-                projects[i - 1].ProjectID = new Func<int>
-                    (() =>
-                            {
-                                int index = 0;
+                keyList = Swap(keyList);
 
-                                while (tempId.Contains(ProjectIds[index]))
-                                {
-                                    index++;
-                                }
-                                tempId.Add(ProjectIds[index]);
-                                return ProjectIds[index];
-                            }
-                    ).Invoke();
+                projects[i - 1].ProjectID = new Func<long>
+                                                           (() =>
+                                                           {
+                                                               int index = 0;
 
+                                                               while (temp.Contains(keyList[index]))
+                                                               {
+                                                                   index++;
+                                                               }
+                                                               temp.Add(keyList[index]);
+                                                               return keyList[index];
+                                                           }
+                   ).Invoke();
+
+                projects[i - 1].ProjectName = ProjectInfo[projects[i - 1].ProjectID];
                 projects[i - 1].ProjectDescription = $"Description - {projects[i - 1].ProjectID + 100}";
             }
-
             return projects;
         }
 
         /// <summary>
-        /// Generate All ids for Project
+        /// Generate All information
         /// </summary>
-        private void GenerateAllProjectId()
+        private void ReadStringValues()
         {
-            int uniqeId = GenerateInteger();
-            int index = 0;
-
-            for (int i = 0; i < ProjectNames.Count; i++)
+            if (!File.Exists(defoultDataPath))
             {
-                index += uniqeId + i;
-                ProjectIds.Add(Math.Abs(index));
+                MemberNames.Add(DataSource.MemeberName.ToString());
+                MemberSurnames.Add(DataSource.MemberSurname.ToString());
+                TeamInfo.Add(0, DataSource.TeamName.ToString());
+                ProjectInfo.Add(0, DataSource.ProjectName.ToString());
             }
+            else
+            {
+                try
+                {
+                    using (StreamReader reader = new StreamReader(File.OpenRead(defoultDataPath)))
+                    {
+                        //Get Member Name
+                        string[] values = reader.ReadLine().Split(',');
+                        Swap<string>(ref values);
+                        foreach (string item in values)
+                        {
+                            MemberNames.Add(item);
+                        }
 
+                        //Get Member Surname
+                        values = reader.ReadLine().Split(',');
+                        Swap<string>(ref values);
+                        foreach (string item in values)
+                        {
+                            MemberSurnames.Add(item);
+                        }
+                    }
+                    GenerateNameAndID(DataSource.TeamName, TeamInfo, dataCount);
+                    GenerateNameAndID(DataSource.ProjectName, ProjectInfo, projectCount);
+                }
+                catch (FileNotFoundException fnf)
+                {
+                    throw new Exception("data.dat was not found.", fnf);
+                }
+            }
         }
 
-     
+        /// <summary>
+        /// Generate Name and Id
+        /// </summary>
+        /// <param name="dataType"></param>
+        /// <param name="collection"></param>
+        /// <param name="count"></param>
+        private void GenerateNameAndID(DataSource dataType, Dictionary<long, string> collection, int count)
+        {
+            long uniqeId = GenerateInteger();
+            long index = 0;
+
+            for (int i = 0; i < count; i++)
+            {
+                index += uniqeId + i;
+                collection.Add(Math.Abs(index), dataType.ToString() + Math.Abs(index));
+            }
+        }
+
         /// <summary>
         /// Generate Random DateTime
         /// </summary>
@@ -144,81 +198,34 @@ namespace FileGenerator
             return new DateTime(year, month, randomDay);
         }
 
-
         /// <summary>
-        /// Read default data from file, or take
+        /// Swaping list 
         /// </summary>
-        private void ReadStringValues()
+        /// <param name="list"></param>
+        private List<long> Swap(List<long> list)
         {
-            if (!File.Exists(defoultDataPath))
+            List<long> tempList = list;
+            long temp = 0;
+            int index = 0;
+
+            for (int i = 0; i < tempList.Count; i++)
             {
-                MemberNames.Add(DataSource.MemeberName.ToString());
-                MemberSurnames.Add(DataSource.MemberSurname.ToString());
-                TeamNames.Add(DataSource.TeamName.ToString());
-                ProjectNames.Add(DataSource.ProjectName.ToString());
-            }
-            else
-            {
-                try
-                {
-                    using (StreamReader reader = new StreamReader(File.OpenRead(defoultDataPath)))
-                    {
-                        string[] values = reader.ReadLine().Split(',');
-                        Swap(ref values);
-
-                        foreach (string item in values)
-                        {
-                            MemberNames.Add(item);
-                        }
-
-                        values = reader.ReadLine().Split(',');
-                        Swap(ref values);
-
-                        foreach (string item in values)
-                        {
-                            MemberSurnames.Add(item);
-                        }
-
-                        //Get TeamNames
-                        GetNames(DataSource.TeamName, TeamNames, dataCount);
-
-                        //Get ProjectsName
-                        GetNames(DataSource.ProjectName, ProjectNames, projectCount);
-                        GenerateAllProjectId();
-                    }
-                }
-                catch (FileNotFoundException fnf)
-                {
-                    throw new Exception("data.dat was not found.", fnf);
-                }
-               
+                index = random.Next(0, tempList.Count);
+                temp = tempList[index];
+                tempList[index] = tempList[i];
+                tempList[i] = temp;
             }
 
-        }
-
-        /// <summary>
-        /// Get Projects and Teams Names
-        /// </summary>
-        /// <param name="dataSource"></param>
-        /// <param name="collection"></param>
-        /// <param name="count"></param>
-        private void GetNames(DataSource dataSource, StringCollection collection, int count)
-        {
-            int i = 0;
-            do
-            {
-                collection.Add(dataSource.ToString() + GenerateInteger());
-                i++;
-            } while (i < count);
+            return tempList;
         }
 
         /// <summary>
         /// Swaping string 
         /// </summary>
         /// <param name="words"></param>
-        private void Swap(ref string[] words)
+        private void Swap<T>(ref T[] words)
         {
-            string temp = "";
+            T temp = default(T);
             int index = 0;
 
             for (int i = 0; i < words.Length; i++)
@@ -230,39 +237,20 @@ namespace FileGenerator
             }
         }
 
-        /// <summary>
-        /// Swaping integer
-        /// </summary>
-        /// <param name="words"></param>
-        private void Swap(ref List<int> words)
-        {
-            int temp = 0;
-            int index = 0;
-
-            for (int i = 0; i < words.Count; i++)
-            {
-                index = random.Next(0, words.Count);
-                temp = words[index];
-                words[index] = words[i];
-                words[i] = temp;
-            }
-        }
 
         /// <summary>
         /// Generate Unique integer number
         /// </summary>
         /// <returns></returns>
-        private int GenerateInteger()
+        private long GenerateInteger()
         {
-            return Math.Abs(BitConverter.ToInt32(Guid.NewGuid().ToByteArray(), 0));
+            return Math.Abs(BitConverter.ToInt64(Guid.NewGuid().ToByteArray(), 0));
         }
 
-        /// <summary>
-        /// Dispose
-        /// </summary>
         public void Dispose()
         {
 
         }
     }
 }
+
