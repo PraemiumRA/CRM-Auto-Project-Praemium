@@ -69,10 +69,7 @@ namespace BLL
                     }
                     yield return dataModel;
                 }
-
             }
-
-
         }
 
         private List<long> GetProjctsId(XmlNode node)
@@ -125,7 +122,7 @@ namespace BLL
                 {
                     case "ProjectID":
                         {
-                            project.ProjectID = Convert.ToInt32(nod.InnerText);
+                            project.ProjectID = Convert.ToInt64(nod.InnerText);
                             break;
                         }
                     case "ProjectName":
@@ -150,9 +147,7 @@ namespace BLL
                         }
                 }
             }
-
             return project;
         }
-
     }
 }

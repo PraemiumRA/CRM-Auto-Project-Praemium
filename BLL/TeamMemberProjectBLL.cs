@@ -273,6 +273,29 @@ namespace BLL
         {
             try
             {
+                DataTable teamTable = new DataTable();
+                teamTable.Columns.Add("TeamID", typeof(Int64));
+                teamTable.Columns.Add("TeamName", typeof(string));
+
+                DataTable memberTable = new DataTable();
+                memberTable.Columns.Add("MemberID", typeof(long));
+                memberTable.Columns.Add("TeamID", typeof(long));
+                memberTable.Columns.Add("MemberName", typeof(string));
+                memberTable.Columns.Add("MemberSurname", typeof(string));
+
+                DataTable projectTable = new DataTable();
+                projectTable.Columns.Add("ProjectID", typeof(long));
+                projectTable.Columns.Add("ProjectName", typeof(string));
+                projectTable.Columns.Add("ProjectCreatedDate", typeof(DateTime));
+                projectTable.Columns.Add("ProjectDueDate", typeof(DateTime));
+                projectTable.Columns.Add("ProjectDescription", typeof(string));
+
+                DataTable memberProjectTable = new DataTable();
+                memberProjectTable.Columns.Add("MemberID", typeof(long));
+                memberProjectTable.Columns.Add("ProjectID", typeof(long));
+
+                Dictionary<string, object> parameters = new Dictionary<string, object>();
+
                 foreach (var currentDataModel in storeData.Read())
                 {
                     if (isJson)
@@ -282,44 +305,40 @@ namespace BLL
 
                     if (isDB)
                     {
-                        Dictionary<string, object> parameters = new Dictionary<string, object>();
 
-                        parameters.Add("@TeamID", currentDataModel.TeamID);
-                        parameters.Add("@TeamName", currentDataModel.TeamName);
-                        parameters.Add("@MemberID", currentDataModel.MemberID);
-                        parameters.Add("@MemberName", currentDataModel.MemberName);
-                        parameters.Add("@MemberSurname", currentDataModel.MemberSurname);
+                        teamTable.Rows.Add(currentDataModel.TeamID, currentDataModel.TeamName);
+                        memberTable.Rows.Add(currentDataModel.MemberID, currentDataModel.TeamID, currentDataModel.MemberName, currentDataModel.MemberSurname);
 
                         for (int i = 0; i < currentDataModel.Projects.Length; i++)
                         {
-                            parameters.Add("@ProjectID", currentDataModel.Projects[i].ProjectID);
-                            parameters.Add("@ProjectName", currentDataModel.Projects[i].ProjectName);
-                            parameters.Add("@ProjectCreatedDate", currentDataModel.Projects[i].ProjectCreatedDate);
-                            parameters.Add("@ProjectDueDate", currentDataModel.Projects[i].ProjectDueDate);
-                            parameters.Add("@ProjectDescription", currentDataModel.Projects[i].ProjectDescription);
-
-                            database.ExecuteInsertUpdateDelete("spDynamicInsertOrUpdate", parameters);
-                            parameters.Remove("@ProjectID");
-                            parameters.Remove("@ProjectName");
-                            parameters.Remove("@ProjectCreatedDate");
-                            parameters.Remove("@ProjectDueDate");
-                            parameters.Remove("@ProjectDescription");
+                            DataRow[] foundProjects = projectTable.Select("ProjectID = '" + currentDataModel.Projects[i].ProjectID.ToString() + "'");
+                            if (foundProjects.Length == 0)
+                            {
+                                projectTable.Rows.Add(currentDataModel.Projects[i].ProjectID, currentDataModel.Projects[i].ProjectName, currentDataModel.Projects[i].ProjectCreatedDate,
+                                                      currentDataModel.Projects[i].ProjectDueDate, currentDataModel.Projects[i].ProjectDescription);
+                            }
+                            memberProjectTable.Rows.Add(currentDataModel.MemberID, currentDataModel.Projects[i].ProjectID);
                         }
                     }
                 }
 
-                Logger.DoLogging(LogType.Success, null, "Data succesfuly stored in Data Base.");
+                parameters.Add("@teamData", teamTable);
+                parameters.Add("@memberData", memberTable);
+                parameters.Add("@projectData", projectTable);
+                parameters.Add("@memberProjectData", memberProjectTable);
+
+                database.ExecuteInsertUpdateDelete("spDynamicInsertOrUpdate", parameters);
+
+                Logger.DoLogging(LogType.Success, null, $"Data succesfuly stored in Data Base. ");
                 File.Delete(path);
-                                
+
             }
             catch (Exception ex)
             {
                 Logger.DoLogging(LogType.Error, ex, "Error in process to storing data.");
                 MessageBox.Show(ex.Message);
-                //TODO: Loging
+                //TODO: Loginggg
             }
-
         }
-
     }
 }
