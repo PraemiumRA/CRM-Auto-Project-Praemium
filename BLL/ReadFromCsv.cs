@@ -38,9 +38,9 @@ namespace BLL
 
                         project = new Project[listOfDivied.Count - 5];
 
-                        dataModel.TeamID = int.Parse(listOfDivied[0]);
+                        dataModel.TeamID = long.Parse(listOfDivied[0]);
                         dataModel.TeamName = listOfDivied[1];
-                        dataModel.MemberID = int.Parse(listOfDivied[2]);
+                        dataModel.MemberID = long.Parse(listOfDivied[2]);
                         dataModel.MemberName = listOfDivied[3];
                         dataModel.MemberSurname = listOfDivied[4];
 
@@ -56,7 +56,7 @@ namespace BLL
                             string[] projectsMemeber = listOfDivied[0].Split(',');
                             project[index] = new Project()
                             {
-                                ProjectID = int.Parse(projectsMemeber[0]),
+                                ProjectID = long.Parse(projectsMemeber[0]),
                                 ProjectName = projectsMemeber[1],
                                 ProjectCreatedDate = DateTime.Parse((projectsMemeber[2])),
                                 ProjectDueDate = DateTime.Parse((projectsMemeber[3])),

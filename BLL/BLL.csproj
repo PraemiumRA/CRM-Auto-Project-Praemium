@@ -30,10 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DataModelLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\DataModelLibrary.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -59,6 +55,10 @@
     <ProjectReference Include="..\DAL\DAL.csproj">
       <Project>{9930b09a-8b0c-4154-a82d-f9cabda4b83d}</Project>
       <Name>DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataModelLibrary\DataModelLibrary.csproj">
+      <Project>{7d4799d7-3993-4fc6-a4c6-e312ecd3c404}</Project>
+      <Name>DataModelLibrary</Name>
     </ProjectReference>
     <ProjectReference Include="..\Logging\Logging.csproj">
       <Project>{b9d915bf-948c-4741-8c73-d6d1bf58e7d6}</Project>

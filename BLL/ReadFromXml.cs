@@ -37,7 +37,7 @@ namespace BLL
                         {
                             case "TeamID":
                                 {
-                                    dataModel.TeamID = int.Parse(nodeMemeber.InnerText);
+                                    dataModel.TeamID = long.Parse(nodeMemeber.InnerText);
                                     break;
                                 }
                             case "TeamName":
@@ -47,7 +47,7 @@ namespace BLL
                                 }
                             case "MemberID":
                                 {
-                                    dataModel.MemberID = int.Parse(nodeMemeber.InnerText);
+                                    dataModel.MemberID = long.Parse(nodeMemeber.InnerText);
                                     break;
                                 }
                             case "MemberName":
@@ -75,16 +75,16 @@ namespace BLL
 
         }
 
-        private List<int> GetProjctsId(XmlNode node)
+        private List<long> GetProjctsId(XmlNode node)
         {
-            List<int> id = new List<int>();
+            List<long> id = new List<long>();
 
             foreach (XmlNode nod in node.ChildNodes)
             {
                 if (nod.Name.Equals("Project"))
                 {
-                    int result = 0;
-                    int.TryParse(nod.Attributes["ProjectID"].InnerText, out result);
+                    long result = 0;
+                    long.TryParse(nod.Attributes["ProjectID"].InnerText, out result);
 
                     id.Add(result);
                 }
@@ -93,7 +93,7 @@ namespace BLL
             return id;
         }
 
-        private Project[] GetProjects(XmlNode root, List<int> array)
+        private Project[] GetProjects(XmlNode root, List<long> array)
         {
             Project[] projects = new Project[root.LastChild.ChildNodes.Count];
             XmlNode projectsNode = root.LastChild;
