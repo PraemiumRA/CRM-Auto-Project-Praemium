@@ -8,9 +8,17 @@ namespace Logging
 {
     public class Logger
     {
+        #region Colors
+        static Color errorColor = Color.FromArgb(232, 76, 78);
+        static Color warninfColor = Color.FromArgb(243, 238, 119);
+        static Color wrongDataColor = Color.FromArgb(230, 134, 117);
+        static Color appearanceColor = Color.FromArgb(103, 220, 103);
+
+        #endregion
         public static DataGridView LogSource = null;
         public static Form form = null;
         public static object block = new object();
+
 
         public static void DoLogging(LogType logType, Exception ex = null, string message = null)
         {
@@ -65,20 +73,38 @@ namespace Logging
             lock (block)
             {
                 int index = LogSource.Rows.Add();
-                if (logType == LogType.Error)
-                {
-                    LogSource.Rows[index].DefaultCellStyle.BackColor = Color.FromArgb(255, 104, 114);
-                }
 
-                if(logType == LogType.Appearance)
+                Color color = Color.White;
+                switch (logType)
                 {
-                    LogSource.Rows[index].DefaultCellStyle.BackColor = Color.FromArgb(135, 255, 165);
+                    case LogType.Error:
+                        {
+                            color = errorColor;
+                            break;
+                        }
+                    case LogType.Warning:
+                        {
+                            color = warninfColor;
+                            break;
+                        }
+                    case LogType.Appearance:
+                        {
+                            color = appearanceColor;
+                            break;
+                        }
+                    case LogType.WrongData:
+                        {
+                            color = wrongDataColor;
+                            break;
+                        }
+                    case LogType.Delete:
+                        break;
+                    case LogType.Success:
+                        break;
+                    default:
+                        break;
                 }
-
-                if(logType == LogType.Warning)
-                {
-                    LogSource.Rows[index].DefaultCellStyle.BackColor = Color.FromArgb(237, 212, 52);
-                }
+                LogSource.Rows[index].DefaultCellStyle.BackColor = color;
 
                 LogSource.Rows[index].Cells[0].ValueType = typeof(LogType);
                 LogSource.Rows[index].Cells[0].Value = logType.ToString();

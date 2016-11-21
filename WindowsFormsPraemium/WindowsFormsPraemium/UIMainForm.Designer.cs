@@ -130,46 +130,50 @@
             this.LogType.Frozen = true;
             this.LogType.HeaderText = "State";
             this.LogType.MaxInputLength = 20;
-            this.LogType.MinimumWidth = 60;
+            this.LogType.MinimumWidth = 70;
             this.LogType.Name = "LogType";
             this.LogType.ReadOnly = true;
-            this.LogType.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.LogType.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.LogType.ToolTipText = "Current state of action.";
-            this.LogType.Width = 60;
+            this.LogType.Width = 70;
             // 
             // LogDataTime
             // 
             this.LogDataTime.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.LogDataTime.Frozen = true;
             this.LogDataTime.HeaderText = "Date Time";
-            this.LogDataTime.MinimumWidth = 80;
+            this.LogDataTime.MinimumWidth = 90;
             this.LogDataTime.Name = "LogDataTime";
             this.LogDataTime.ReadOnly = true;
-            this.LogDataTime.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.LogDataTime.Width = 80;
+            this.LogDataTime.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.LogDataTime.Width = 90;
             // 
             // LogExceptionCode
             // 
             this.LogExceptionCode.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.LogExceptionCode.Frozen = true;
             this.LogExceptionCode.HeaderText = "Description";
-            this.LogExceptionCode.MinimumWidth = 80;
+            this.LogExceptionCode.MinimumWidth = 100;
             this.LogExceptionCode.Name = "LogExceptionCode";
-            this.LogExceptionCode.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.LogExceptionCode.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // LogMessage
             // 
-            this.LogMessage.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.LogMessage.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.LogMessage.Frozen = true;
             this.LogMessage.HeaderText = "Message";
             this.LogMessage.MinimumWidth = 150;
             this.LogMessage.Name = "LogMessage";
             this.LogMessage.ReadOnly = true;
-            this.LogMessage.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.LogMessage.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.LogMessage.Width = 150;
             // 
             // UIMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ClientSize = new System.Drawing.Size(634, 264);
+            this.ClientSize = new System.Drawing.Size(634, 263);
             this.Controls.Add(this.DataGridViewLogging);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.buttonSelect);
