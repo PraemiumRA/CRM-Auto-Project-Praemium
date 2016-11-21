@@ -28,7 +28,6 @@ namespace Logging
                 isTxt = false;
             }
 
-
             if (isTxt)
             {
                 log = new TxtFileLogger();
@@ -71,7 +70,7 @@ namespace Logging
                     LogSource.Rows[index].DefaultCellStyle.BackColor = Color.FromArgb(255, 104, 114);
                 }
 
-                if(logType == LogType.Creation)
+                if(logType == LogType.Appearance)
                 {
                     LogSource.Rows[index].DefaultCellStyle.BackColor = Color.FromArgb(135, 255, 165);
                 }

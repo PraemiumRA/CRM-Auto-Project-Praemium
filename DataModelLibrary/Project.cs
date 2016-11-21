@@ -18,7 +18,6 @@ namespace DataModelLibrary
             {
                 return projectID;
             }
-
             set
             {
                 if (value <= 0)
@@ -35,7 +34,6 @@ namespace DataModelLibrary
             {
                 return projectName;
             }
-
             set
             {
                 if (value != null)
@@ -56,7 +54,6 @@ namespace DataModelLibrary
             {
                 return projectCreatedDate;
             }
-
             set
             {
                 DateTime dateTime;
@@ -113,6 +110,5 @@ namespace DataModelLibrary
             this.ProjectDueDate = projectdueDate;
             this.ProjectDescription = ProjectDescription;
         }
-
     }
 }

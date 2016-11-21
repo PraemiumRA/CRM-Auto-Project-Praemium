@@ -14,6 +14,7 @@ namespace BLL
         string defaultPath;
         string jsonPath;
         static object locker = new object();
+        public bool isWrittenJson = false;
 
         public JsonMaker(DataModel dataModel, string filePath, string jsonPath)
         {
@@ -26,23 +27,15 @@ namespace BLL
 
         public void JsonFromatMaker()
         {
-            try
+            if (dataModel == null)
             {
-                if (dataModel == null)
-                {
-                    throw new NullReferenceException();
-                }
+                return;
             }
-            catch (NullReferenceException ex)
-            {
-                //TODO:Logging
-            }
-
             StringBuilder builder = new StringBuilder();
             builder.AppendLine("{");
 
             WriteTeamAndMemberData(builder);
-            
+
             if (dataModel.Projects.Length > 0)
             {
                 builder.Insert(builder.Length - 1, ",");
@@ -65,10 +58,8 @@ namespace BLL
             }
 
             builder.AppendLine("}");
-            
-            JsonFileWriter(builder);
 
-           // TODO: Logging "Data was successfully written in {filePath}"
+            JsonFileWriter(builder);
         }
 
         private StringBuilder WriteTeamAndMemberData(StringBuilder builder)
@@ -98,7 +89,7 @@ namespace BLL
             defaultPath = jsonPath;
             if (!Directory.Exists(defaultPath))
                 Directory.CreateDirectory(defaultPath);
-                  
+
 
             filePath = Path.ChangeExtension(Path.GetFileName(filePath), "Json");
             lock (locker)
@@ -109,15 +100,12 @@ namespace BLL
                     {
                         write.WriteLine(builder);
                         write.Write(write.NewLine);
-
-                        //TODO: logingi texy poxel
-                        Logger.DoLogging(LogType.Success, null, "Data succesfuly stored in json format.");
                     }
-
                 }
                 catch (Exception exception)
                 {
-                    Logger.DoLogging(LogType.Error, exception, "Error in process to storing json format.");
+                    Logger.DoLogging(LogType.Error, exception, "Error in process to storing in json format.");
+                    isWrittenJson = true;
                 }
             }
         }

@@ -18,26 +18,22 @@ namespace BLL
         {
             get { return this.directory; }
             set { this.directory = value; }
-            
         }
         public DirectoryInfo JsonDirectory
         {
             get { return this.jsonDirectory; }
             set { this.jsonDirectory = value; }
-           
         }
           
         public FolderWatcher()
         {
-            this.Directory = new DirectoryInfo(appConfiguration.GetToMnitorDirectory); //new DirectoryInfo(path);
-            this.JsonDirectory = new DirectoryInfo(appConfiguration.JsonCreationDirectory); //new DirectoryInfo(jsonPath);
+            this.Directory = new DirectoryInfo(appConfiguration.GetToMnitorDirectory);
+            this.JsonDirectory = new DirectoryInfo(appConfiguration.JsonCreationDirectory);
             this.storeData = new StoreData(JsonDirectory);
-                       
         }
         
         public void Run()
         {
-            //MessageBox.Show(this.Directory.FullName);
             watcher = new FileSystemWatcher()
             {
                 Path = this.Directory.FullName,
@@ -49,24 +45,30 @@ namespace BLL
 
             watcher.EnableRaisingEvents = true;
         }
-
         
-        //Hundel for Delete
+       /// <summary>
+       /// Hundle for Delete
+       /// </summary>
+       /// <param name="sender"></param>
+       /// <param name="e"></param>
         private void Watcher_Deleted(object sender, FileSystemEventArgs e)
         {
             Logger.DoLogging(LogType.Delete, null, "File was deleted from monitoring directory.");
         }
 
-        //Hundel for Create
+       /// <summary>
+       /// Hundle for Create
+       /// </summary>
+       /// <param name="sender"></param>
+       /// <param name="e"></param>
         private void Watcher_Created(object sender, FileSystemEventArgs e)
         {
             string extension = Path.GetExtension(e.FullPath);
             if (extension.Equals(".xml") || extension.Equals(".csv"))
             {
-                Logger.DoLogging(LogType.Creation, null, $"{e.Name} was created.");
+                Logger.DoLogging(LogType.Appearance, null, $"{e.Name} was appeared.");
                 storeData.collection.Add(e.FullPath);
             }
-        }
-               
+        }    
     }
 }

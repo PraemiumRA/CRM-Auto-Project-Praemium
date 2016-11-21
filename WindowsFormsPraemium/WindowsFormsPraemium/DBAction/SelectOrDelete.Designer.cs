@@ -48,6 +48,7 @@
             this.dataGridViewValue.Location = new System.Drawing.Point(5, 153);
             this.dataGridViewValue.Name = "dataGridViewValue";
             this.dataGridViewValue.ReadOnly = true;
+            this.dataGridViewValue.RowHeadersVisible = false;
             this.dataGridViewValue.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewValue.Size = new System.Drawing.Size(752, 250);
             this.dataGridViewValue.TabIndex = 37;
@@ -129,7 +130,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(758, 415);
+            this.ClientSize = new System.Drawing.Size(758, 416);
             this.Controls.Add(this.button_Delete);
             this.Controls.Add(this.dataGridViewValue);
             this.Controls.Add(this.comboBoxValue);

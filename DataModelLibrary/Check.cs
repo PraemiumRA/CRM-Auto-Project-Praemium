@@ -6,7 +6,6 @@ namespace DataModelLibrary
 {
     public static class Check
     {
-
         public static string TestInputStringValue(string value, bool isSpecialName = false)
         {
             string pattern = String.Empty;
@@ -37,6 +36,5 @@ namespace DataModelLibrary
 
             return tempCount;
         }
-
     }
 }

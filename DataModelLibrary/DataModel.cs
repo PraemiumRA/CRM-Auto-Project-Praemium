@@ -24,14 +24,12 @@ namespace DataModelLibrary
             {
                 return teamID;
             }
-
             set
             {
                 if (value <= 0)
                     throw new Exception("TeamID is not correct.");
                 else
                     teamID = value;
-
             }
         }
 
@@ -56,7 +54,6 @@ namespace DataModelLibrary
             {
                 return memberID;
             }
-
             set
             {
                 if (value <= 0)
@@ -116,7 +113,5 @@ namespace DataModelLibrary
             this.MemberName = memberName;
             this.MemberSurname = membersurName;
         }
-
-
     }
 }

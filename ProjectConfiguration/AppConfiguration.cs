@@ -19,7 +19,6 @@ namespace ProjectConfiguration
             {
                 return instance ?? new AppConfiguration();
             }
-            
         }
 
         public int GetPrecntOfMachineCore
@@ -210,6 +209,5 @@ namespace ProjectConfiguration
                 Directory.CreateDirectory(temp);
             return temp;
         }
-
     }
 }

@@ -86,7 +86,7 @@
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.DataGridViewLogging.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.DataGridViewLogging.ColumnHeadersHeight = 18;
+            this.DataGridViewLogging.ColumnHeadersHeight = 21;
             this.DataGridViewLogging.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.DataGridViewLogging.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.LogType,
@@ -169,7 +169,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ClientSize = new System.Drawing.Size(634, 263);
+            this.ClientSize = new System.Drawing.Size(634, 264);
             this.Controls.Add(this.DataGridViewLogging);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.buttonSelect);

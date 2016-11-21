@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProjectConfiguration;
+using System.Windows.Forms;
 
 
 namespace Logging
@@ -19,7 +20,6 @@ namespace Logging
 
         public TxtFileLogger()
         {
-            
             builder = new StringBuilder();
         }
 
@@ -31,32 +31,39 @@ namespace Logging
             builder.Append(path).Append("\\").Append(DateTime.Now.Day + "-").Append(DateTime.Now.Month + "-").Append(DateTime.Now.Year).Append(".txt"); ;
             lock (locker)
             {
-                using (StreamWriter fileStream = new StreamWriter(builder.ToString(), true))
+                try
                 {
-                    builder.Clear();
-
-                    builder.AppendLine("Time: " + DateTime.Now);
-                    builder.AppendLine("Operation Name: " + logType);
-
-                    if (message != null)
+                    using (StreamWriter fileStream = new StreamWriter(builder.ToString(), true))
                     {
-                        builder.AppendLine("Message: " + message);
-                    }
-                    if (ex != null)
-                    {
-                        builder.AppendLine("Namespace: " + ex.Source);
-                        builder.AppendLine("Class Name: " + ex.TargetSite.ReflectedType.Name);
-                        builder.AppendLine("Line: " + ex.StackTrace.Substring(ex.StackTrace.LastIndexOf(":line") + 5));
-                        builder.AppendLine("Discription: " + ex.Message);
+                        builder.Clear();
 
-                        if (ex.InnerException != null)
+                        builder.AppendLine("Time: " + DateTime.Now);
+                        builder.AppendLine("Operation Name: " + logType);
+
+                        if (message != null)
                         {
-                            builder.AppendLine("Inner Exception: " + ex.InnerException);
+                            builder.AppendLine("Message: " + message);
                         }
-                    }
+                        if (ex != null)
+                        {
+                            builder.AppendLine("Namespace: " + ex.Source);
+                            builder.AppendLine("Class Name: " + ex.TargetSite.ReflectedType.Name);
+                            builder.AppendLine("Line: " + ex.StackTrace.Substring(ex.StackTrace.LastIndexOf(":line") + 5));
+                            builder.AppendLine("Discription: " + ex.Message);
 
-                    builder.AppendLine(new string('_', 50));
-                    fileStream.WriteLine(builder.ToString());
+                            if (ex.InnerException != null)
+                            {
+                                builder.AppendLine("Inner Exception: " + ex.InnerException);
+                            }
+                        }
+
+                        builder.AppendLine(new string('_', 50));
+                        fileStream.WriteLine(builder.ToString());
+                    }
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Can't write logging in text file.");
                 }
             }
         }

@@ -37,7 +37,8 @@ namespace UIForm
         {
             builder.Value.Clear();
             DataGridViewRow row = this.DataGridViewLogging.CurrentRow;
-
+            if (DataGridViewLogging.Rows.Count == 0)
+                return;
             builder.Value.Append("State: " + row.Cells[0].Value + Environment.NewLine);
             builder.Value.Append("Time: " + row.Cells[1].Value + Environment.NewLine);
             builder.Value.Append("Code: " + row.Cells[2].Value + Environment.NewLine);
@@ -58,6 +59,5 @@ namespace UIForm
         {
             this.Visible = true;
         }
-
     }
 }

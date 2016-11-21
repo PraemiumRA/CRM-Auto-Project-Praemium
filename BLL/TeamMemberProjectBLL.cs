@@ -31,6 +31,7 @@ namespace BLL
         long idValue;
         bool isJson = false;
         bool isDB = false;
+        bool isWrittenDB = false;
 
         public TeamMemberProjectBLL()
         {
@@ -69,7 +70,14 @@ namespace BLL
                     database.ExecuteInsertUpdateDelete("spDynamicDelete", parameters);
                 }
 
-                IdValueCheaker();
+                try
+                {
+                    IdValueCheaker();
+                }
+                catch
+                {
+                    return;
+                }
 
                 switch (comboBoxValue)
                 {
@@ -150,7 +158,14 @@ namespace BLL
         {
             try
             {
-                IdValueCheaker();
+                try
+                {
+                    IdValueCheaker();
+                }
+                catch
+                {
+                    return;
+                }
                 Dictionary<string, object> parameters = new Dictionary<string, object>();
                 switch (comboBoxValue)
                 {
@@ -160,7 +175,6 @@ namespace BLL
                             dataTableValue = database.ExecuteSelect("spDynamicSelection", parameters);
                             break;
                         }
-                    
                     case "MemberName":
                         {
                             parameters.Add("@MemberName", textBoxValue);
@@ -230,20 +244,26 @@ namespace BLL
                 {
                     if (idValue <= 0)
                     {
+                        MessageBox.Show("Argument must be bigger than '0'");
+                        Logger.DoLogging(LogType.Warning, null, "Argument must be bigger than '0'");
                         throw new ArgumentOutOfRangeException("Argument must be bigger than '0' ");
                     }
                 }
                 else
+                {
+                    MessageBox.Show("Argument must be a number");
+                    Logger.DoLogging(LogType.Warning, null, "Argument must be a number");
                     throw new FormatException("Argument must be a number");
+                }
             }
             else if (comboBoxValue == "ProjectCreatedDate" || comboBoxValue == "ProjectDueDate")
             {
-                if (DateTime.TryParse(textBoxValue.ToString(), out dateTimeValue))
+                if (!DateTime.TryParse(textBoxValue.ToString(), out dateTimeValue))
                 {
-
-                }
-                else
+                    MessageBox.Show("Argument must be Date format");
+                    Logger.DoLogging(LogType.Warning, null, "Argument must be Date format");
                     throw new FormatException("Argument must be Date format");
+                }
             }
         }
         public void StoreDataFromFile()
@@ -251,7 +271,7 @@ namespace BLL
             try
             {
                 DataTable teamTable = new DataTable();
-                teamTable.Columns.Add("TeamID", typeof(Int64));
+                teamTable.Columns.Add("TeamID", typeof(long));
                 teamTable.Columns.Add("TeamName", typeof(string));
 
                 DataTable memberTable = new DataTable();
@@ -305,16 +325,32 @@ namespace BLL
                 parameters.Add("@memberProjectData", memberProjectTable);
 
                 database.ExecuteInsertUpdateDelete("spDynamicInsertOrUpdate", parameters);
-
-                Logger.DoLogging(LogType.Success, null, $"Data succesfuly stored in Data Base. ");
-                File.Delete(path);
-
             }
             catch (Exception ex)
             {
-                Logger.DoLogging(LogType.Error, ex, "Error in process to storing data.");
+                Logger.DoLogging(LogType.Error, ex, "Error in process to storing/updating data.");
                 MessageBox.Show(ex.Message);
-                //TODO: Loginggg
+                isWrittenDB = true;
+            }
+
+            if (isJson && !jsonMaker.isWrittenJson)
+            {
+                Logger.DoLogging(LogType.Success, null, "Data succesfuly stored in json format.");
+                jsonMaker.isWrittenJson = true;
+            }
+
+            if (isDB && !isWrittenDB)
+            {
+                Logger.DoLogging(LogType.Success, null, "Data succesfuly stored in Data Base. ");
+                isWrittenDB = true;
+            }
+            try
+            {
+                File.Delete(path);
+            }
+            catch (Exception ex)
+            {
+                Logger.DoLogging(LogType.Error, ex);
             }
         }
     }

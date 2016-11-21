@@ -73,7 +73,6 @@ namespace BLL
             TeamMemberProjectBLL store = new TeamMemberProjectBLL(storeData);
 
             collection.Remove(path);
-            //TODO: Logging fail sucessfuly stored.            
         }
 
         List<long> fileList;

@@ -19,7 +19,16 @@ namespace DAL
         {
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             {
-                sqlConnection.Open();
+                try
+                {
+                    sqlConnection.Open();
+                }
+                catch (SqlException ex)
+                {
+                    Logger.DoLogging(LogType.Error, ex, "Error in Database connection.");
+                    return -1;
+                }
+                
                 SqlTransaction transaction = sqlConnection.BeginTransaction();
                 try
                 {
@@ -39,7 +48,7 @@ namespace DAL
                 catch(System.Exception exception)
                 {
                     transaction.Rollback();
-                    Logger.DoLogging(LogType.Error, exception, "Error in process to storing data.");
+                    Logger.DoLogging(LogType.Error, exception, "Error in Database processing.");
                 }
                 return affectedRowsCount;
             }
