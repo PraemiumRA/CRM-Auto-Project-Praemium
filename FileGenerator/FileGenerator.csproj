@@ -72,17 +72,17 @@
     <Compile Include="FileInformation.cs" />
     <Compile Include="FileNameGiver.cs" />
     <Compile Include="FileSyntax.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="FileGeneratorForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="FileGeneratorForm.Designer.cs">
+      <DependentUpon>FileGeneratorForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ChooseFileType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="FileGeneratorForm.resx">
+      <DependentUpon>FileGeneratorForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
