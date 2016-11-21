@@ -34,11 +34,12 @@ namespace UIForm.DBAction
 
         private void comboBoxValue_SelectedIndexChanged(object sender, EventArgs e)
         {
+            dataGridViewValue.DataSource = null;
             if (comboBoxValue.SelectedIndex == 0 || comboBoxValue.SelectedIndex == 2 || comboBoxValue.SelectedIndex == 5)
                 buttonSelect.Enabled = false;
             else buttonSelect.Enabled = true;
 
-            if (comboBoxValue.SelectedIndex == 9 || comboBoxValue.SelectedIndex == 10 || comboBoxValue.SelectedIndex == 11 || comboBoxValue.SelectedIndex == 12)
+            if (comboBoxValue.SelectedIndex == 9 || comboBoxValue.SelectedIndex == 10 || comboBoxValue.SelectedIndex == 11)
                 value_textbox.Enabled = false;
             else value_textbox.Enabled = true;
         }
@@ -50,13 +51,13 @@ namespace UIForm.DBAction
 
         private void dataGridViewValue_MouseClick(object sender, MouseEventArgs e)
         {
-            if (dataGridViewValue.RowCount > 0)
+            if (dataGridViewValue.RowCount > 0 && (comboBoxValue.SelectedIndex==9 || comboBoxValue.SelectedIndex==10 || comboBoxValue.SelectedIndex==11))
                 selectedRow = dataGridViewValue.SelectedRows[0].Cells[0].Value.ToString();
         }
 
         private async void button_Delete_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(value_textbox.Text.ToString()) && selectedRow == null && value_textbox.Enabled == true)
+            if (string.IsNullOrEmpty(value_textbox.Text.ToString()) && value_textbox.Enabled == true && !((comboBoxValue.SelectedIndex == 9 || comboBoxValue.SelectedIndex == 10 || comboBoxValue.SelectedIndex == 11)))
             {
                 MessageBox.Show("Please fill the value area.");
             }
@@ -70,33 +71,36 @@ namespace UIForm.DBAction
 
         private void ColumnNameGiver(DataTable table)
         {
-            if (table.Columns.Contains("MemberName"))
+            if (table != null)
             {
-                table.Columns["MemberName"].ColumnName = "Member Name";
-            }
-            if (table.Columns.Contains("MemberSurname"))
-            {
-                table.Columns["MemberSurname"].ColumnName = "Suername";
-            }
-            if (table.Columns.Contains("TeamName"))
-            {
-                table.Columns["TeamName"].ColumnName = "Team Name";
-            }
-            if (table.Columns.Contains("ProjectName"))
-            {
-                table.Columns["ProjectName"].ColumnName = "Project Name";
-            }
-            if (table.Columns.Contains("ProjectCreatedDate"))
-            {
-                table.Columns["ProjectCreatedDate"].ColumnName = "Created Date";
-            }
-            if (table.Columns.Contains("ProjectDueDate"))
-            {
-                table.Columns["ProjectDueDate"].ColumnName = "Due Date";
-            }
-            if (table.Columns.Contains("ProjectDescription"))
-            {
-                table.Columns["ProjectDescription"].ColumnName = "Description";
+                if (table.Columns.Contains("MemberName"))
+                {
+                    table.Columns["MemberName"].ColumnName = "Member Name";
+                }
+                if (table.Columns.Contains("MemberSurname"))
+                {
+                    table.Columns["MemberSurname"].ColumnName = "Suername";
+                }
+                if (table.Columns.Contains("TeamName"))
+                {
+                    table.Columns["TeamName"].ColumnName = "Team Name";
+                }
+                if (table.Columns.Contains("ProjectName"))
+                {
+                    table.Columns["ProjectName"].ColumnName = "Project Name";
+                }
+                if (table.Columns.Contains("ProjectCreatedDate"))
+                {
+                    table.Columns["ProjectCreatedDate"].ColumnName = "Created Date";
+                }
+                if (table.Columns.Contains("ProjectDueDate"))
+                {
+                    table.Columns["ProjectDueDate"].ColumnName = "Due Date";
+                }
+                if (table.Columns.Contains("ProjectDescription"))
+                {
+                    table.Columns["ProjectDescription"].ColumnName = "Description";
+                }
             }
         }
     }

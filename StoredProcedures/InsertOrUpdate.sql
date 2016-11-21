@@ -1,3 +1,29 @@
+CREATE TYPE TeamType AS TABLE(
+	TeamID bigint null, 
+	TeamName nvarchar(50) null	
+)
+GO
+CREATE TYPE MemberType AS TABLE(	
+	MemberID bigint null,
+	TeamID bigint null,
+	MemberName nvarchar(50) null,
+	MemberSurname nvarchar(50) null
+)
+GO
+CREATE TYPE ProjectType AS TABLE(
+	ProjectID bigint null,
+	ProjectName nvarchar(50) null,
+	ProjectCreatedDate date null,
+	ProjectDueDate date null,
+	ProjectDescription nvarchar(max) null
+)
+GO
+CREATE TYPE MemberProjectType AS TABLE(
+	MemberID bigint null,	
+	ProjectID bigint null	
+)
+GO
+
 CREATE PROCEDURE spDynamicInsertOrUpdate
 	@teamData TeamType READONLY,
 	@memberData MemberType READONLY,

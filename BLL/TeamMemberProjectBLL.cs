@@ -28,7 +28,7 @@ namespace BLL
         string jsonPath;
         DateTime dateTimeValue;
         string selectedValue;
-        int idValue;
+        long idValue;
         bool isJson = false;
         bool isDB = false;
 
@@ -75,7 +75,7 @@ namespace BLL
                 {
                     case "TeamID":
                         {
-                            parameters.Add("@TeamID", Convert.ToInt32(textBoxValue));
+                            parameters.Add("@TeamID", Convert.ToInt64(textBoxValue));
                             database.ExecuteInsertUpdateDelete("spDynamicDelete", parameters);
                             break;
                         }
@@ -87,7 +87,7 @@ namespace BLL
                         }
                     case "MemberID":
                         {
-                            parameters.Add("@MemberID", Convert.ToInt32(textBoxValue));
+                            parameters.Add("@MemberID", Convert.ToInt64(textBoxValue));
                             database.ExecuteInsertUpdateDelete("spDynamicDelete", parameters);
                             break;
                         }
@@ -105,7 +105,7 @@ namespace BLL
                         }
                     case "ProjectID":
                         {
-                            parameters.Add("@ProjectID", Convert.ToInt32(textBoxValue));
+                            parameters.Add("@ProjectID", Convert.ToInt64(textBoxValue));
                             database.ExecuteInsertUpdateDelete("spDynamicDelete", parameters);
                             break;
                         }
@@ -154,24 +154,13 @@ namespace BLL
                 Dictionary<string, object> parameters = new Dictionary<string, object>();
                 switch (comboBoxValue)
                 {
-                    case "TeamID":
-                        {
-                            parameters.Add("@TeamID", Convert.ToInt32(textBoxValue));
-                            dataTableValue = database.ExecuteSelect("spDynamicSelection", parameters);
-                            break;
-                        }
                     case "TeamName":
                         {
                             parameters.Add("@TeamName", textBoxValue);
                             dataTableValue = database.ExecuteSelect("spDynamicSelection", parameters);
                             break;
                         }
-                    case "MemberID":
-                        {
-                            parameters.Add("@MemberID", Convert.ToInt32(textBoxValue));
-                            dataTableValue = database.ExecuteSelect("spDynamicSelection", parameters);
-                            break;
-                        }
+                    
                     case "MemberName":
                         {
                             parameters.Add("@MemberName", textBoxValue);
@@ -181,12 +170,6 @@ namespace BLL
                     case "MemberSurname":
                         {
                             parameters.Add("@MemberSurname", textBoxValue);
-                            dataTableValue = database.ExecuteSelect("spDynamicSelection", parameters);
-                            break;
-                        }
-                    case "ProjectID":
-                        {
-                            parameters.Add("@ProjectID", Convert.ToInt32(textBoxValue));
                             dataTableValue = database.ExecuteSelect("spDynamicSelection", parameters);
                             break;
                         }
@@ -226,12 +209,6 @@ namespace BLL
                             dataTableValue = database.ExecuteSelect("spDynamicSelection", parameters);
                             break;
                         }
-                    case "All":
-                        {
-                            parameters.Add("@All", 4);
-                            dataTableValue = database.ExecuteSelect("spDynamicSelection", parameters);
-                            break;
-                        }
                     default:
                         {
                             MessageBox.Show("Can't find the column");
@@ -249,7 +226,7 @@ namespace BLL
         {
             if ((comboBoxValue == "TeamID" || comboBoxValue == "MemberID" || comboBoxValue == "ProjectID" || comboBoxValue == "MemberProjectID"))
             {
-                if (int.TryParse(textBoxValue.ToString(), out idValue))
+                if (long.TryParse(textBoxValue.ToString(), out idValue))
                 {
                     if (idValue <= 0)
                     {
@@ -266,7 +243,7 @@ namespace BLL
 
                 }
                 else
-                    throw new FormatException("Argument must be like 'dd/mm/yyyy'");
+                    throw new FormatException("Argument must be Date format");
             }
         }
         public void StoreDataFromFile()

@@ -1,10 +1,8 @@
 CREATE PROCEDURE spDynamicSelection
-@MemberID int = null,
+
 @MemberName varchar(50) = null,
 @MemberSurname nvarchar(50) = null,
-@TeamID int = null, 
 @TeamName nvarchar(50) = null,
-@ProjectID int = null,
 @ProjectName varchar(50) = null,
 @ProjectCreatedDate date   = null,
 @ProjectDueDate date = null,
@@ -20,8 +18,6 @@ AS
 	   select TeamName from Team 
 	  else if(@All=3)
 	   select ProjectName,ProjectCreatedDate,ProjectDueDate,ProjectDescription from Project
-	  else if(@All=4)
-	   select Member.MemberName,Member.MemberSurname,Team.TeamName,Project.ProjectName,Project.ProjectCreatedDate,Project.ProjectDueDate,Project.ProjectDescription from Member,Project,Team
 	  else 
 
 	  SELECT Member.MemberName,Member.MemberSurname,Team.TeamName,Project.ProjectName,Project.ProjectCreatedDate,Project.ProjectDueDate,Project.ProjectDescription
@@ -36,12 +32,9 @@ AS
 	 ON Team.TeamID = Member.T_ID
 				
 	 WHERE 
-	 Member.MemberID=@MemberID or
 	 Member.MemberName=@MemberName or
      Member.MemberSurname=@MemberSurname or
-	 Team.ID=@TeamID or
 	 Team.TeamName=@TeamName or
-	 Project.ProjectID=@ProjectID or
 	 Project.ProjectName=@ProjectName or
 	 Project.ProjectCreatedDate=@ProjectCreatedDate or
 	 Project.ProjectDueDate=@ProjectDueDate or

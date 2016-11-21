@@ -50,11 +50,11 @@
             this.buttonSelect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonSelect.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonSelect.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.buttonSelect.Location = new System.Drawing.Point(12, 257);
+            this.buttonSelect.Location = new System.Drawing.Point(12, 214);
             this.buttonSelect.Name = "buttonSelect";
-            this.buttonSelect.Size = new System.Drawing.Size(249, 37);
+            this.buttonSelect.Size = new System.Drawing.Size(200, 37);
             this.buttonSelect.TabIndex = 1;
-            this.buttonSelect.Text = "SELECT OR DELETE";
+            this.buttonSelect.Text = "SELECT / DELETE";
             this.buttonSelect.UseVisualStyleBackColor = true;
             this.buttonSelect.Click += new System.EventHandler(this.ButtonSelect_Click);
             // 
@@ -63,9 +63,9 @@
             this.pictureBox2.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.pictureBox2.BackgroundImage = global::WindowsFormsPraemium.Properties.Resources.praemium;
             this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox2.Location = new System.Drawing.Point(12, 12);
+            this.pictureBox2.Location = new System.Drawing.Point(4, 21);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(188, 119);
+            this.pictureBox2.Size = new System.Drawing.Size(208, 132);
             this.pictureBox2.TabIndex = 3;
             this.pictureBox2.TabStop = false;
             // 
@@ -103,7 +103,7 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.DataGridViewLogging.DefaultCellStyle = dataGridViewCellStyle3;
             this.DataGridViewLogging.GridColor = System.Drawing.SystemColors.ActiveCaption;
-            this.DataGridViewLogging.Location = new System.Drawing.Point(206, 12);
+            this.DataGridViewLogging.Location = new System.Drawing.Point(218, 12);
             this.DataGridViewLogging.Name = "DataGridViewLogging";
             this.DataGridViewLogging.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -119,7 +119,7 @@
             this.DataGridViewLogging.RowTemplate.Height = 18;
             this.DataGridViewLogging.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.DataGridViewLogging.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DataGridViewLogging.Size = new System.Drawing.Size(384, 240);
+            this.DataGridViewLogging.Size = new System.Drawing.Size(413, 240);
             this.DataGridViewLogging.TabIndex = 6;
             // 
             // LogType
@@ -139,40 +139,44 @@
             // 
             // LogDataTime
             // 
+            this.LogDataTime.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.LogDataTime.HeaderText = "Date Time";
-            this.LogDataTime.MinimumWidth = 100;
+            this.LogDataTime.MinimumWidth = 80;
             this.LogDataTime.Name = "LogDataTime";
             this.LogDataTime.ReadOnly = true;
             this.LogDataTime.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.LogDataTime.Width = 80;
             // 
             // LogExceptionCode
             // 
+            this.LogExceptionCode.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.LogExceptionCode.HeaderText = "Description";
             this.LogExceptionCode.MinimumWidth = 80;
             this.LogExceptionCode.Name = "LogExceptionCode";
             this.LogExceptionCode.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.LogExceptionCode.Width = 80;
             // 
             // LogMessage
             // 
+            this.LogMessage.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.LogMessage.HeaderText = "Message";
             this.LogMessage.MinimumWidth = 150;
             this.LogMessage.Name = "LogMessage";
             this.LogMessage.ReadOnly = true;
             this.LogMessage.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.LogMessage.Width = 150;
             // 
             // UIMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ClientSize = new System.Drawing.Size(600, 306);
+            this.ClientSize = new System.Drawing.Size(634, 263);
             this.Controls.Add(this.DataGridViewLogging);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.buttonSelect);
             this.ForeColor = System.Drawing.SystemColors.InfoText;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximumSize = new System.Drawing.Size(650, 302);
+            this.MinimumSize = new System.Drawing.Size(650, 302);
             this.Name = "UIMainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "CRM Auto-Feed Project";

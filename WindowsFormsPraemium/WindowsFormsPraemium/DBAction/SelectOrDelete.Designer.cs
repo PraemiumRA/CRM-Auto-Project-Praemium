@@ -42,7 +42,7 @@
             // 
             this.dataGridViewValue.AllowUserToAddRows = false;
             this.dataGridViewValue.AllowUserToDeleteRows = false;
-            this.dataGridViewValue.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
+            this.dataGridViewValue.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dataGridViewValue.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewValue.GridColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.dataGridViewValue.Location = new System.Drawing.Point(5, 153);
@@ -72,8 +72,7 @@
             "ProjectDueDate",
             "AllTeams",
             "AllMembers",
-            "AllProjects",
-            "All"});
+            "AllProjects"});
             this.comboBoxValue.Location = new System.Drawing.Point(237, 31);
             this.comboBoxValue.Name = "comboBoxValue";
             this.comboBoxValue.Size = new System.Drawing.Size(256, 26);

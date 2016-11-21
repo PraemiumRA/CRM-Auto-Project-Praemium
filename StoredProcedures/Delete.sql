@@ -1,14 +1,14 @@
 CREATE PROCEDURE spDynamicDelete
-@MemberID int = null,
+@MemberID bigint = null,
 @MemberName varchar(50) = null,
 @MemberSurname nvarchar(50) = null,
-@TeamID int = null, 
+@TeamID bigint = null, 
 @TeamName nvarchar(50) = null,
-@ProjectID int = null,
+@ProjectID bigint = null,
 @ProjectName varchar(50) = null,
 @ProjectCreatedDate date   = null,
 @ProjectDueDate date = null,
-@MemberProjectID int = null,
+@MemberProjectID bigint = null,
 @SelectedValue nvarchar(50)=null
 
 AS
