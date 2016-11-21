@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BLL;
+using System.Data;
 
 namespace UIForm.DBAction
 {
@@ -24,6 +25,7 @@ namespace UIForm.DBAction
             {
                 TeamMemberProjectBLL tmpBLL = new TeamMemberProjectBLL(value_textbox.Text, comboBoxValue.SelectedItem.ToString());
                 await Task.Factory.StartNew(tmpBLL.SelectAsync);
+                ColumnNameGiver(tmpBLL.dataTableValue);
                 dataGridViewValue.DataSource = tmpBLL.dataTableValue;
                 value_textbox.Clear();
             }
@@ -63,6 +65,38 @@ namespace UIForm.DBAction
                 TeamMemberProjectBLL tmpBLL = new TeamMemberProjectBLL(value_textbox.Text, comboBoxValue.SelectedItem.ToString(), selectedRow);
                 await Task.Factory.StartNew(tmpBLL.DeleteAsync);
                 value_textbox.Clear();
+            }
+        }
+
+        private void ColumnNameGiver(DataTable table)
+        {
+            if (table.Columns.Contains("MemberName"))
+            {
+                table.Columns["MemberName"].ColumnName = "Member Name";
+            }
+            if (table.Columns.Contains("MemberSurname"))
+            {
+                table.Columns["MemberSurname"].ColumnName = "Suername";
+            }
+            if (table.Columns.Contains("TeamName"))
+            {
+                table.Columns["TeamName"].ColumnName = "Team Name";
+            }
+            if (table.Columns.Contains("ProjectName"))
+            {
+                table.Columns["ProjectName"].ColumnName = "Project Name";
+            }
+            if (table.Columns.Contains("ProjectCreatedDate"))
+            {
+                table.Columns["ProjectCreatedDate"].ColumnName = "Created Date";
+            }
+            if (table.Columns.Contains("ProjectDueDate"))
+            {
+                table.Columns["ProjectDueDate"].ColumnName = "Due Date";
+            }
+            if (table.Columns.Contains("ProjectDescription"))
+            {
+                table.Columns["ProjectDescription"].ColumnName = "Description";
             }
         }
     }
