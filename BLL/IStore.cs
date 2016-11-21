@@ -7,6 +7,7 @@ namespace BLL
     {
         string path { get; set; }
         string jsonPath { get; set; }
+        string fileName { get; set; }
         IEnumerable<DataModel> Read(); 
     }
 }

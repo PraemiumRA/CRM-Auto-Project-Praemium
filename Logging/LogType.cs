@@ -6,6 +6,7 @@
         Warning,
         Success,
         Appearance,
+        WrongData,
         Delete
     }
 }

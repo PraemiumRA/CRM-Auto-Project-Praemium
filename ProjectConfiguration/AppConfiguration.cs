@@ -10,6 +10,7 @@ namespace ProjectConfiguration
     public class AppConfiguration
     {
         private static AppConfiguration instance = null;
+
         /// <summary>
         /// Get Single instance of object
         /// </summary>
@@ -48,6 +49,10 @@ namespace ProjectConfiguration
         public string JsonCreationDirectory
         {
             get { return JsonDirectory(); }
+        }
+        public string WrongFilesDirectory
+        {
+            get { return WrongDirectory(); }
         }
 
         private AppConfiguration() { }
@@ -192,6 +197,31 @@ namespace ProjectConfiguration
             catch (Exception)
             {
                 temp = GetDefoultDirectory("TextLogging");
+            }
+
+            return temp;
+        }
+
+        /// <summary>
+        /// Get Directory for Wrong Files
+        /// </summary>
+        /// <returns></returns>
+        private string WrongDirectory()
+        {
+            string temp = GetDefoultDirectory("WrongFiles");
+            try
+            {
+                temp = ConfigurationManager.AppSettings["WrongFilesDirectory"];
+
+                if (string.IsNullOrEmpty(temp))
+                    temp = GetDefoultDirectory("WrongFiles");
+
+                if (!Directory.Exists(temp))
+                    Directory.CreateDirectory(temp);
+            }
+            catch (Exception)
+            {
+                temp = GetDefoultDirectory("WrongFiles");
             }
 
             return temp;

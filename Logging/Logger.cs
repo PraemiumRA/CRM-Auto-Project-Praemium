@@ -75,6 +75,11 @@ namespace Logging
                     LogSource.Rows[index].DefaultCellStyle.BackColor = Color.FromArgb(135, 255, 165);
                 }
 
+                if(logType == LogType.Warning)
+                {
+                    LogSource.Rows[index].DefaultCellStyle.BackColor = Color.FromArgb(237, 212, 52);
+                }
+
                 LogSource.Rows[index].Cells[0].ValueType = typeof(LogType);
                 LogSource.Rows[index].Cells[0].Value = logType.ToString();
 

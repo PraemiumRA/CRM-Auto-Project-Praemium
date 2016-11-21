@@ -2,17 +2,21 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Logging;
+
 namespace BLL
 {
     public class ReadFromCsv : IStore
     {
         public string path { get; set; }
         public string jsonPath { get; set; }
+        public string fileName { get; set; }
 
         public ReadFromCsv(string path, string jsonPath)
         {
             this.path = path;
             this.jsonPath = jsonPath;
+            fileName = Path.GetFileName(path);
         }
 
         public IEnumerable<DataModel> Read()
@@ -25,50 +29,68 @@ namespace BLL
                     string line = "";
                     DataModel dataModel;
                     Project[] project;
+                    string currentline = string.Empty;
+                    bool isWrong = false;//
 
                     while ((line = reader.ReadLine()) != null)
                     {
                         dataModel = new DataModel();
                         listOfDivied = new List<string>();
 
-                        foreach (string item in line.Split(';'))
+                        try
                         {
-                            listOfDivied.Add(item);
-                        }
-
-                        project = new Project[listOfDivied.Count - 5];
-
-                        dataModel.TeamID = long.Parse(listOfDivied[0]);
-                        dataModel.TeamName = listOfDivied[1];
-                        dataModel.MemberID = long.Parse(listOfDivied[2]);
-                        dataModel.MemberName = listOfDivied[3];
-                        dataModel.MemberSurname = listOfDivied[4];
-
-                        for (int i = 0; i < 5; i++)
-                        {
-                            listOfDivied.RemoveAt(0);
-                        }
-
-                        int index = 0;
-
-                        while (listOfDivied.Count > 0)
-                        {
-                            string[] projectsMemeber = listOfDivied[0].Split(',');
-                            project[index] = new Project()
+                            foreach (string item in line.Split(';'))
                             {
-                                ProjectID = long.Parse(projectsMemeber[0]),
-                                ProjectName = projectsMemeber[1],
-                                ProjectCreatedDate = DateTime.Parse((projectsMemeber[2])),
-                                ProjectDueDate = DateTime.Parse((projectsMemeber[3])),
-                                ProjectDescription = projectsMemeber[4]
-                            };
-                            index++;
+                                listOfDivied.Add(item);
+                            }
 
-                            listOfDivied.RemoveAt(0);
+                            project = new Project[listOfDivied.Count - 5];
+
+                            dataModel.TeamID = long.Parse(listOfDivied[0]);
+                            dataModel.TeamName = listOfDivied[1];
+                            dataModel.MemberID = long.Parse(listOfDivied[2]);
+                            dataModel.MemberName = listOfDivied[3];
+                            dataModel.MemberSurname = listOfDivied[4];
+
+                            for (int i = 0; i < 5; i++)
+                            {
+                                listOfDivied.RemoveAt(0);
+                            }
+
+                            int index = 0;
+
+                            while (listOfDivied.Count > 0)
+                            {
+                                string[] projectsMemeber = listOfDivied[0].Split(',');
+                                project[index] = new Project()
+                                {
+                                    ProjectID = long.Parse(projectsMemeber[0]),
+                                    ProjectName = projectsMemeber[1],
+                                    ProjectCreatedDate = DateTime.Parse((projectsMemeber[2])),
+                                    ProjectDueDate = DateTime.Parse((projectsMemeber[3])),
+                                    ProjectDescription = projectsMemeber[4]
+                                };
+                                index++;
+
+                                listOfDivied.RemoveAt(0);
+                            }
+                            dataModel.Projects = project;
                         }
-                        dataModel.Projects = project;
+                        catch
+                        {
+                            isWrong = true;
+                            WrongData wrongData = new WrongData(this.fileName);
+                            Logger.DoLogging(LogType.WrongData, null, "Finde wrog data and wrote ot wrong directory.");
+                            wrongData.WrongDataFromCSV(line);
+                        }
 
-                        yield return dataModel;
+                        if (!isWrong)
+                            yield return dataModel;
+                        else
+                        {
+                            isWrong = false;
+                            continue;
+                        }
 
                     }
                 }
