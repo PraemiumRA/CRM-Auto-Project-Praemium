@@ -6,7 +6,7 @@ using System.Drawing;
 
 namespace Logging
 {
-    public class Logger
+    public class LogManager
     {
         #region Logging Colors
         static Color errorColor = Color.FromArgb(232, 76, 78);

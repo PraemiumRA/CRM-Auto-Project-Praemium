@@ -1,5 +1,4 @@
 CREATE PROCEDURE spDynamicSelection
-
 @PassportNumber varchar(50) =null,
 @MemberName varchar(50) = null,
 @MemberSurname nvarchar(50) = null,

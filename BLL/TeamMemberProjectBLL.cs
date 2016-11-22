@@ -96,6 +96,12 @@ namespace BLL
                             database.ExecuteInsertUpdateDelete("spDynamicDelete", parameters);
                             break;
                         }
+                    case "PassportNumber":
+                        {
+                            parameters.Add("@PassportNumber", textBoxValue);
+                            database.ExecuteInsertUpdateDelete("spDynamicDelete", parameters);
+                            break;
+                        }
                     case "MemberName":
                         {
                             parameters.Add("@MemberName", textBoxValue);
@@ -148,7 +154,7 @@ namespace BLL
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                Logger.DoLogging(LogType.Error, ex);
+                LogManager.DoLogging(LogType.Error, ex);
             }
         }
         public void SelectAsync()
@@ -237,7 +243,7 @@ namespace BLL
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                Logger.DoLogging(LogType.Error, ex);
+                LogManager.DoLogging(LogType.Error, ex);
             }
         }
         private void IdValueCheaker()
@@ -249,14 +255,14 @@ namespace BLL
                     if (idValue <= 0)
                     {
                         MessageBox.Show("Argument must be bigger than '0'");
-                        Logger.DoLogging(LogType.Warning, null, "Argument must be bigger than '0'");
+                        LogManager.DoLogging(LogType.Warning, null, "Argument must be bigger than '0'");
                         throw new ArgumentOutOfRangeException("Argument must be bigger than '0' ");
                     }
                 }
                 else
                 {
                     MessageBox.Show("Argument must be a number");
-                    Logger.DoLogging(LogType.Warning, null, "Argument must be a number");
+                    LogManager.DoLogging(LogType.Warning, null, "Argument must be a number");
                     throw new FormatException("Argument must be a number");
                 }
             }
@@ -265,7 +271,7 @@ namespace BLL
                 if (!DateTime.TryParse(textBoxValue.ToString(), out dateTimeValue))
                 {
                     MessageBox.Show("Argument must be Date format");
-                    Logger.DoLogging(LogType.Warning, null, "Argument must be Date format");
+                    LogManager.DoLogging(LogType.Warning, null, "Argument must be Date format");
                     throw new FormatException("Argument must be Date format");
                 }
             }
@@ -335,20 +341,20 @@ namespace BLL
             }
             catch (Exception ex)
             {
-                Logger.DoLogging(LogType.Error, ex, "Error in process to storing/updating data.");
+                LogManager.DoLogging(LogType.Error, ex, "Error in process to storing/updating data.");
                 MessageBox.Show(ex.Message);
                 isWrittenDB = true;
             }
 
             if (isJson && !jsonMaker.isWrittenJson)
             {
-                Logger.DoLogging(LogType.Success, null, "Data succesfuly stored in json format.");
+                LogManager.DoLogging(LogType.Success, null, "Data succesfuly stored in json format.");
                 jsonMaker.isWrittenJson = true;
             }
 
             if (isDB && !isWrittenDB)
             {
-                Logger.DoLogging(LogType.Success, null, "Data succesfuly stored in Data Base. ");
+                LogManager.DoLogging(LogType.Success, null, "Data succesfuly stored in Data Base. ");
                 isWrittenDB = true;
             }
             try
@@ -357,7 +363,7 @@ namespace BLL
             }
             catch (Exception ex)
             {
-                Logger.DoLogging(LogType.Error, ex);
+                LogManager.DoLogging(LogType.Error, ex);
             }
         }
     }

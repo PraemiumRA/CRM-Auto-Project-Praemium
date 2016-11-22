@@ -1,7 +1,5 @@
 CREATE TABLE Team		
-( 
-	ID int IDENTITY(1,1) NOT NULL
-		PRIMARY KEY,                               
+(                             
 	TeamID bigint NOT NULL 
 		UNIQUE,				  
 	TeamName nvarchar(50) NOT NULL	
@@ -10,9 +8,9 @@ GO
 
 CREATE TABLE Member
 ( 
-	ID int IDENTITY(1,1) NOT NULL
-		PRIMARY KEY,
 	MemberID bigint NOT NULL
+		UNIQUE,
+	PassportNumber nvarchar(50) NOT NULL
 		UNIQUE,
 	T_ID bigint NOT NULL,
 
@@ -28,9 +26,7 @@ CREATE TABLE Member
 GO
 
 CREATE TABLE Project					
-(
-	ID int IDENTITY(1,1) NOT NULL
-		PRIMARY KEY,                              
+(                           
 	ProjectID bigint NOT NULL 
 		UNIQUE,				  
 	ProjectName nvarchar(50) NOT NULL,
@@ -42,7 +38,7 @@ GO
 
 CREATE TABLE MemberProject			
 (
-	ID int IDENTITY(1,1) NOT NULL
+	ID bigint IDENTITY(1,1) NOT NULL
 		UNIQUE,  
 	M_ID bigint NOT NULL,
 	P_ID bigint NOT NULL,

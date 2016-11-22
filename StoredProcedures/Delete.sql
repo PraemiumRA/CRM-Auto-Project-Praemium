@@ -1,5 +1,6 @@
 CREATE PROCEDURE spDynamicDelete
 @MemberID bigint = null,
+@PassportNumber varchar(50) = null,
 @MemberName varchar(50) = null,
 @MemberSurname nvarchar(50) = null,
 @TeamID bigint = null, 
@@ -16,6 +17,9 @@ BEGIN
 
 	IF @MemberID is not null
 		Delete From Member Where MemberID=@MemberID
+
+	IF @PassportNumber is not null
+		Delete From Member Where PassportNumber=@PassportNumber
 
 	IF @MemberName is not null
 		Delete From Member Where MemberName=@MemberName
@@ -47,8 +51,8 @@ BEGIN
 	IF EXISTS (Select ProjectName from Project where ProjectName=@SelectedValue)
 		Delete Project Where ProjectName=@SelectedValue
 
-	IF EXISTS (Select MemberName from Member where MemberName=@SelectedValue)
-		Delete Member Where MemberName=@SelectedValue
+	IF EXISTS (Select PassportNumber from Member where PassportNumber=@SelectedValue)
+		Delete Member Where PassportNumber=@SelectedValue
 
 	IF EXISTS (Select TeamName from Team where TeamName=@SelectedValue)
 		Delete Team Where TeamName=@SelectedValue

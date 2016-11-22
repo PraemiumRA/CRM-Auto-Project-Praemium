@@ -23,8 +23,8 @@ namespace UIForm
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Logger.LogSource = this.DataGridViewLogging;
-            Logger.form = this;
+            LogManager.LogSource = this.DataGridViewLogging;
+            LogManager.form = this;
 
             this.DataGridViewLogging.DoubleClick += LoggingView_DoubleClick;
             this.DataGridViewLogging.DefaultCellStyle.SelectionBackColor = Color.FromArgb(90, 192, 255);

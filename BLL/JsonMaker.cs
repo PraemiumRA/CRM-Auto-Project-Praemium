@@ -67,7 +67,7 @@ namespace BLL
             builder.AppendLine($"  \"{nameof(dataModel.TeamID)}\" : {dataModel.TeamID},");
             builder.AppendLine($"  \"{nameof(dataModel.TeamName)}\" : \"{dataModel.TeamName}\",");
             builder.AppendLine($"  \"{nameof(dataModel.MemberID)}\" : {dataModel.MemberID},");
-            builder.AppendLine($"  \"{nameof(dataModel.PassportNumber)}\" : {dataModel.PassportNumber},");//Changed
+            builder.AppendLine($"  \"{nameof(dataModel.PassportNumber)}\" : {dataModel.PassportNumber},");
 
             builder.AppendLine($"  \"{nameof(dataModel.MemberName)}\" : \"{dataModel.MemberName}\",");
             builder.AppendLine($"  \"{nameof(dataModel.MemberSurname)}\" : \"{dataModel.MemberSurname}\"");
@@ -106,7 +106,7 @@ namespace BLL
                 }
                 catch (Exception exception)
                 {
-                    Logger.DoLogging(LogType.Error, exception, "Error in process to storing in json format.");
+                    LogManager.DoLogging(LogType.Error, exception, "Error in process to storing in json format.");
                     isWrittenJson = true;
                 }
             }

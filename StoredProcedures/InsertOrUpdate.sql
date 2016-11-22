@@ -6,6 +6,7 @@ GO
 CREATE TYPE MemberType AS TABLE(	
 	MemberID bigint null,
 	TeamID bigint null,
+	PassportNumber nvarchar(50) null,
 	MemberName nvarchar(50) null,
 	MemberSurname nvarchar(50) null
 )
@@ -18,6 +19,7 @@ CREATE TYPE ProjectType AS TABLE(
 	ProjectDescription nvarchar(max) null
 )
 GO
+
 CREATE TYPE MemberProjectType AS TABLE(
 	MemberID bigint null,	
 	ProjectID bigint null	
@@ -46,20 +48,21 @@ BEGIN
 		
  BEGIN
    MERGE Member AS baseMember
-		USING (SELECT Distinct MemberID,TeamID, MemberName, MemberSurname FROM @memberData) AS comparingMember
+		USING (SELECT Distinct MemberID, TeamID, PassportNumber, MemberName, MemberSurname FROM @memberData) AS comparingMember
 		ON (baseMember.MemberID=comparingMember.MemberID)
 		WHEN MATCHED THEN
-			UPDATE SET baseMember.MemberName=comparingMember.MemberName,
+			UPDATE SET baseMember.PassportNumber=comparingMember.PassportNumber,
+					   baseMember.MemberName=comparingMember.MemberName,
 			           baseMember.MemberSurname=comparingMember.MemberSurname 
 		WHEN NOT MATCHED THEN  
-			INSERT (MemberID,T_ID, MemberName, MemberSurname)  
-			VALUES (comparingMember.MemberID,comparingMember.TeamID, comparingMember.MemberName, comparingMember.MemberSurname);
+			INSERT (MemberID, T_ID, PassportNumber, MemberName, MemberSurname)  
+			VALUES (comparingMember.MemberID,comparingMember.TeamID, comparingMember.PassportNumber, comparingMember.MemberName, comparingMember.MemberSurname);
  END
 
  BEGIN
 
    MERGE Project AS baseProject
-		USING(SELECT Distinct ProjectID, ProjectName,ProjectCreatedDate,ProjectDueDate,ProjectDescription FROM @projectData) AS comparingProject
+		USING(SELECT Distinct ProjectID, ProjectName, ProjectCreatedDate, ProjectDueDate, ProjectDescription FROM @projectData) AS comparingProject
 		ON (baseProject.ProjectID=comparingProject.ProjectID)
 		WHEN MATCHED THEN
 			UPDATE SET baseProject.ProjectName=comparingProject.ProjectName,
@@ -83,4 +86,3 @@ BEGIN
 			VALUES (comparingMemberProject.MemberID, comparingMemberProject.ProjectID);
  END
 END
-

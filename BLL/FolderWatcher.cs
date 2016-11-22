@@ -53,7 +53,7 @@ namespace BLL
        /// <param name="e"></param>
         private void Watcher_Deleted(object sender, FileSystemEventArgs e)
         {
-            Logger.DoLogging(LogType.Delete, null, "File was deleted from monitoring directory.");
+            LogManager.DoLogging(LogType.Delete, null, "File was deleted from monitoring directory.");
         }
 
        /// <summary>
@@ -66,7 +66,7 @@ namespace BLL
             string extension = Path.GetExtension(e.FullPath);
             if (extension.Equals(".xml") || extension.Equals(".csv"))
             {
-                Logger.DoLogging(LogType.Appearance, null, $"{e.Name} was appeared.");
+                LogManager.DoLogging(LogType.Appearance, null, $"{e.Name} was appeared.");
                 storeData.collection.Add(e.FullPath);
             }
         }

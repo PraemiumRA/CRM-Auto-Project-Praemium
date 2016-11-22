@@ -7,5 +7,3 @@ namespace Logging
         void Log(LogType logType, Exception ex = null, string message = null);
     }
 }
-
-

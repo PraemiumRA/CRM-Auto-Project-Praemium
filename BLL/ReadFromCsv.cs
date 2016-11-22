@@ -44,12 +44,12 @@ namespace BLL
                                 listOfDivied.Add(item);
                             }
 
-                            project = new Project[listOfDivied.Count - 6];//5
+                            project = new Project[listOfDivied.Count - 6];
 
                             dataModel.TeamID = long.Parse(listOfDivied[0]);
                             dataModel.TeamName = listOfDivied[1];
                             dataModel.MemberID = long.Parse(listOfDivied[2]);
-                            dataModel.PassportNumber = listOfDivied[3];//changed
+                            dataModel.PassportNumber = listOfDivied[3];
                             dataModel.MemberName = listOfDivied[4];
                             dataModel.MemberSurname = listOfDivied[5];
 
@@ -81,7 +81,7 @@ namespace BLL
                         {
                             isWrong = true;
                             WrongData wrongData = new WrongData(this.fileName);
-                            Logger.DoLogging(LogType.WrongData, null, "Finde wrog data and wrote ot wrong directory.");
+                            LogManager.DoLogging(LogType.WrongData, null, "Finde wrog data and wrote ot wrong directory.");
                             wrongData.WrongDataFromCSV(line);
                         }
 

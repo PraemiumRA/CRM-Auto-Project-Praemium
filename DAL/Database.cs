@@ -25,7 +25,7 @@ namespace DAL
                 }
                 catch (SqlException ex)
                 {
-                    Logger.DoLogging(LogType.Error, ex, "Error in Database connection.");
+                    LogManager.DoLogging(LogType.Error, ex, "Error in Database connection.");
                     return -1;
                 }
                 
@@ -48,7 +48,7 @@ namespace DAL
                 catch(System.Exception exception)
                 {
                     transaction.Rollback();
-                    Logger.DoLogging(LogType.Error, exception, "Error in Database processing.");
+                    LogManager.DoLogging(LogType.Error, exception, "Error in Database processing.");
                 }
                 return affectedRowsCount;
             }

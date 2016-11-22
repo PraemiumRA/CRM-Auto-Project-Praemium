@@ -21,7 +21,7 @@ namespace BLL
             this.path = path;
             this.jsonPath = jsonPath;
 
-            this.fileName = Path.GetFileName(path);//
+            this.fileName = Path.GetFileName(path);
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace BLL
             bool isWrong = false;//
 
             DataModel dataModel;
-            XmlNode tempNode = default(XmlNode); //
+            XmlNode tempNode = default(XmlNode);
 
             XmlDocument document = new XmlDocument();
             document.Load(path);
@@ -97,7 +97,7 @@ namespace BLL
                         WrongData wrongData = new WrongData(this.fileName);
                         wrongData.WrongDataFromXml(GetWrongDataMembers(tempNode), ReadWrongData(tempNode, root));
 
-                        Logger.DoLogging(LogType.WrongData, null, "Finde wrog data and wrote ot wrong directory.");
+                        LogManager.DoLogging(LogType.WrongData, null, "Finde wrog data and wrote ot wrong directory.");
                     }
 
                     if (!isWrong)
