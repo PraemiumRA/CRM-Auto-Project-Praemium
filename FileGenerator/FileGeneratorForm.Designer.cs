@@ -39,8 +39,6 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.radioButtonXML = new System.Windows.Forms.RadioButton();
             this.radioButtonCSV = new System.Windows.Forms.RadioButton();
-            this.listBoxOfFiles = new System.Windows.Forms.ListBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.numericOfMemberCount = new System.Windows.Forms.NumericUpDown();
             this.buttonOpenDirectory = new System.Windows.Forms.Button();
@@ -117,7 +115,7 @@
             // buttonGenerate
             // 
             this.buttonGenerate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonGenerate.Location = new System.Drawing.Point(71, 216);
+            this.buttonGenerate.Location = new System.Drawing.Point(81, 177);
             this.buttonGenerate.Name = "buttonGenerate";
             this.buttonGenerate.Size = new System.Drawing.Size(201, 33);
             this.buttonGenerate.TabIndex = 10;
@@ -159,28 +157,6 @@
             this.radioButtonCSV.Text = ".csv";
             this.radioButtonCSV.UseVisualStyleBackColor = true;
             // 
-            // listBoxOfFiles
-            // 
-            this.listBoxOfFiles.BackColor = System.Drawing.SystemColors.Control;
-            this.listBoxOfFiles.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.listBoxOfFiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.listBoxOfFiles.FormattingEnabled = true;
-            this.listBoxOfFiles.ItemHeight = 15;
-            this.listBoxOfFiles.Location = new System.Drawing.Point(364, 27);
-            this.listBoxOfFiles.Name = "listBoxOfFiles";
-            this.listBoxOfFiles.ScrollAlwaysVisible = true;
-            this.listBoxOfFiles.Size = new System.Drawing.Size(230, 212);
-            this.listBoxOfFiles.TabIndex = 15;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(361, 12);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(77, 13);
-            this.label2.TabIndex = 16;
-            this.label2.Text = "File in directory";
-            // 
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.numericOfMemberCount);
@@ -213,18 +189,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(604, 261);
+            this.ClientSize = new System.Drawing.Size(363, 222);
             this.Controls.Add(this.buttonOpenDirectory);
             this.Controls.Add(this.groupBox5);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.listBoxOfFiles);
             this.Controls.Add(this.checkBoxAutoOpen);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.buttonGenerate);
             this.Controls.Add(this.groupBox1);
-            this.MaximumSize = new System.Drawing.Size(620, 300);
-            this.MinimumSize = new System.Drawing.Size(620, 300);
             this.Name = "BaseForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "File Generator";
@@ -253,8 +225,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton radioButtonXML;
         private System.Windows.Forms.RadioButton radioButtonCSV;
-        private System.Windows.Forms.ListBox listBoxOfFiles;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;//
         private System.Windows.Forms.NumericUpDown numericOfProjectCount;

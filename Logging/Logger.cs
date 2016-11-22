@@ -8,7 +8,7 @@ namespace Logging
 {
     public class Logger
     {
-        #region Colors
+        #region Logging Colors
         static Color errorColor = Color.FromArgb(232, 76, 78);
         static Color warninfColor = Color.FromArgb(243, 238, 119);
         static Color wrongDataColor = Color.FromArgb(230, 134, 117);

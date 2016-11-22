@@ -6,8 +6,6 @@ using System.Windows.Forms;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
-using System.Collections.Generic;
-using System.Threading;
 using DataModelLibrary;
 
 namespace FileGenerator
@@ -32,11 +30,7 @@ namespace FileGenerator
         }
 
         private void BaseForm_Load(object sender, EventArgs e)
-        {
-            this.listBoxOfFiles.Sorted = true;
-            this.listBoxOfFiles.DataSource = filesInDirectory;
-            this.listBoxOfFiles.DisplayMember = "ToString()";
-
+        {          
             this.numericOfMemberCount.Minimum = 1;
             this.numericOfMemberCount.Maximum = 99;
 
@@ -60,7 +54,6 @@ namespace FileGenerator
             this.numericOfMemberCount.TextChanged += CheckInputText;
             this.numericOfProjectCount.TextChanged += CheckInputText;
 
-            ShowAllFilesName();
         }
 
         /// <summary>
@@ -80,39 +73,9 @@ namespace FileGenerator
                 this.textBoxDestination.Text = builder.ToString();
                 this.fileDirectory = builder.ToString();
             }
-
-            ShowAllFilesName();
+                        
         }
-
-        /// <summary>
-        /// Show all file names in chose directory
-        /// </summary>
-        /// <param name="taker"></param>
-        private async void ShowAllFilesName()
-        {
-             this.listBoxOfFiles.DataSource = await Task.Factory.StartNew(GetAllFilesFromSelectedDirectory);
-             this.listBoxOfFiles.DisplayMember = "ToString()";
-        }
-
-        /// <summary>
-        /// Get all file names in selected directory
-        /// </summary>
-        List<string> filesInDirectory;
-        private List<string> GetAllFilesFromSelectedDirectory()
-        {
-            filesInDirectory = new List<string>();
-            string[] files = Directory.GetFiles(fileDirectory);
-
-            for (int i = 0; i < files.Length; i++)
-            {
-                if (Path.GetExtension(files[i]) == ".xml" || Path.GetExtension(files[i]) == ".csv")
-                {
-                    filesInDirectory.Add(Path.GetFileName(files[i]));
-                }
-            }
-
-            return filesInDirectory;
-        }
+             
 
         /// <summary>
         /// Generate button hundle
@@ -152,8 +115,7 @@ namespace FileGenerator
                 fileDirectory = this.textBoxDestination.Text;
             }
             else
-            {
-                //Loggig
+            { 
                 this.textBoxDestination.Text = fileDirectory;
                 this.textBoxDestination.BackColor = Color.FromArgb(90, 190, 255);
             }
@@ -166,13 +128,11 @@ namespace FileGenerator
                 FileDirectory = fileDirectory,
                 FileName = fileNameGiver.GetFileName(tempType)
             };
+
             try
             {
                 //Generate random data and create file
-                if (chooseFileType.GenerateTheFile(tempType, fileInformation))
-                {
-                    ShowAllFilesName();
-                }
+                chooseFileType.GenerateTheFile(tempType, fileInformation);
             }
             catch (Exception exception)
             {
@@ -196,7 +156,6 @@ namespace FileGenerator
                     MessageBox.Show(ex.Message);
                 }
             }
-
 
         }
 
@@ -273,7 +232,6 @@ namespace FileGenerator
                 this.buttonGenerate.Enabled = true;
                 numberUpDown.BackColor = Color.White;
             }
-
             try
             {
                 if (numberUpDown.Text.Length > 2)
