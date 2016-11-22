@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DAL;
 using DataModelLibrary;
 using System.Data;
@@ -324,6 +321,7 @@ namespace BLL
                             }
                             memberProjectTable.Rows.Add(currentDataModel.MemberID, currentDataModel.Projects[i].ProjectID);
                         }
+
                     }
                 }
 
@@ -333,6 +331,7 @@ namespace BLL
                 parameters.Add("@memberProjectData", memberProjectTable);
 
                 database.ExecuteInsertUpdateDelete("spDynamicInsertOrUpdate", parameters);
+                               
             }
             catch (Exception ex)
             {
