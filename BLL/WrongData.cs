@@ -10,23 +10,23 @@ using System.Xml;
 
 namespace BLL
 {
+    /// <summary>
+    ///Handles wrong data.
+    /// </summary>
     class WrongData
     {
-        //public string WrongDirectory { get; set; }
         Lazy<StringBuilder> WrongFileDirectory = new Lazy<StringBuilder>();
         public string fileName = string.Empty;
         XmlSerializer serialize = new XmlSerializer(typeof(DataModel));
 
-
         public WrongData(string fileName)
         {
             this.fileName = fileName;
-            //WrongDirectory = AppConfiguration.GetInstance.WrongFilesDirectory;
             WrongFileDirectory.Value.Append(AppConfiguration.GetInstance.WrongFilesDirectory).Append(@"\Wrong-").Append(fileName);
         }
 
         /// <summary>
-        /// Write wrong data in other file from CSV file
+        /// Writes wrong data in the other file from CSV file.
         /// </summary>
         /// <param name="innerXml"></param>
         /// <param name="projects"></param>
@@ -43,7 +43,7 @@ namespace BLL
         }
 
         /// <summary>
-        /// Write wrong data in other file from XML file
+        /// Writes wrong data in the other file from XML file.
         /// </summary>
         /// <param name="innerXml"></param>
         /// <param name="projects"></param>
@@ -131,7 +131,7 @@ namespace BLL
         }
 
         /// <summary>
-        /// Get wrong projectID
+        /// Gets wrong projectID.
         /// </summary>
         /// <param name="line"></param>
         /// <returns></returns>

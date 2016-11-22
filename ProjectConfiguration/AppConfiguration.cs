@@ -5,14 +5,14 @@ using System.IO;
 namespace ProjectConfiguration
 {
     /// <summary>
-    /// Configuration class for application settings 
+    /// Configuration class for application settings. 
     /// </summary>
     public class AppConfiguration
     {
         private static AppConfiguration instance = null;
 
         /// <summary>
-        /// Get Single instance of object
+        /// Gets single reference of object.
         /// </summary>
         public static AppConfiguration GetInstance
         {
@@ -58,7 +58,7 @@ namespace ProjectConfiguration
         private AppConfiguration() { }
 
         /// <summary>
-        /// Get percentages of machine core, which will determine the number of threads.
+        /// Gets percentages of machine core, which will determine the number of threads.
         /// </summary>
         /// <returns></returns>
         private int PrcentOfMachineCore()
@@ -77,7 +77,7 @@ namespace ProjectConfiguration
         }
 
         /// <summary>
-        /// Switch data to database.
+        /// Database storing switcher.
         /// </summary>
         /// <returns></returns>
         private bool StoreToDataBase()
@@ -96,7 +96,7 @@ namespace ProjectConfiguration
         }
 
         /// <summary>
-        /// Switch data to json file.
+        /// JSON storing switcher.
         /// </summary>
         /// <returns></returns>
         private bool StoreToJson()
@@ -115,7 +115,7 @@ namespace ProjectConfiguration
         }
 
         /// <summary>
-        /// Switch logging to text file.
+        /// Text file logging switcher.
         /// </summary>
         /// <returns></returns>
         private bool StoreToTxtFile()
@@ -134,105 +134,105 @@ namespace ProjectConfiguration
         } 
 
         /// <summary>
-        /// Get directory for monitoring
+        /// Gets directory for monitoring.
         /// </summary>
         private string MonitorDirectory()
         {
-            string temp = GetDefoultDirectory("Monitoring");
+            string temp = GetDefaultDirectory("Monitoring");
             try
             {
                 temp = ConfigurationManager.AppSettings["MonitoringDirectory"];
                 if (string.IsNullOrEmpty(temp))
-                    temp = GetDefoultDirectory("Monitoring");
+                    temp = GetDefaultDirectory("Monitoring");
      
                 if (!Directory.Exists(temp))
                     Directory.CreateDirectory(temp);
             }
             catch (Exception)
             {
-                temp = GetDefoultDirectory("Monitoring");
+                temp = GetDefaultDirectory("Monitoring");
             }
 
             return temp;
         }
 
         /// <summary>
-        /// Get directory for writing Json files
+        /// Gets directory for Json files creation.
         /// </summary>
         private string JsonDirectory()
         {
-            string temp = GetDefoultDirectory("JsonDirectory");
+            string temp = GetDefaultDirectory("JsonDirectory");
 
             try
             {
                 temp = ConfigurationManager.AppSettings["JsonPath"];
                 if (string.IsNullOrEmpty(temp))
-                    temp = GetDefoultDirectory("JsonDirectory");
+                    temp = GetDefaultDirectory("JsonDirectory");
 
                 if (!Directory.Exists(temp))
                     Directory.CreateDirectory(temp);
             }
             catch (Exception)
             {
-                temp = GetDefoultDirectory("JsonDirectory");
+                temp = GetDefaultDirectory("JsonDirectory");
             }
             return temp;
         }
 
         /// <summary>
-        /// Get directory for writing 'log' in txt format
+        /// Gets directory for writing 'log' in txt format.
         /// </summary>
         private string TxtFileDirectory()
         {
-            string temp = GetDefoultDirectory("TextLogging");
+            string temp = GetDefaultDirectory("TextLogging");
             try
             {
                 temp = ConfigurationManager.AppSettings["LogFileDirectory"];
                 if (string.IsNullOrEmpty(temp))
-                    temp = GetDefoultDirectory("TextLogging");
+                    temp = GetDefaultDirectory("TextLogging");
 
                 if (!Directory.Exists(temp))
                     Directory.CreateDirectory(temp);
             }
             catch (Exception)
             {
-                temp = GetDefoultDirectory("TextLogging");
+                temp = GetDefaultDirectory("TextLogging");
             }
 
             return temp;
         }
 
         /// <summary>
-        /// Get Directory for Wrong Files
+        /// Gets directory for storing wrong files.
         /// </summary>
         /// <returns></returns>
         private string WrongDirectory()
         {
-            string temp = GetDefoultDirectory("WrongFiles");
+            string temp = GetDefaultDirectory("WrongFiles");
             try
             {
                 temp = ConfigurationManager.AppSettings["WrongFilesDirectory"];
 
                 if (string.IsNullOrEmpty(temp))
-                    temp = GetDefoultDirectory("WrongFiles");
+                    temp = GetDefaultDirectory("WrongFiles");
 
                 if (!Directory.Exists(temp))
                     Directory.CreateDirectory(temp);
             }
             catch (Exception)
             {
-                temp = GetDefoultDirectory("WrongFiles");
+                temp = GetDefaultDirectory("WrongFiles");
             }
 
             return temp;
         }
 
         /// <summary>
-        /// Get default directory
+        /// Gets default directory.
         /// </summary>
         /// <param name="directoryName"></param>
         /// <returns></returns>
-        private string GetDefoultDirectory(string directoryName)
+        private string GetDefaultDirectory(string directoryName)
         {
             string temp =  Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\" + directoryName;
             if (!Directory.Exists(temp))

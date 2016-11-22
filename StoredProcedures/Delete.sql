@@ -1,3 +1,4 @@
+--Creation of Stored Procedure for deleting data--
 CREATE PROCEDURE spDynamicDelete
 @MemberID bigint = null,
 @PassportNumber varchar(50) = null,
@@ -10,7 +11,7 @@ CREATE PROCEDURE spDynamicDelete
 @ProjectCreatedDate date   = null,
 @ProjectDueDate date = null,
 @MemberProjectID bigint = null,
-@SelectedValue nvarchar(50)=null
+@SelectedValue nvarchar(50)=null  --Value of selected row for deleting --
 
 AS
 BEGIN	

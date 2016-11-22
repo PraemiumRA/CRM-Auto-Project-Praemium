@@ -7,6 +7,9 @@ using Logging;
 
 namespace BLL
 {
+    /// <summary>
+    /// Json parser.
+    /// </summary>
     public class JsonMaker
     {
         DataModel dataModel;
@@ -24,7 +27,9 @@ namespace BLL
 
             JsonFromatMaker();
         }
-
+        /// <summary>
+        /// Formating data to appropriate JSON.
+        /// </summary>
         public void JsonFromatMaker()
         {
             if (dataModel == null)
@@ -61,7 +66,11 @@ namespace BLL
 
             JsonFileWriter(builder);
         }
-
+        /// <summary>
+        /// Formating team and member from data.
+        /// </summary>
+        /// <param name="builder"></param>
+        /// <returns></returns>
         private StringBuilder WriteTeamAndMemberData(StringBuilder builder)
         {
             builder.AppendLine($"  \"{nameof(dataModel.TeamID)}\" : {dataModel.TeamID},");
@@ -74,7 +83,12 @@ namespace BLL
 
             return builder;
         }
-
+        /// <summary>
+        /// Formating project from data.
+        /// </summary>
+        /// <param name="builder"></param>
+        /// <param name="projects"></param>
+        /// <returns></returns>
         private StringBuilder WriteProjectData(StringBuilder builder, Project projects)
         {
             builder.AppendLine($"  \"{nameof(Project.ProjectID)}\" : {projects.ProjectID},");
@@ -85,7 +99,10 @@ namespace BLL
 
             return builder;
         }
-
+        /// <summary>
+        /// Is writing formated data to JSON format.
+        /// </summary>
+        /// <param name="builder"></param>
         private void JsonFileWriter(StringBuilder builder)
         {
             defaultPath = jsonPath;

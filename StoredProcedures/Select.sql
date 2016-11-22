@@ -1,3 +1,4 @@
+--Creation of Stored Procedure for selecting data--
 CREATE PROCEDURE spDynamicSelection
 @PassportNumber varchar(50) =null,
 @MemberName varchar(50) = null,
@@ -7,9 +8,9 @@ CREATE PROCEDURE spDynamicSelection
 @ProjectCreatedDate date   = null,
 @ProjectDueDate date = null,
 @ProjectDescription varchar(max)=null,
-@AllMembers bit = null,
-@AllProjects bit = null,
-@AllTeams bit = null
+@AllMembers bit = 0, --shows all members--
+@AllProjects bit = 0, --shows all projects--
+@AllTeams bit = 0 --shows all teams--
 
 AS
  BEGIN

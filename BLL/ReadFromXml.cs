@@ -6,26 +6,25 @@ using System.IO;
 using Logging;
 namespace BLL
 {
+    /// <summary>
+    /// Is reading from XML format file.
+    /// </summary>
     public class ReadFromXml : IStore
     {
-
-        public static int projectsCount;
-
+        public static int projectsCount = 0;
         public string path { get; set; }
         public string jsonPath { get; set; }
         public string fileName { get; set; } 
-
 
         public ReadFromXml(string path, string jsonPath)
         {
             this.path = path;
             this.jsonPath = jsonPath;
-
             this.fileName = Path.GetFileName(path);
         }
 
         /// <summary>
-        /// Read data from Xml file
+        /// Is reading from XML format file and giving result with object.
         /// </summary>
         /// <returns></returns>
         public IEnumerable<DataModel> Read()
@@ -113,7 +112,7 @@ namespace BLL
 
                
         /// <summary>
-        /// Get all projects id from member
+        /// Get all projects' id from member
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>
@@ -136,7 +135,7 @@ namespace BLL
         }
 
         /// <summary>
-        /// Get all projects from  member
+        /// Get all projects for member
         /// </summary>
         /// <param name="root"></param>
         /// <param name="array"></param>
@@ -208,7 +207,7 @@ namespace BLL
 
         #region Get Wrong Data
         /// <summary>
-        /// Get wrong datas
+        /// Get wrong XML tegs with theirs values
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>

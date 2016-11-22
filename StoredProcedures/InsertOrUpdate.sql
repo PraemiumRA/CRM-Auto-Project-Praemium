@@ -1,8 +1,10 @@
+--Creation of type for Team table --
 CREATE TYPE TeamType AS TABLE(
 	TeamID bigint null, 
 	TeamName nvarchar(50) null	
 )
 GO
+--Creation of type for Member table --
 CREATE TYPE MemberType AS TABLE(	
 	MemberID bigint null,
 	TeamID bigint null,
@@ -11,6 +13,7 @@ CREATE TYPE MemberType AS TABLE(
 	MemberSurname nvarchar(50) null
 )
 GO
+--Creation of type for Project table --
 CREATE TYPE ProjectType AS TABLE(
 	ProjectID bigint null,
 	ProjectName nvarchar(50) null,
@@ -19,13 +22,14 @@ CREATE TYPE ProjectType AS TABLE(
 	ProjectDescription nvarchar(max) null
 )
 GO
-
+--Creation of type for MemberProject table --
 CREATE TYPE MemberProjectType AS TABLE(
 	MemberID bigint null,	
 	ProjectID bigint null	
 )
 GO
 
+--Creation of Stored Procedure for inserting or updating data--
 CREATE PROCEDURE spDynamicInsertOrUpdate
 	@teamData TeamType READONLY,
 	@memberData MemberType READONLY,

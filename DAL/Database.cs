@@ -5,6 +5,9 @@ using Logging;
 
 namespace DAL
 {
+    /// <summary>
+    /// Contains all necessary methods for working with database.
+    /// </summary>
     public class Database
     {
         internal string connectionString { get; }
@@ -15,6 +18,12 @@ namespace DAL
             this.connectionString = ConnectionString;
         }
 
+        /// <summary>
+        /// Executs commands insert, update, delete.
+        /// </summary>
+        /// <param name="spName"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
         public int ExecuteInsertUpdateDelete(string spName, Dictionary<string, object> parameters)
         {
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
@@ -54,6 +63,12 @@ namespace DAL
             }
         }
 
+        /// <summary>
+        /// Executes select command.
+        /// </summary>
+        /// <param name="spName"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
         public DataTable ExecuteSelect(string spName, Dictionary<string, object> parameters)
         {
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))

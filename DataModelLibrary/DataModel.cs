@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 namespace DataModelLibrary
 {
     /// <summary>
-    /// Model of generating data
+    /// Model for generating data.
     /// </summary>
     [Serializable]
     [XmlRoot("Data")]
@@ -42,7 +42,7 @@ namespace DataModelLibrary
             {
                 try
                 {
-                    this.teamName = Check.TestInputStringValue(value);
+                    this.teamName = Check.CheckInputStringValue(value);
                 }
                 catch { throw new Exception("Incorrect value."); }
             }
@@ -86,7 +86,7 @@ namespace DataModelLibrary
             {
                 try
                 {
-                    this.memberName = Check.TestInputStringValue(value);
+                    this.memberName = Check.CheckInputStringValue(value);
                 }
                 catch { throw new Exception("Incorrect value."); }
             
@@ -101,7 +101,7 @@ namespace DataModelLibrary
             {
                 try
                 {
-                    this.memberSurname = Check.TestInputStringValue(value);
+                    this.memberSurname = Check.CheckInputStringValue(value);
                 }
                 catch { throw new Exception("Incorrect value."); }
             }

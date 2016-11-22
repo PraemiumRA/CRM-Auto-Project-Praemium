@@ -1,3 +1,4 @@
+--Creation of Team Table in Database--
 CREATE TABLE Team		
 (                             
 	TeamID bigint NOT NULL 
@@ -6,6 +7,7 @@ CREATE TABLE Team
 )
 GO
 
+--Creation of Member Table in Database--
 CREATE TABLE Member
 ( 
 	MemberID bigint NOT NULL
@@ -25,6 +27,7 @@ CREATE TABLE Member
 )
 GO
 
+--Creation of Project Table in Database--
 CREATE TABLE Project					
 (                           
 	ProjectID bigint NOT NULL 
@@ -36,6 +39,7 @@ CREATE TABLE Project
 )
 GO
 
+--Creation of MemberProject Table in Database--
 CREATE TABLE MemberProject			
 (
 	ID bigint IDENTITY(1,1) NOT NULL

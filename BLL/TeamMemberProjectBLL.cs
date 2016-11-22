@@ -11,6 +11,9 @@ using Logging;
 
 namespace BLL
 {
+    /// <summary>
+    ///Logic for commands Insert, Update, Select, Delete.
+    /// </summary>
     public class TeamMemberProjectBLL
     {
         AppConfiguration appConfig = AppConfiguration.GetInstance;
@@ -54,7 +57,9 @@ namespace BLL
             this.textBoxValue = TextBoxValue;
             this.selectedValue = SelectedValue;
         }
-
+        /// <summary>
+        /// Deletes selected member.
+        /// </summary>
         public void DeleteAsync()
         {
             try
@@ -157,6 +162,10 @@ namespace BLL
                 LogManager.DoLogging(LogType.Error, ex);
             }
         }
+
+        /// <summary>
+        /// Selects data from database.
+        /// </summary>
         public void SelectAsync()
         {
             try
@@ -246,6 +255,10 @@ namespace BLL
                 LogManager.DoLogging(LogType.Error, ex);
             }
         }
+
+        /// <summary>
+        /// Checks input data from UI.
+        /// </summary>
         private void IdValueCheaker()
         {
             if ((comboBoxValue == "TeamID" || comboBoxValue == "MemberID" || comboBoxValue == "ProjectID" || comboBoxValue == "MemberProjectID"))
@@ -276,6 +289,10 @@ namespace BLL
                 }
             }
         }
+
+        /// <summary>
+        /// Stores data to JSON extention file and database.
+        /// </summary>
         public void StoreDataFromFile()
         {
             try

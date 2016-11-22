@@ -6,6 +6,9 @@ using Logging;
 
 namespace BLL
 {
+    /// <summary>
+    /// Monitoring selected directory
+    /// </summary>
     public class FolderWatcher 
     {
         DirectoryInfo directory;
@@ -31,7 +34,10 @@ namespace BLL
             this.JsonDirectory = new DirectoryInfo(appConfiguration.JsonCreationDirectory);
             this.storeData = new StoreData(JsonDirectory);
         }
-        
+
+        /// <summary>
+        /// Starting run directory monitoring
+        /// </summary>
         public void Run()
         {
             watcher = new FileSystemWatcher()

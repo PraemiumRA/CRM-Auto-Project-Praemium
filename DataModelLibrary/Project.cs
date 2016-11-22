@@ -3,6 +3,9 @@ using System.Xml.Serialization;
 
 namespace DataModelLibrary
 {
+    /// <summary>
+    /// Model for generating data's project.
+    /// </summary>
     [XmlRoot("Project")]
     public class Project
     {
@@ -40,9 +43,9 @@ namespace DataModelLibrary
                 {
                     try
                     {
-                        this.projectName = Check.TestInputStringValue(value);
+                        this.projectName = Check.CheckInputStringValue(value);
                     }
-                    catch { throw; }
+                    catch { throw new Exception("Incorrect value."); }
                 }
             }
         }

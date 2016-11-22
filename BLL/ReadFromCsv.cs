@@ -6,6 +6,9 @@ using Logging;
 
 namespace BLL
 {
+    /// <summary>
+    /// Is reading from csv format file.
+    /// </summary>
     public class ReadFromCsv : IStore
     {
         public string path { get; set; }
@@ -18,7 +21,10 @@ namespace BLL
             this.jsonPath = jsonPath;
             fileName = Path.GetFileName(path);
         }
-
+        /// <summary>
+        /// Is reading from csv format file and giving result with object.
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<DataModel> Read()
         {
             using (FileStream stream = new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite))

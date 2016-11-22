@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Windows.Forms;
 using System.Text;
 using System.Linq;
@@ -12,8 +13,14 @@ using ProjectConfiguration;
 
 namespace BLL
 {
+    /// <summary>
+    /// Depend on entered file extension is handling appropriate way.
+    /// </summary>
     class StoreData
     {
+        IStore storeData;
+        List<long> fileList;
+        int tempCount;
         public ParallelOptions ParOptions { get; set; }
         public DirectoryInfo JsonDirectory { get; set; }
         public int TaskCount { get; set; }
@@ -31,11 +38,11 @@ namespace BLL
             timeToAction = new System.Timers.Timer(1000);
             timeToAction.Elapsed += (sender, e) => StartAction();
         }
-
+        /// <summary>
+        /// Is configurating count of tasks depends on processor core count. 
+        /// </summary>
         private void ConfigurateStore()
         {
-            
-
             int prcent = appConfiguration.GetPrecntOfMachineCore;
             int processorCount = Environment.ProcessorCount;
 
@@ -46,19 +53,26 @@ namespace BLL
 
             TaskCount = ParOptions.MaxDegreeOfParallelism == 1 ? 2 : (int)((1.3) * ParOptions.MaxDegreeOfParallelism);
         }
-        private void Collection_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        /// <summary>
+        /// All files collection's changed handle.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Collection_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+            if (e.Action == NotifyCollectionChangedAction.Add)
             {
                 tasks.Add(new Task(() => Store(e.NewItems[0])));
             }
             timeToAction.Start();
         }
 
-        IStore storeData;
+        /// <summary>
+        /// File handling switcher.
+        /// </summary>
+        /// <param name="paths"></param>
         private void Store(object paths)
         {
-            
             string path = paths as string;
 
             if (Path.GetExtension(path) == ".csv")
@@ -74,11 +88,11 @@ namespace BLL
 
             collection.Remove(path);
         }
-
-        List<long> fileList;
-        int tempCount;
-
-        private int ColculateCountOfTask()
+        /// <summary>
+        /// Is colculating count of tasks.
+        /// </summary>
+        /// <returns></returns>
+        private int ColculateCountOfTasks()
         {
             tempCount = 0;
             fileList = new List<long>();
@@ -116,12 +130,14 @@ namespace BLL
 
             return tempCount;
         }
-
+        /// <summary>
+        /// Is starting to handle files.
+        /// </summary>
         public void StartAction()
         {
             if (tasks.Count == 0) return;
 
-            tempCount = ColculateCountOfTask();
+            tempCount = ColculateCountOfTasks();
 
             Task[] taskArray = new Task[tempCount];
             int index = 0;

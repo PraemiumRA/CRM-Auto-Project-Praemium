@@ -3,6 +3,9 @@ using DataModelLibrary;
 
 namespace BLL
 {
+    /// <summary>
+    /// Contract, which is providing necessary functionality for handling entered data.
+    /// </summary>
     public interface IStore
     {
         string path { get; set; }

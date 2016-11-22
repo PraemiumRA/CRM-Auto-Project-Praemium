@@ -4,9 +4,18 @@ using System.Text.RegularExpressions;
 
 namespace DataModelLibrary
 {
+    /// <summary>
+    /// Checks data values.
+    /// </summary>
     public static class Check
     {
-        public static string TestInputStringValue(string value, bool isSpecialName = false)
+        /// <summary>
+        /// Checks input string value from data.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="isSpecialName"></param>
+        /// <returns></returns>
+        public static string CheckInputStringValue(string value, bool isSpecialName = false)
         {
             string pattern = String.Empty;
 
@@ -26,6 +35,11 @@ namespace DataModelLibrary
                 throw new Exception("Input value is not correct.");
         }
 
+        /// <summary>
+        /// Checks number from data.
+        /// </summary>
+        /// <param name="count"></param>
+        /// <returns></returns>
         public static int CheckNumber(string count)
         {
             int tempCount = 0;
