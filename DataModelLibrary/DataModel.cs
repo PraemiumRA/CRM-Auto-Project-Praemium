@@ -120,13 +120,13 @@ namespace DataModelLibrary
 
         public DataModel() { }
 
-        public DataModel(long teamId, string teamName, long memberId, string passportID, string memberName, string membersurName, Project[] projects)
+        public DataModel(long teamId, string teamName, long memberId, string passportNumber, string memberName, string membersurName, Project[] projects)
         {
             this.Projects = projects;
             this.TeamID = teamId;
             this.TeamName = teamName;
             this.MemberID = memberId;
-            this.PassportNumber = passportID;
+            this.PassportNumber = passportNumber;
             this.MemberName = memberName;
             this.MemberSurname = membersurName;
         }

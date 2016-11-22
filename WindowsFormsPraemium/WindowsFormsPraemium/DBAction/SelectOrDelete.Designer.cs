@@ -29,30 +29,14 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Select));
-            this.dataGridViewValue = new System.Windows.Forms.DataGridView();
             this.comboBoxValue = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.buttonSelect = new System.Windows.Forms.Button();
             this.value_textbox = new System.Windows.Forms.TextBox();
             this.button_Delete = new System.Windows.Forms.Button();
+            this.dataGridViewValue = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewValue)).BeginInit();
             this.SuspendLayout();
-            // 
-            // dataGridViewValue
-            // 
-            this.dataGridViewValue.AllowUserToAddRows = false;
-            this.dataGridViewValue.AllowUserToDeleteRows = false;
-            this.dataGridViewValue.BackgroundColor = System.Drawing.SystemColors.Window;
-            this.dataGridViewValue.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewValue.GridColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.dataGridViewValue.Location = new System.Drawing.Point(5, 153);
-            this.dataGridViewValue.Name = "dataGridViewValue";
-            this.dataGridViewValue.ReadOnly = true;
-            this.dataGridViewValue.RowHeadersVisible = false;
-            this.dataGridViewValue.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewValue.Size = new System.Drawing.Size(752, 250);
-            this.dataGridViewValue.TabIndex = 37;
-            this.dataGridViewValue.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dataGridViewValue_MouseClick);
             // 
             // comboBoxValue
             // 
@@ -65,6 +49,7 @@
             "TeamID",
             "TeamName",
             "MemberID",
+            "PassportNumber",
             "MemberName",
             "MemberSurname",
             "ProjectID",
@@ -126,11 +111,28 @@
             this.button_Delete.UseVisualStyleBackColor = true;
             this.button_Delete.Click += new System.EventHandler(this.button_Delete_Click);
             // 
+            // dataGridViewValue
+            // 
+            this.dataGridViewValue.AllowUserToAddRows = false;
+            this.dataGridViewValue.AllowUserToDeleteRows = false;
+            this.dataGridViewValue.BackgroundColor = System.Drawing.SystemColors.Window;
+            this.dataGridViewValue.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewValue.GridColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.dataGridViewValue.Location = new System.Drawing.Point(5, 153);
+            this.dataGridViewValue.Name = "dataGridViewValue";
+            this.dataGridViewValue.ReadOnly = true;
+            this.dataGridViewValue.RowHeadersVisible = false;
+            this.dataGridViewValue.RowHeadersWidth = 43;
+            this.dataGridViewValue.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewValue.Size = new System.Drawing.Size(752, 250);
+            this.dataGridViewValue.TabIndex = 37;
+            this.dataGridViewValue.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dataGridViewValue_MouseClick);
+            // 
             // Select
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(758, 416);
+            this.ClientSize = new System.Drawing.Size(758, 415);
             this.Controls.Add(this.button_Delete);
             this.Controls.Add(this.dataGridViewValue);
             this.Controls.Add(this.comboBoxValue);
@@ -150,12 +152,11 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.DataGridView dataGridViewValue;
         private System.Windows.Forms.ComboBox comboBoxValue;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button buttonSelect;
         private System.Windows.Forms.TextBox value_textbox;
         private System.Windows.Forms.Button button_Delete;
+        private System.Windows.Forms.DataGridView dataGridViewValue;
     }
 }

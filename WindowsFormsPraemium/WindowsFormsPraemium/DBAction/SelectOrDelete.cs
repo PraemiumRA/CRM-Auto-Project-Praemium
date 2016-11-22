@@ -35,11 +35,11 @@ namespace UIForm.DBAction
         private void comboBoxValue_SelectedIndexChanged(object sender, EventArgs e)
         {
             dataGridViewValue.DataSource = null;
-            if (comboBoxValue.SelectedIndex == 0 || comboBoxValue.SelectedIndex == 2 || comboBoxValue.SelectedIndex == 5)
+            if (comboBoxValue.SelectedIndex == 0 || comboBoxValue.SelectedIndex == 2 || comboBoxValue.SelectedIndex == 6)
                 buttonSelect.Enabled = false;
             else buttonSelect.Enabled = true;
 
-            if (comboBoxValue.SelectedIndex == 9 || comboBoxValue.SelectedIndex == 10 || comboBoxValue.SelectedIndex == 11)
+            if (comboBoxValue.SelectedIndex == 10|| comboBoxValue.SelectedIndex == 11 || comboBoxValue.SelectedIndex == 12)
                 value_textbox.Enabled = false;
             else value_textbox.Enabled = true;
         }
@@ -51,13 +51,14 @@ namespace UIForm.DBAction
 
         private void dataGridViewValue_MouseClick(object sender, MouseEventArgs e)
         {
-            if (dataGridViewValue.RowCount > 0 && (comboBoxValue.SelectedIndex==9 || comboBoxValue.SelectedIndex==10 || comboBoxValue.SelectedIndex==11))
+            if (dataGridViewValue.RowCount > 0 && (comboBoxValue.SelectedIndex==10 || comboBoxValue.SelectedIndex==11 || comboBoxValue.SelectedIndex==12))
                 selectedRow = dataGridViewValue.SelectedRows[0].Cells[0].Value.ToString();
         }
 
         private async void button_Delete_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(value_textbox.Text.ToString()) && value_textbox.Enabled == true && !((comboBoxValue.SelectedIndex == 9 || comboBoxValue.SelectedIndex == 10 || comboBoxValue.SelectedIndex == 11)))
+            if (string.IsNullOrEmpty(value_textbox.Text.ToString()) && value_textbox.Enabled == true && !((comboBoxValue.SelectedIndex == 10 || comboBoxValue.SelectedIndex == 11 || comboBoxValue.SelectedIndex == 12
+                )))
             {
                 MessageBox.Show("Please fill the value area.");
             }
@@ -73,6 +74,10 @@ namespace UIForm.DBAction
         {
             if (table != null)
             {
+                if (table.Columns.Contains("PassportNumber"))
+                {
+                    table.Columns["PassportNumber"].ColumnName = "Passport №";
+                }
                 if (table.Columns.Contains("MemberName"))
                 {
                     table.Columns["MemberName"].ColumnName = "Member Name";

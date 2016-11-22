@@ -175,6 +175,12 @@ namespace BLL
                             dataTableValue = database.ExecuteSelect("spDynamicSelection", parameters);
                             break;
                         }
+                    case "PassportNumber":
+                        {
+                            parameters.Add("@PassportNumber", textBoxValue);
+                            dataTableValue = database.ExecuteSelect("spDynamicSelection", parameters);
+                            break;
+                        }
                     case "MemberName":
                         {
                             parameters.Add("@MemberName", textBoxValue);
@@ -205,21 +211,22 @@ namespace BLL
                             dataTableValue = database.ExecuteSelect("spDynamicSelection", parameters);
                             break;
                         }
-                    case "AllMembers":
-                        {
-                            parameters.Add("@All", 1);
-                            dataTableValue = database.ExecuteSelect("spDynamicSelection", parameters);
-                            break;
-                        }
                     case "AllTeams":
                         {
-                            parameters.Add("@All", 2);
+                            parameters.Add("@AllTeams", true);
                             dataTableValue = database.ExecuteSelect("spDynamicSelection", parameters);
                             break;
                         }
+                    case "AllMembers":
+                        {
+                            parameters.Add("@AllMembers", true);
+                            dataTableValue = database.ExecuteSelect("spDynamicSelection", parameters);
+                            break;
+                        }
+                    
                     case "AllProjects":
                         {
-                            parameters.Add("@All", 3);
+                            parameters.Add("@AllProjects",true);
                             dataTableValue = database.ExecuteSelect("spDynamicSelection", parameters);
                             break;
                         }
@@ -277,6 +284,7 @@ namespace BLL
                 DataTable memberTable = new DataTable();
                 memberTable.Columns.Add("MemberID", typeof(long));
                 memberTable.Columns.Add("TeamID", typeof(long));
+                memberTable.Columns.Add("PassportNumber", typeof(string));
                 memberTable.Columns.Add("MemberName", typeof(string));
                 memberTable.Columns.Add("MemberSurname", typeof(string));
 
@@ -304,7 +312,7 @@ namespace BLL
                     {
 
                         teamTable.Rows.Add(currentDataModel.TeamID, currentDataModel.TeamName);
-                        memberTable.Rows.Add(currentDataModel.MemberID, currentDataModel.TeamID, currentDataModel.MemberName, currentDataModel.MemberSurname);
+                        memberTable.Rows.Add(currentDataModel.MemberID, currentDataModel.TeamID,currentDataModel.PassportNumber, currentDataModel.MemberName, currentDataModel.MemberSurname);
 
                         for (int i = 0; i < currentDataModel.Projects.Length; i++)
                         {

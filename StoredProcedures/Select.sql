@@ -1,5 +1,6 @@
 CREATE PROCEDURE spDynamicSelection
 
+@PassportNumber varchar(50) =null,
 @MemberName varchar(50) = null,
 @MemberSurname nvarchar(50) = null,
 @TeamName nvarchar(50) = null,
@@ -7,20 +8,22 @@ CREATE PROCEDURE spDynamicSelection
 @ProjectCreatedDate date   = null,
 @ProjectDueDate date = null,
 @ProjectDescription varchar(max)=null,
-@All int = null
+@AllMembers bit = null,
+@AllProjects bit = null,
+@AllTeams bit = null
 
 AS
  BEGIN
 
-	  if (@All=1)
-	   select  MemberName,MemberSurname from Member 
-	  else if(@All=2)
+	  if (@AllMembers =1)
+	   select  PassportNumber,MemberName,MemberSurname from Member 
+	  else if(@AllTeams=1)
 	   select TeamName from Team 
-	  else if(@All=3)
+	  else if(@AllProjects=1)
 	   select ProjectName,ProjectCreatedDate,ProjectDueDate,ProjectDescription from Project
 	  else 
 
-	  SELECT Member.MemberName,Member.MemberSurname,Team.TeamName,Project.ProjectName,Project.ProjectCreatedDate,Project.ProjectDueDate,Project.ProjectDescription
+	  SELECT Member.PassportNumber,Member.MemberName,Member.MemberSurname,Team.TeamName,Project.ProjectName,Project.ProjectCreatedDate,Project.ProjectDueDate,Project.ProjectDescription
 	 FROM MemberProject
 		Inner JOIN Member
 	 ON Member.MemberID = MemberProject.M_ID
@@ -32,6 +35,7 @@ AS
 	 ON Team.TeamID = Member.T_ID
 				
 	 WHERE 
+	 Member.PassportNumber=@PassportNumber or
 	 Member.MemberName=@MemberName or
      Member.MemberSurname=@MemberSurname or
 	 Team.TeamName=@TeamName or

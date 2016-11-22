@@ -35,7 +35,7 @@ namespace BLL
                     while ((line = reader.ReadLine()) != null)
                     {
                         dataModel = new DataModel();
-                        listOfDivied = new List<string>();
+                         listOfDivied = new List<string>();
 
                         try
                         {
@@ -53,7 +53,7 @@ namespace BLL
                             dataModel.MemberName = listOfDivied[4];
                             dataModel.MemberSurname = listOfDivied[5];
 
-                            for (int i = 0; i < 5; i++)
+                            for (int i = 0; i < 6; i++)
                             {
                                 listOfDivied.RemoveAt(0);
                             }
