@@ -44,13 +44,14 @@ namespace BLL
                                 listOfDivied.Add(item);
                             }
 
-                            project = new Project[listOfDivied.Count - 5];
+                            project = new Project[listOfDivied.Count - 6];//5
 
                             dataModel.TeamID = long.Parse(listOfDivied[0]);
                             dataModel.TeamName = listOfDivied[1];
                             dataModel.MemberID = long.Parse(listOfDivied[2]);
-                            dataModel.MemberName = listOfDivied[3];
-                            dataModel.MemberSurname = listOfDivied[4];
+                            dataModel.PassportNumber = listOfDivied[3];//changed
+                            dataModel.MemberName = listOfDivied[4];
+                            dataModel.MemberSurname = listOfDivied[5];
 
                             for (int i = 0; i < 5; i++)
                             {

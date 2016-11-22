@@ -93,6 +93,7 @@ namespace FileGenerator
             builder.Append(dataModel.TeamID); builder.Append(';');
             builder.Append(dataModel.TeamName); builder.Append(';');
             builder.Append(dataModel.MemberID); builder.Append(';');
+            builder.Append(dataModel.PassportNumber); builder.Append(';');//changed
             builder.Append(dataModel.MemberName); builder.Append(';');
             builder.Append(dataModel.MemberSurname); builder.Append(';');
 

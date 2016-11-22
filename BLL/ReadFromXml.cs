@@ -62,6 +62,11 @@ namespace BLL
                                         dataModel.TeamName = nodeMemeber.InnerText;
                                         break;
                                     }
+                                case "PassportID": //changed
+                                    {
+                                        dataModel.PassportNumber = nodeMemeber.InnerText;
+                                        break;
+                                    }
                                 case "MemberID":
                                     {
                                         dataModel.MemberID = long.Parse(nodeMemeber.InnerText);

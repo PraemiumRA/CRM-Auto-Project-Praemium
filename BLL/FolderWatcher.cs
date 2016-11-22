@@ -69,6 +69,7 @@ namespace BLL
                 Logger.DoLogging(LogType.Appearance, null, $"{e.Name} was appeared.");
                 storeData.collection.Add(e.FullPath);
             }
-        }    
+        }
+            
     }
 }

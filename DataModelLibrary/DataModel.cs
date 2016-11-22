@@ -13,6 +13,7 @@ namespace DataModelLibrary
         private long teamID;
         private string teamName = String.Empty;
         private long memberID;
+        private string passportNumber = String.Empty;
         private string memberName = String.Empty;
         private string memberSurname = String.Empty;
         private Project[] projects = null;
@@ -43,7 +44,7 @@ namespace DataModelLibrary
                 {
                     this.teamName = Check.TestInputStringValue(value);
                 }
-                catch { throw; }
+                catch { throw new Exception("Incorrect value."); }
             }
         }
 
@@ -63,6 +64,20 @@ namespace DataModelLibrary
             }
         }
 
+        [XmlElement("PassportNumber")]
+        public string PassportNumber
+        {
+            get { return passportNumber; }
+            set
+            {
+                try
+                {
+                    this.passportNumber = value;
+                }
+                catch { throw new Exception("Incorrect value."); }
+            }
+        }
+
         [XmlElement("MemberName")]
         public string MemberName
         {
@@ -73,7 +88,8 @@ namespace DataModelLibrary
                 {
                     this.memberName = Check.TestInputStringValue(value);
                 }
-                catch { throw; }
+                catch { throw new Exception("Incorrect value."); }
+            
             }
         }
 
@@ -87,7 +103,7 @@ namespace DataModelLibrary
                 {
                     this.memberSurname = Check.TestInputStringValue(value);
                 }
-                catch { throw; }
+                catch { throw new Exception("Incorrect value."); }
             }
         }
 
@@ -104,12 +120,13 @@ namespace DataModelLibrary
 
         public DataModel() { }
 
-        public DataModel(long teamId, string teamName, long memberId, string memberName, string membersurName, Project[] projects)
+        public DataModel(long teamId, string teamName, long memberId, string passportID, string memberName, string membersurName, Project[] projects)
         {
             this.Projects = projects;
             this.TeamID = teamId;
             this.TeamName = teamName;
             this.MemberID = memberId;
+            this.PassportNumber = passportID;
             this.MemberName = memberName;
             this.MemberSurname = membersurName;
         }

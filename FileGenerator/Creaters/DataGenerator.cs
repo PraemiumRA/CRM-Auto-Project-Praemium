@@ -60,8 +60,13 @@ namespace FileGenerator
                                                        return tempTeamKeyList[index];
                                                    }
                    ).Invoke();
+
                 dataModel.TeamName = TeamInfo[dataModel.TeamID];
                 dataModel.MemberID = GenerateInteger();
+
+
+                dataModel.PassportNumber = GenerateInteger().ToString();//Changed
+
                 dataModel.MemberName = MemberNames[random.Next(0, MemberNames.Count)];
                 dataModel.MemberSurname = MemberSurnames[random.Next(0, MemberSurnames.Count)];
                 dataModel.Projects = this.GenerateProjects();
