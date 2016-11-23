@@ -111,7 +111,7 @@ namespace BLL
                 storeData = new ReadFromXml(path, JsonDirectory.ToString());
             }
 
-            TeamMemberProjectBLL store = new TeamMemberProjectBLL(storeData);
+            BusinessDataModel.TablesData store = new BusinessDataModel.TablesData(storeData);
 
             collection.Remove(path);
         }

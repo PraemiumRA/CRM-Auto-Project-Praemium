@@ -23,6 +23,7 @@ namespace UIForm
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            CenterToScreen();
             LogManager.LogSource = this.DataGridViewLogging;
             LogManager.form = this;
 

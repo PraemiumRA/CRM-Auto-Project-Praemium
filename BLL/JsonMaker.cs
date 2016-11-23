@@ -13,6 +13,7 @@ namespace BLL
     public class JsonMaker
     {
         DataModel dataModel;
+        StringBuilder builder;
         string filePath;
         string defaultPath;
         string jsonPath;
@@ -24,6 +25,7 @@ namespace BLL
             this.dataModel = dataModel;
             this.filePath = filePath;
             this.jsonPath = jsonPath;
+            builder = new StringBuilder();
 
             JsonFromatMaker();
         }
@@ -36,7 +38,7 @@ namespace BLL
             {
                 return;
             }
-            StringBuilder builder = new StringBuilder();
+
             builder.AppendLine("{");
 
             WriteTeamAndMemberData(builder);

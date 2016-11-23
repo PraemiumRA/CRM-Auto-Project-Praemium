@@ -42,6 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessDataModel\DataEntity.cs" />
+    <Compile Include="BusinessDataModel\TablesData.cs" />
     <Compile Include="FolderWatcher.cs" />
     <Compile Include="IStore.cs" />
     <Compile Include="JsonMaker.cs" />
@@ -49,7 +51,6 @@
     <Compile Include="ReadFromCsv.cs" />
     <Compile Include="ReadFromXml.cs" />
     <Compile Include="StoreData.cs" />
-    <Compile Include="TeamMemberProjectBLL.cs" />
     <Compile Include="WrongData.cs" />
   </ItemGroup>
   <ItemGroup>

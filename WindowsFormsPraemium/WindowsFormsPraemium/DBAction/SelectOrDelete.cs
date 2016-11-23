@@ -3,43 +3,49 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using BLL;
 using System.Data;
+using BLL.BusinessDataModel;
 
 namespace UIForm.DBAction
 {
     public partial class Select : Form
     {
+        bool wasException = false;
         string selectedRow;
+        TablesData tablesData;
         public Select()
         {
             InitializeComponent();
+            tablesData = new TablesData();
             comboBoxValue.SelectedIndex = 0;
         }
 
-        private async void buttonSelect_Click(object sender, EventArgs e)
+        private void buttonSelect_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(value_textbox.Text.ToString()) && value_textbox.Enabled == true)
-            {
-                MessageBox.Show("Please fill the value area");
-            }
-            else
-            {
-                TeamMemberProjectBLL tmpBLL = new TeamMemberProjectBLL(value_textbox.Text, comboBoxValue.SelectedItem.ToString());
-                await Task.Factory.StartNew(tmpBLL.SelectAsync);
-                ColumnNameGiver(tmpBLL.dataTableValue);
-                dataGridViewValue.DataSource = tmpBLL.dataTableValue;
-                value_textbox.Clear();
-            }
+            this.Invoke(new Action(
+                () =>
+                {
+                    if (string.IsNullOrEmpty(value_textbox.Text.ToString()) && value_textbox.Enabled == true)
+                    {
+                        MessageBox.Show("Please fill the value area");
+                    }
+                    else
+                    {
+                        dataGridViewValue.DataSource = tablesData.SelectBy(value_textbox.Text, comboBoxValue.SelectedItem.ToString());
+                        value_textbox.Clear();
+                    }
+                })
+                );
         }
-
 
         private void comboBoxValue_SelectedIndexChanged(object sender, EventArgs e)
         {
             dataGridViewValue.DataSource = null;
+
             if (comboBoxValue.SelectedIndex == 0 || comboBoxValue.SelectedIndex == 2 || comboBoxValue.SelectedIndex == 6)
                 buttonSelect.Enabled = false;
             else buttonSelect.Enabled = true;
 
-            if (comboBoxValue.SelectedIndex == 10|| comboBoxValue.SelectedIndex == 11 || comboBoxValue.SelectedIndex == 12)
+            if (comboBoxValue.SelectedIndex == 10 || comboBoxValue.SelectedIndex == 11 || comboBoxValue.SelectedIndex == 12)
                 value_textbox.Enabled = false;
             else value_textbox.Enabled = true;
         }
@@ -51,22 +57,39 @@ namespace UIForm.DBAction
 
         private void dataGridViewValue_MouseClick(object sender, MouseEventArgs e)
         {
-            if (dataGridViewValue.RowCount > 0 && (comboBoxValue.SelectedIndex==10 || comboBoxValue.SelectedIndex==11 || comboBoxValue.SelectedIndex==12))
+            if (dataGridViewValue.RowCount > 0 && (comboBoxValue.SelectedIndex == 10 || comboBoxValue.SelectedIndex == 11 || comboBoxValue.SelectedIndex == 12))
                 selectedRow = dataGridViewValue.SelectedRows[0].Cells[0].Value.ToString();
         }
 
-        private async void button_Delete_Click(object sender, EventArgs e)
+        private void button_Delete_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(value_textbox.Text.ToString()) && value_textbox.Enabled == true && !((comboBoxValue.SelectedIndex == 10 || comboBoxValue.SelectedIndex == 11 || comboBoxValue.SelectedIndex == 12
-                )))
+            if (string.IsNullOrEmpty(value_textbox.Text.ToString()) && value_textbox.Enabled == true && !((comboBoxValue.SelectedIndex == 10 || comboBoxValue.SelectedIndex == 11 || comboBoxValue.SelectedIndex == 12)))
             {
                 MessageBox.Show("Please fill the value area.");
             }
+            else if (string.IsNullOrEmpty(value_textbox.Text.ToString()) && selectedRow == null)
+                MessageBox.Show("Choose the line to delete");
             else
             {
-                TeamMemberProjectBLL tmpBLL = new TeamMemberProjectBLL(value_textbox.Text, comboBoxValue.SelectedItem.ToString(), selectedRow);
-                await Task.Factory.StartNew(tmpBLL.DeleteAsync);
+                int effectedRowsCount = 0;
+                this.Invoke(new Action(
+                () =>
+                {
+                    effectedRowsCount = tablesData.DeleteBy(value_textbox.Text, comboBoxValue.SelectedItem.ToString(), ref wasException, selectedRow);
+                })
+                );
+
+                if (effectedRowsCount > 0)
+                {
+                    MessageBox.Show(string.Format("{0} row(s) were deleted", effectedRowsCount.ToString()));
+                    Logging.LogManager.DoLogging(Logging.LogType.Delete, null, $"{effectedRowsCount.ToString()} row(s) were deleted");
+                }
+                else if (!wasException)
+                { MessageBox.Show(string.Format("'{0}' does not exist in {1} column", value_textbox.Text, comboBoxValue.SelectedItem)); }
+
                 value_textbox.Clear();
+                selectedRow = null;
+                wasException = false;
             }
         }
 
