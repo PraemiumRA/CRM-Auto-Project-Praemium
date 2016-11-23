@@ -7,6 +7,7 @@
         Success,
         Appearance,
         WrongData,
+        Transfer,
         Delete
     }
 }

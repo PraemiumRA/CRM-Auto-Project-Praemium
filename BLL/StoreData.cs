@@ -10,6 +10,9 @@ using System.Threading;
 using System.IO;
 using System.Diagnostics;
 using ProjectConfiguration;
+using System.Xml;
+using System.Windows.Forms;
+using Logging;
 
 namespace BLL
 {
@@ -38,6 +41,7 @@ namespace BLL
             timeToAction = new System.Timers.Timer(1000);
             timeToAction.Elapsed += (sender, e) => StartAction();
         }
+
         /// <summary>
         /// Is configurating count of tasks depends on processor core count. 
         /// </summary>
@@ -53,6 +57,7 @@ namespace BLL
 
             TaskCount = ParOptions.MaxDegreeOfParallelism == 1 ? 2 : (int)((1.3) * ParOptions.MaxDegreeOfParallelism);
         }
+
         /// <summary>
         /// All files collection's changed handle.
         /// </summary>
@@ -62,8 +67,30 @@ namespace BLL
         {
             if (e.Action == NotifyCollectionChangedAction.Add)
             {
+                string path = e.NewItems[0] as string;
+                StringBuilder fileName = new StringBuilder();
+
+                if (CheckingInputFile(path))
+                {
+                    fileName.Append(appConfiguration.WrongFilesDirectory)
+                            .Append("\\")
+                            .Append(Path.GetFileNameWithoutExtension(Path.GetRandomFileName()))
+                            .Append("(")
+                            .Append(Path.GetFileNameWithoutExtension(path))
+                            .Append(")")
+                            .Append(Path.GetExtension(path));
+
+                    File.Move(path, fileName.ToString());
+                    LogManager.DoLogging(LogType.Transfer, null, "File was moved to wrong file directory");
+                    collection.Remove(path);
+                    return;
+                }
+
                 tasks.Add(new Task(() => Store(e.NewItems[0])));
             }
+                          
+            
+
             timeToAction.Start();
         }
 
@@ -88,6 +115,49 @@ namespace BLL
 
             collection.Remove(path);
         }
+
+        /// <summary>
+        /// Checks structure of input file.
+        /// </summary>
+        /// <param name="path">input file path</param>
+        /// <returns></returns>
+        private bool CheckingInputFile(string path)
+        { 
+            bool isNotCorrectFile = false;
+            try
+            {
+                switch (Path.GetExtension(path))
+                {
+                    case ".xml":
+                        {
+                            XmlDocument document = new XmlDocument();
+                            document.Load(path);
+                            XmlNode root = document.DocumentElement;
+                                                       
+                            break;
+                        }
+                    case ".csv":
+                        {
+                            using (FileStream stream = new FileStream(path, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite))
+                            {
+                                if (stream.Length == 0)
+                                {
+                                    throw new Exception("File is empty or have incorrect structer");
+                                }
+                            }
+                            break;
+                        }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.DoLogging(LogType.Warning, ex);
+                isNotCorrectFile = true;
+            }
+
+            return isNotCorrectFile;
+        }
+
         /// <summary>
         /// Is colculating count of tasks.
         /// </summary>
@@ -130,6 +200,7 @@ namespace BLL
 
             return tempCount;
         }
+
         /// <summary>
         /// Is starting to handle files.
         /// </summary>
