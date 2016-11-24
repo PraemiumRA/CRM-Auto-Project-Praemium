@@ -28,7 +28,7 @@ namespace UIForm
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Form1_Load(object sender, EventArgs e)
+        private void UIMainForm_Load(object sender, EventArgs e)
         {
             CenterToScreen();
             LogManager.LogSource = this.DataGridViewLogging;
@@ -65,12 +65,12 @@ namespace UIForm
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ButtonSelect_Click(object sender, EventArgs e)
+        private void ButtonSelectDelete_Click(object sender, EventArgs e)
         {
             this.Visible = false;
-            Select select = new Select();
+            SelectOrDelete select = new SelectOrDelete();
             select.Show();
-            select.Disposed += Select_Disposed;
+            select.Disposed += SelectDelete_Disposed;
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace UIForm
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Select_Disposed(object sender, EventArgs e)
+        private void SelectDelete_Disposed(object sender, EventArgs e)
         {
             this.Visible = true;
         }

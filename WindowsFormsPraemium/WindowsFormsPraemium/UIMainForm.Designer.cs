@@ -56,7 +56,7 @@
             this.buttonSelect.TabIndex = 1;
             this.buttonSelect.Text = "SELECT / DELETE";
             this.buttonSelect.UseVisualStyleBackColor = true;
-            this.buttonSelect.Click += new System.EventHandler(this.ButtonSelect_Click);
+            this.buttonSelect.Click += new System.EventHandler(this.ButtonSelectDelete_Click);
             // 
             // pictureBox2
             // 
@@ -184,7 +184,7 @@
             this.Name = "UIMainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "CRM Auto-Feed Project";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.UIMainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewLogging)).EndInit();
             this.ResumeLayout(false);

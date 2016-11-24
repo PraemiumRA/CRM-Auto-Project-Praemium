@@ -1,6 +1,6 @@
 ﻿namespace UIForm.DBAction
 {
-    partial class Select
+    partial class SelectOrDelete
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Select));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SelectOrDelete));
             this.comboBoxValue = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.buttonSelect = new System.Windows.Forms.Button();

@@ -10,12 +10,12 @@ namespace UIForm.DBAction
     /// <summary>
     /// Main form for Select and Delete
     /// </summary>
-    public partial class Select : Form
+    public partial class SelectOrDelete : Form
     {
         bool wasException = false;
         string selectedRow;
         TablesData tablesData;
-        public Select()
+        public SelectOrDelete()
         {
             InitializeComponent();
             tablesData = new TablesData();
