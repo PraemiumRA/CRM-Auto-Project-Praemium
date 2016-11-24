@@ -28,6 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.checkBoxAutoOpen = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -42,12 +46,16 @@
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.numericOfMemberCount = new System.Windows.Forms.NumericUpDown();
             this.buttonOpenDirectory = new System.Windows.Forms.Button();
+            this.dataGridViewLogging = new System.Windows.Forms.DataGridView();
+            this.NameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProjectColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericOfProjectCount)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericOfMemberCount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLogging)).BeginInit();
             this.SuspendLayout();
             // 
             // folderBrowserDialog
@@ -185,11 +193,84 @@
             this.buttonOpenDirectory.UseVisualStyleBackColor = true;
             this.buttonOpenDirectory.Click += new System.EventHandler(this.ButtonOpenDirectory_Click);
             // 
+            // dataGridViewLogging
+            // 
+            this.dataGridViewLogging.AllowUserToAddRows = false;
+            this.dataGridViewLogging.AllowUserToDeleteRows = false;
+            this.dataGridViewLogging.AllowUserToResizeColumns = false;
+            this.dataGridViewLogging.AllowUserToResizeRows = false;
+            this.dataGridViewLogging.BackgroundColor = System.Drawing.Color.White;
+            this.dataGridViewLogging.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleVertical;
+            this.dataGridViewLogging.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewLogging.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridViewLogging.ColumnHeadersHeight = 18;
+            this.dataGridViewLogging.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dataGridViewLogging.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.NameColumn,
+            this.ProjectColumn});
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewLogging.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dataGridViewLogging.GridColor = System.Drawing.SystemColors.ActiveCaption;
+            this.dataGridViewLogging.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dataGridViewLogging.Location = new System.Drawing.Point(353, 12);
+            this.dataGridViewLogging.MultiSelect = false;
+            this.dataGridViewLogging.Name = "dataGridViewLogging";
+            this.dataGridViewLogging.ReadOnly = true;
+            this.dataGridViewLogging.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewLogging.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.dataGridViewLogging.RowHeadersVisible = false;
+            this.dataGridViewLogging.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.dataGridViewLogging.RowTemplate.Height = 18;
+            this.dataGridViewLogging.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dataGridViewLogging.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewLogging.Size = new System.Drawing.Size(225, 200);
+            this.dataGridViewLogging.TabIndex = 19;
+            // 
+            // NameColumn
+            // 
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.NameColumn.DefaultCellStyle = dataGridViewCellStyle2;
+            this.NameColumn.Frozen = true;
+            this.NameColumn.HeaderText = "Name";
+            this.NameColumn.MinimumWidth = 100;
+            this.NameColumn.Name = "NameColumn";
+            this.NameColumn.ReadOnly = true;
+            // 
+            // ProjectColumn
+            // 
+            this.ProjectColumn.HeaderText = "Description";
+            this.ProjectColumn.MinimumWidth = 120;
+            this.ProjectColumn.Name = "ProjectColumn";
+            this.ProjectColumn.ReadOnly = true;
+            this.ProjectColumn.Width = 120;
+            // 
             // BaseForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(363, 222);
+            this.ClientSize = new System.Drawing.Size(584, 221);
+            this.Controls.Add(this.dataGridViewLogging);
             this.Controls.Add(this.buttonOpenDirectory);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.checkBoxAutoOpen);
@@ -197,6 +278,8 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.buttonGenerate);
             this.Controls.Add(this.groupBox1);
+            this.MaximumSize = new System.Drawing.Size(600, 260);
+            this.MinimumSize = new System.Drawing.Size(600, 260);
             this.Name = "BaseForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "File Generator";
@@ -209,6 +292,7 @@
             this.groupBox1.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericOfMemberCount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLogging)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -230,6 +314,9 @@
         private System.Windows.Forms.NumericUpDown numericOfProjectCount;
         private System.Windows.Forms.NumericUpDown numericOfMemberCount;
         private System.Windows.Forms.Button buttonOpenDirectory;
+        private System.Windows.Forms.DataGridView dataGridViewLogging;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NameColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ProjectColumn;
     }
 }
 

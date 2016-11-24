@@ -30,7 +30,9 @@ namespace FileGenerator
         }
 
         private void BaseForm_Load(object sender, EventArgs e)
-        {          
+        {
+            this.dataGridViewLogging.DoubleClick += Logging_DoubleClick;
+
             this.numericOfMemberCount.Minimum = 1;
             this.numericOfMemberCount.Maximum = 99;
 
@@ -56,6 +58,7 @@ namespace FileGenerator
 
         }
 
+      
         /// <summary>
         /// Choose creating file directory
         /// </summary>
@@ -132,7 +135,10 @@ namespace FileGenerator
             try
             {
                 //Generate random data and create file
-                chooseFileType.GenerateTheFile(tempType, fileInformation);
+                if(chooseFileType.GenerateTheFile(tempType, fileInformation))
+                {
+                    LoggingInWindow(tempType, fileInformation);
+                }
             }
             catch (Exception exception)
             {
@@ -152,12 +158,80 @@ namespace FileGenerator
                 }
                 catch (Exception ex)
                 {
-                    //TODO: Logging
                     MessageBox.Show(ex.Message);
                 }
             }
 
         }
+
+        #region Logging in UI
+        /// <summary>
+        /// Handle for showing logs in MessageBox.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Logging_DoubleClick(object sender, EventArgs e)
+        {
+            DataGridViewRow row = this.dataGridViewLogging.CurrentRow;
+
+            if (!File.Exists(row.Cells[0].ToolTipText))
+            {
+                MessageBox.Show(
+                                "File not fount.",
+                                Path.GetFileName(row.Cells[0].ToolTipText),
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning
+                               
+                               );
+                
+                return;
+            }
+            StartProcesToOpenFile(row.Cells[0].ToolTipText);
+
+        }
+
+        /// <summary>
+        /// RealTime logging in UI.
+        /// </summary>
+        /// <param name="logType"></param>
+        /// <param name="exception"></param>
+        /// <param name="message"></param>
+        private void LoggingInWindow(FileType tempType,FileInformation fileInformation)
+        {
+            StringBuilder builder = new StringBuilder();
+
+            int index = this.dataGridViewLogging.Rows.Add();
+
+            this.dataGridViewLogging.Rows[index].Cells[0].ToolTipText = builder.Append(fileInformation.FileDirectory)
+                                                                               .Append("\\").Append(fileInformation.FileName)
+                                                                               .Append(".")
+                                                                               .Append(tempType.ToString().ToLower()).ToString();
+            builder.Clear();
+
+            this.dataGridViewLogging.Rows[index].Cells[0].ValueType = typeof(string);
+            this.dataGridViewLogging.Rows[index].Cells[0].Value = builder.Append(fileInformation.FileName)
+                                                                         .Append(".")
+                                                                         .Append(tempType.ToString().ToLower()).ToString();
+
+            builder.Clear();
+
+            this.dataGridViewLogging.Rows[index].Cells[1].ValueType = typeof(string);
+            this.dataGridViewLogging.Rows[index].Cells[1].Value = builder.Append("M: ")
+                                                                         .Append(fileInformation.MemberCount)
+                                                                         .Append("  ").Append("P: ")
+                                                                         .Append(fileInformation.ProjectCount).ToString();
+
+            if (index > 0)
+            {
+                this.dataGridViewLogging.Rows[index - 1].Selected = false;
+            }
+            this.dataGridViewLogging.Rows[index].Selected = true;
+            this.dataGridViewLogging.FirstDisplayedScrollingRowIndex = index;
+
+            builder.Clear();
+        }
+
+        #endregion
 
         /// <summary>
         /// Open generated file after create
@@ -180,10 +254,23 @@ namespace FileGenerator
                     break;
             } while (true);
 
+
+            StartProcesToOpenFile(builder.ToString());
+
+            builder.Clear();
+        }
+
+
+        /// <summary>
+        /// Process which will open file
+        /// </summary>
+        /// <param name="startPath"></param>
+        private void StartProcesToOpenFile(string startPath)
+        {
             Process process = null;
             try
             {
-                process = Process.Start(builder.ToString());
+                process = Process.Start(startPath.ToString());
             }
             catch (ObjectDisposedException disposedException)
             {
@@ -202,10 +289,8 @@ namespace FileGenerator
                 if (process != null)
                     process.Close();
             }
-
-            builder.Clear();
+                        
         }
-
 
         /// <summary>
         /// checker for input text

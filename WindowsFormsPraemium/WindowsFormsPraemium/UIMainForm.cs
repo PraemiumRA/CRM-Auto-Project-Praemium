@@ -9,7 +9,7 @@ using System.Drawing;
 using UIForm.DBAction;
 
 namespace UIForm
-{   
+{
     /// <summary>
     /// Main form of project.
     /// </summary>
@@ -52,12 +52,47 @@ namespace UIForm
             DataGridViewRow row = this.DataGridViewLogging.CurrentRow;
             if (DataGridViewLogging.Rows.Count == 0)
                 return;
-            builder.Value.Append("State: " + row.Cells[0].Value + Environment.NewLine);
+
             builder.Value.Append("Time: " + row.Cells[1].Value + Environment.NewLine);
             builder.Value.Append("Code: " + row.Cells[2].Value + Environment.NewLine);
             builder.Value.Append("Message: " + row.Cells[3].Value);
 
-            MessageBox.Show(builder.Value.ToString());
+            MessageBoxIcon icon = MessageBoxIcon.None;
+            if (Enum.IsDefined(typeof(LogType), row.Cells[0].Value.ToString()))
+            {
+                switch (row.Cells[0].Value.ToString())
+                {
+                    case "Error":
+                        {
+                            icon = MessageBoxIcon.Error;
+                            break;
+                        }
+                    case "WrongData":
+                        {
+                            icon = MessageBoxIcon.Asterisk;
+                            break;
+                        }
+                    case "Warning":
+                        {
+                            icon = MessageBoxIcon.Warning;
+                            break;
+                        }
+                    default:
+                        {
+                            icon = MessageBoxIcon.Information;
+                            break;
+                        } 
+                }
+
+            } else
+                icon = MessageBoxIcon.None;
+
+            MessageBox.Show(
+                                builder.Value.ToString(),
+                                row.Cells[0].Value.ToString(),
+                                MessageBoxButtons.OK,                               
+                                icon
+                            );
         }
 
         /// <summary>
