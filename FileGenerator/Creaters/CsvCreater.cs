@@ -9,7 +9,7 @@ using System.Windows.Forms;
 namespace FileGenerator
 {
     /// <summary>
-    /// CSV file generation class
+    /// CSV file generation class.
     /// </summary>
     class CsvCreater : FileCreater
     {
@@ -23,7 +23,7 @@ namespace FileGenerator
         object block = new object();
 
         /// <summary>
-        /// Method, which creates a file asynchronously
+        /// Method, which creates a file asynchronously.
         /// </summary>
         public async override void CreateAsync()
         {
@@ -31,9 +31,9 @@ namespace FileGenerator
         }
 
         /// <summary>
-        /// The base method for create file
+        /// The base method for file creation. 
         /// </summary>
-        public  void Create()
+        public void Create()
         {
             lock (block)
             {
@@ -71,7 +71,6 @@ namespace FileGenerator
                                 writer.Write(Environment.NewLine);
                             }
                         }
-
                     }
                 }
                 catch (Exception excetion)
@@ -83,7 +82,7 @@ namespace FileGenerator
         }
 
         /// <summary>
-        /// Concating all datas for one content
+        /// Concating all data for one content.
         /// </summary>
         /// <param name="dataModel"></param>
         /// <returns></returns>
@@ -93,7 +92,7 @@ namespace FileGenerator
             builder.Append(dataModel.TeamID); builder.Append(';');
             builder.Append(dataModel.TeamName); builder.Append(';');
             builder.Append(dataModel.MemberID); builder.Append(';');
-            builder.Append(dataModel.PassportNumber); builder.Append(';');//changed
+            builder.Append(dataModel.PassportNumber); builder.Append(';');
             builder.Append(dataModel.MemberName); builder.Append(';');
             builder.Append(dataModel.MemberSurname); builder.Append(';');
 
@@ -102,7 +101,7 @@ namespace FileGenerator
         }
 
         /// <summary>
-        /// Clutch all of the data from the Project object
+        /// Concats all data from the Project object.
         /// </summary>
         /// <param name="project"></param>
         /// <returns></returns>

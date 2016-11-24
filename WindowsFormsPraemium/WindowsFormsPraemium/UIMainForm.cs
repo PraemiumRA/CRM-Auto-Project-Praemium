@@ -5,12 +5,14 @@ using System.Text;
 using System.IO;
 using Logging;
 using System.Data;
+using System.Drawing;
+using UIForm.DBAction;
 
 namespace UIForm
-{
-    using DBAction;
-    using System.Drawing;
-
+{   
+    /// <summary>
+    /// Main form of project.
+    /// </summary>
     public partial class UIMainForm : Form
     {
         FolderWatcher directoryWatcher;
@@ -21,6 +23,11 @@ namespace UIForm
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Handle for main form loading.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Form1_Load(object sender, EventArgs e)
         {
             CenterToScreen();
@@ -34,6 +41,11 @@ namespace UIForm
             directoryWatcher.Run();
         }
 
+        /// <summary>
+        /// Handle for showing logs in Messagebox.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void LoggingView_DoubleClick(object sender, EventArgs e)
         {
             builder.Value.Clear();
@@ -48,6 +60,11 @@ namespace UIForm
             MessageBox.Show(builder.Value.ToString());
         }
 
+        /// <summary>
+        /// Handle for showing window for select and delete.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonSelect_Click(object sender, EventArgs e)
         {
             this.Visible = false;
@@ -56,6 +73,11 @@ namespace UIForm
             select.Disposed += Select_Disposed;
         }
 
+        /// <summary>
+        /// Handle for showing UIMainForm after closing SelectOrDelete Form.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Select_Disposed(object sender, EventArgs e)
         {
             this.Visible = true;

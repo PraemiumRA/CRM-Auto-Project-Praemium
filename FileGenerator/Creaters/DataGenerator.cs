@@ -9,7 +9,7 @@ using System.IO;
 namespace FileGenerator
 {
     /// <summary>
-    /// Random data generator class
+    /// Random data generator class.
     /// </summary>
     class DataGenerator : IDisposable
     {
@@ -32,11 +32,11 @@ namespace FileGenerator
             this.dataCount = dataCount;
             this.projectCount = projectCount;
             allData = new List<DataModel>();
-            ReadStringValues();
+            DataGeneration();
         }
 
         /// <summary>
-        /// Generate Unique dates
+        /// Generates unique dates.
         /// </summary>
         /// <returns></returns>
         public List<DataModel> GetData()
@@ -65,7 +65,7 @@ namespace FileGenerator
                 dataModel.MemberID = GenerateInteger();
 
 
-                dataModel.PassportNumber = GenerateInteger().ToString();//Changed
+                dataModel.PassportNumber = GenerateInteger().ToString();
 
                 dataModel.MemberName = MemberNames[random.Next(0, MemberNames.Count)];
                 dataModel.MemberSurname = MemberSurnames[random.Next(0, MemberSurnames.Count)];
@@ -77,12 +77,14 @@ namespace FileGenerator
             return allData;
         }
 
-        //Generate All Projects
+        /// <summary>
+        /// Generates all Projects.
+        /// </summary>
         private Project[] GenerateProjects()
         {
             List<long> temp = new List<long>();
             Project[] projects = new Project[projectCount];
-            List<long> keyList = ProjectInfo.Keys.ToList<long>();//ProjectInfo
+            List<long> keyList = ProjectInfo.Keys.ToList<long>();
 
             for (int i = 1; i <= projectCount; i++)
             {
@@ -112,9 +114,9 @@ namespace FileGenerator
         }
 
         /// <summary>
-        /// Generate All information
+        /// Generates all data.
         /// </summary>
-        private void ReadStringValues()
+        private void DataGeneration()
         {
             if (!File.Exists(defoultDataPath))
             {
@@ -129,7 +131,7 @@ namespace FileGenerator
                 {
                     using (StreamReader reader = new StreamReader(File.OpenRead(defoultDataPath)))
                     {
-                        //Get Member Name
+                        //Gets Member Name.
                         string[] values = reader.ReadLine().Split(',');
                         Swap<string>(ref values);
                         foreach (string item in values)
@@ -137,7 +139,7 @@ namespace FileGenerator
                             MemberNames.Add(item);
                         }
 
-                        //Get Member Surname
+                        //Gets Member Surname.
                         values = reader.ReadLine().Split(',');
                         Swap<string>(ref values);
                         foreach (string item in values)
@@ -156,7 +158,7 @@ namespace FileGenerator
         }
 
         /// <summary>
-        /// Generate Name and Id
+        /// Generates Names and Ids.
         /// </summary>
         /// <param name="dataType"></param>
         /// <param name="collection"></param>
@@ -174,7 +176,7 @@ namespace FileGenerator
         }
 
         /// <summary>
-        /// Generate Random DateTime
+        /// Generates random DateTime.
         /// </summary>
         /// <param name="Duadate"></param>
         /// <param name="startYear"></param>
@@ -204,7 +206,7 @@ namespace FileGenerator
         }
 
         /// <summary>
-        /// Swaping list 
+        /// Swaps input list. 
         /// </summary>
         /// <param name="list"></param>
         private List<long> Swap(List<long> list)
@@ -225,7 +227,7 @@ namespace FileGenerator
         }
 
         /// <summary>
-        /// Swaping string 
+        /// Swaps string type values. 
         /// </summary>
         /// <param name="words"></param>
         private void Swap<T>(ref T[] words)
@@ -244,7 +246,7 @@ namespace FileGenerator
 
 
         /// <summary>
-        /// Generate Unique integer number
+        /// Generates unique number.
         /// </summary>
         /// <returns></returns>
         private long GenerateInteger()
