@@ -1,5 +1,8 @@
 ﻿namespace Logging
 {
+    /// <summary>
+    /// Contains types of logs.
+    /// </summary>
     public enum LogType
     {
         Error,

@@ -6,6 +6,9 @@ using System.Drawing;
 
 namespace Logging
 {
+    /// <summary>
+    /// Manages where to write logs.
+    /// </summary>
     public class LogManager
     {
         #region Logging Colors
@@ -19,7 +22,12 @@ namespace Logging
         public static Form form = null;
         public static object block = new object();
 
-
+        /// <summary>
+        /// Manages writing of logs in Text file or in Windows Event Log.
+        /// </summary>
+        /// <param name="logType"></param>
+        /// <param name="ex"></param>
+        /// <param name="message"></param>
         public static void DoLogging(LogType logType, Exception ex = null, string message = null)
         {
             AppConfiguration appConfig = AppConfiguration.GetInstance;
@@ -52,16 +60,14 @@ namespace Logging
                         () =>
                         {
                             LogVisibleInWindow(logType, ex, message);
-                        }
-                        )
-                        );
+                        }));
             }
 
             log.Log(logType, ex, message);
         }
 
         /// <summary>
-        /// RealTime logging in UI
+        /// RealTime logging in UIMainForm.
         /// </summary>
         /// <param name="logType"></param>
         /// <param name="exception"></param>

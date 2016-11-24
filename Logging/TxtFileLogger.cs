@@ -11,6 +11,9 @@ using System.Windows.Forms;
 
 namespace Logging
 {
+    /// <summary>
+    /// Provides writing of logs in Text file.
+    /// </summary>
     class TxtFileLogger : ILogger
     {
         AppConfiguration appConfig = AppConfiguration.GetInstance;
@@ -23,6 +26,12 @@ namespace Logging
             builder = new StringBuilder();
         }
 
+        /// <summary>
+        /// Writes logs in Text file.
+        /// </summary>
+        /// <param name="logType"></param>
+        /// <param name="ex"></param>
+        /// <param name="message"></param>
         public void Log(LogType logType, Exception ex = null, string message = null)
         {
             path = appConfig.LogTextFileDirectory;

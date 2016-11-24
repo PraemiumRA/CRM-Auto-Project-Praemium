@@ -20,7 +20,7 @@ CREATE TABLE Member
 
 	FOREIGN KEY(T_ID) 
 	REFERENCES Team(TeamID)
-	ON DELETE CASCADE,
+	ON DELETE CASCADE,			--Is deleting Member which was depend on deleted Team--
 
 	MemberName nvarchar(50) NOT NULL,
 	MemberSurname nvarchar(50) NOT NULL
@@ -51,11 +51,11 @@ CREATE TABLE MemberProject
 
 	FOREIGN KEY (M_ID) 
 	REFERENCES Member(MemberID)
-	ON DELETE CASCADE,
+	ON DELETE CASCADE,			--Is deleting MemberProject reference which was depend on deleted Member--
 
 	FOREIGN KEY (P_ID)
 	REFERENCES Project(ProjectID)
-	ON DELETE CASCADE,
+	ON DELETE CASCADE,			--Is deleting MemberProject reference which was depend on deleted Project--
 
 	PRIMARY KEY(P_ID,M_ID)
 )

@@ -69,7 +69,7 @@ namespace BLL
         }
 
         /// <summary>
-        /// Hundle for Delete
+        /// Handle for Delete
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -79,7 +79,7 @@ namespace BLL
         }
 
         /// <summary>
-        /// Hundle for Create
+        /// Handle for Create
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

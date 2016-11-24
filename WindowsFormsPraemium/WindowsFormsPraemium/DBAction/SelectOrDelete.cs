@@ -7,6 +7,9 @@ using BLL.BusinessDataModel;
 
 namespace UIForm.DBAction
 {
+    /// <summary>
+    /// Main form for Select and Delete
+    /// </summary>
     public partial class Select : Form
     {
         bool wasException = false;
@@ -19,6 +22,11 @@ namespace UIForm.DBAction
             comboBoxValue.SelectedIndex = 0;
         }
 
+        /// <summary>
+        /// Handle for Select button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonSelect_Click(object sender, EventArgs e)
         {
             this.Invoke(new Action(
@@ -33,10 +41,14 @@ namespace UIForm.DBAction
                         dataGridViewValue.DataSource = tablesData.SelectBy(value_textbox.Text, comboBoxValue.SelectedItem.ToString());
                         value_textbox.Clear();
                     }
-                })
-                );
+                }));
         }
 
+        /// <summary>
+        /// Handle for combobox item changes.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void comboBoxValue_SelectedIndexChanged(object sender, EventArgs e)
         {
             dataGridViewValue.DataSource = null;
@@ -55,12 +67,22 @@ namespace UIForm.DBAction
             CenterToScreen();
         }
 
+        /// <summary>
+        /// Handle which will give selected rows value.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dataGridViewValue_MouseClick(object sender, MouseEventArgs e)
         {
             if (dataGridViewValue.RowCount > 0 && (comboBoxValue.SelectedIndex == 10 || comboBoxValue.SelectedIndex == 11 || comboBoxValue.SelectedIndex == 12))
                 selectedRow = dataGridViewValue.SelectedRows[0].Cells[0].Value.ToString();
         }
 
+        /// <summary>
+        /// Handle for Delete button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button_Delete_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(value_textbox.Text.ToString()) && value_textbox.Enabled == true && !((comboBoxValue.SelectedIndex == 10 || comboBoxValue.SelectedIndex == 11 || comboBoxValue.SelectedIndex == 12)))
@@ -76,8 +98,7 @@ namespace UIForm.DBAction
                 () =>
                 {
                     effectedRowsCount = tablesData.DeleteBy(value_textbox.Text, comboBoxValue.SelectedItem.ToString(), ref wasException, selectedRow);
-                })
-                );
+                }));
 
                 if (effectedRowsCount > 0)
                 {
@@ -90,9 +111,14 @@ namespace UIForm.DBAction
                 value_textbox.Clear();
                 selectedRow = null;
                 wasException = false;
+                dataGridViewValue.DataSource = tablesData.SelectBy(value_textbox.Text, comboBoxValue.SelectedItem.ToString());
             }
         }
 
+        /// <summary>
+        /// Gives names for tables columns.
+        /// </summary>
+        /// <param name="table"></param>
         private void ColumnNameGiver(DataTable table)
         {
             if (table != null)

@@ -8,9 +8,9 @@ CREATE PROCEDURE spDynamicSelection
 @ProjectCreatedDate date   = null,
 @ProjectDueDate date = null,
 @ProjectDescription varchar(max)=null,
-@AllMembers bit = 0, --shows all members--
-@AllProjects bit = 0, --shows all projects--
-@AllTeams bit = 0 --shows all teams--
+@AllMembers bit = 0,   --shows all members--
+@AllProjects bit = 0,  --shows all projects--
+@AllTeams bit = 0	   --shows all teams--
 
 AS
  BEGIN

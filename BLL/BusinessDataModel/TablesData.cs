@@ -11,6 +11,9 @@ using System.Windows.Forms;
 
 namespace BLL.BusinessDataModel
 {
+    /// <summary>
+    /// Gets parameters and transfers to DataEntity Class.
+    /// </summary>
     public sealed class TablesData : DataEntity
     {
         AppConfiguration appConfig = AppConfiguration.GetInstance;
@@ -59,10 +62,10 @@ namespace BLL.BusinessDataModel
 
 
         /// <summary>
-        /// Selects data from database.
+        /// Gets parameters for selection and passes them to DataEntity's Select method.
         /// </summary>
-        /// <param name="value">selected value</param>
-        /// <param name="comboboxValue">selected type</param>
+        /// <param name="value"></param>
+        /// <param name="comboboxValue"></param>
         /// <returns></returns>
         public DataTable SelectBy(object value, string comboboxValue)
         {
@@ -93,6 +96,15 @@ namespace BLL.BusinessDataModel
                 }
             }
         }
+
+        /// <summary>
+        /// Gets parameters for deletion and passes them to DataEntity's Delete method.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="comboboxValue"></param>
+        /// <param name="wasException"></param>
+        /// <param name="selectedValue"></param>
+        /// <returns></returns>
         public int DeleteBy(object value, string comboboxValue, ref bool wasException, string selectedValue = null)
         {
             try
@@ -122,6 +134,11 @@ namespace BLL.BusinessDataModel
             }
         }
 
+        /// <summary>
+        /// Checks input value from UI.
+        /// </summary>
+        /// <param name="textBoxValue"></param>
+        /// <param name="comboBoxValue"></param>
         private void IdValueCheaker(object textBoxValue, string comboBoxValue)
         {
             long idValue;
@@ -150,6 +167,11 @@ namespace BLL.BusinessDataModel
             }
         }
 
+        /// <summary>
+        /// Gets parameters for insert/update and passes them to DataEntity's InsertOrUpdate method.
+        /// </summary>
+        /// <param name="dataSet"></param>
+        /// <returns></returns>
         public int InsertBy(DataSet dataSet)
         {
             string[] spInsertParameters = new string[] { "@teamData", "@memberData", "@projectData", "@memberProjectData" };
@@ -161,9 +183,12 @@ namespace BLL.BusinessDataModel
                 parameters.Add(spInsertParameters[i], dataSet.Tables[i]);
             }
 
-            return Insert(parameters);
+            return InsertOrUpdate(parameters);
         }
 
+        /// <summary>
+        /// Reads data from CSV and XML files and store to Json format file or database depends on parameters.
+        /// </summary>
         public void StoreDataFromFile()
         {
             try
@@ -225,6 +250,10 @@ namespace BLL.BusinessDataModel
             }
         }
 
+        /// <summary>
+        /// Creates Tables for data insertion from files.
+        /// </summary>
+        /// <returns></returns>
         private DataSet TablesCreation()
         {
             DataSet dataSet = new DataSet();

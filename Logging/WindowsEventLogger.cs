@@ -7,8 +7,17 @@ using System.Threading.Tasks;
 
 namespace Logging
 {
+    /// <summary>
+    /// Provides writing of logs in Windows Event Log.
+    /// </summary>
     class WindowsEventLogger : ILogger
     {
+        /// <summary>
+        /// Writes logs in Windows Event Log.
+        /// </summary>
+        /// <param name="logType"></param>
+        /// <param name="ex"></param>
+        /// <param name="message"></param>
         public void Log(LogType logType, Exception ex = null, string message = null)
         {
             string source = DateTime.Now.ToString();
