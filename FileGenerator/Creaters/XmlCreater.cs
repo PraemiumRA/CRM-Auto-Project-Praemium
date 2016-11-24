@@ -10,7 +10,7 @@ using System.Runtime.Serialization;
 namespace FileGenerator
 {
     /// <summary>
-    /// XML file generation class
+    /// XML file generation class.
     /// </summary>
     class XmlCreater : FileCreater
     {
@@ -24,7 +24,7 @@ namespace FileGenerator
         object block = new object();
 
         /// <summary>
-        /// Method, which creates a file asynchronously
+        /// Method, which creates a file asynchronously.
         /// </summary>
         public async override void CreateAsync()
         {
@@ -32,7 +32,7 @@ namespace FileGenerator
         }
 
         /// <summary>
-        /// The base method for create file
+        /// Creates new file.
         /// </summary>
         public void Create()
         {
@@ -58,6 +58,10 @@ namespace FileGenerator
 
     }
 
+    /// <summary>
+    /// Type for serialization.
+    /// </summary>
+
     [Serializable]
     public class Records
     {
@@ -78,7 +82,7 @@ namespace FileGenerator
 
 
         /// <summary>
-        /// Copy projects from member list to new project list, which will be serialized.
+        /// Copies projects from member list to new project list which will be serialized.
         /// </summary>
         /// <param name="memebers"></param>
         private void CopyProjects(List<DataModel> memebers)
@@ -93,10 +97,13 @@ namespace FileGenerator
                         Projects.Add(mprojects[i]);
                 }
             }
-
-
         }
 
+        /// <summary>
+        /// Checks duplicates of project.
+        /// </summary>
+        /// <param name="mProject"></param>
+        /// <returns></returns>
         private bool isContain(MProject mProject)
         {
             for (int i = 0; i < Projects.Count; i++)
@@ -109,6 +116,11 @@ namespace FileGenerator
             return false;
         }
 
+        /// <summary>
+        /// Gets and returns serializable projects.
+        /// </summary>
+        /// <param name="dataModel"></param>
+        /// <returns></returns>
         private MProject[] GetMProjects(DataModel dataModel)
         {
             MProject[] mProjects = new MProject[dataModel.Projects.Length];
@@ -128,7 +140,7 @@ namespace FileGenerator
         }
 
         /// <summary>
-        /// Equivalent class for Project class
+        /// Equivalent class of DataModel.Project class.
         /// </summary>
         public class MProject
         {
@@ -138,10 +150,7 @@ namespace FileGenerator
             public DateTime ProjectDueDate { get; set; }
             public string ProjectDescription { get; set; }
 
-            public MProject() { }
-           
-        }
-        
+            public MProject() { }           
+        }      
     }
-
 }

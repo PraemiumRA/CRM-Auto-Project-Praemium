@@ -8,7 +8,7 @@ using System.Windows.Forms;
 namespace FileGenerator
 {
     /// <summary>
-    /// Base abstract class for file generation
+    /// Base abstract class for file generation.
     /// </summary>
     abstract class FileCreater
     {
@@ -33,7 +33,7 @@ namespace FileGenerator
         }
 
         /// <summary>
-        /// Get full name for new generate file
+        /// Gets full name for new generating file.
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
@@ -49,13 +49,13 @@ namespace FileGenerator
         }
 
         /// <summary>
-        /// The method of generating an asynchronous
+        /// The method of asynchronous generation.
         /// </summary>
         public abstract void CreateAsync();
 
 
         /// <summary>
-        /// The basic method of data generation
+        /// The basic method of data generation.
         /// </summary>
         private void GenerateData()
         {

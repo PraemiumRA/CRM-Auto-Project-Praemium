@@ -65,15 +65,15 @@ namespace BLL.BusinessDataModel
         /// Gets parameters for selection and passes them to DataEntity's Select method.
         /// </summary>
         /// <param name="value"></param>
-        /// <param name="comboboxValue"></param>
+        /// <param name="selectedItem"></param>
         /// <returns></returns>
-        public DataTable SelectBy(object value, string comboboxValue)
+        public DataTable SelectBy(object value, string selectedItem)
         {
-            if (comboboxValue == "AllTeams" || comboboxValue == "AllMembers" || comboboxValue == "AllProjects")
+            if (selectedItem == "AllTeams" || selectedItem == "AllMembers" || selectedItem == "AllProjects")
             {
                 var parameters = new Dictionary<string, object>
                 {
-                    { "@"+comboboxValue, true }
+                    { "@"+selectedItem, true }
                 };
                 return Select(parameters);
             }
@@ -81,10 +81,10 @@ namespace BLL.BusinessDataModel
             {
                 try
                 {
-                    IdValueCheaker(value, comboboxValue);
+                    IdValueCheaker(value, selectedItem);
                     Dictionary<string, object> parameters = new Dictionary<string, object>
                     {
-                        { "@"+comboboxValue, value }
+                        { "@"+selectedItem, value }
                     };
                     return Select(parameters);
                 }
@@ -101,11 +101,11 @@ namespace BLL.BusinessDataModel
         /// Gets parameters for deletion and passes them to DataEntity's Delete method.
         /// </summary>
         /// <param name="value"></param>
-        /// <param name="comboboxValue"></param>
+        /// <param name="selectedItem"></param>
         /// <param name="wasException"></param>
         /// <param name="selectedValue"></param>
         /// <returns></returns>
-        public int DeleteBy(object value, string comboboxValue, ref bool wasException, string selectedValue = null)
+        public int DeleteBy(object value, string selectedItem, ref bool wasException, string selectedValue = null)
         {
             try
             {
@@ -118,10 +118,10 @@ namespace BLL.BusinessDataModel
                     return Delete(param);
                 }
 
-                IdValueCheaker(value, comboboxValue);
+                IdValueCheaker(value, selectedItem);
                 Dictionary<string, object> parameters = new Dictionary<string, object>
                  {
-                     { "@"+comboboxValue, value }
+                     { "@"+selectedItem, value }
                  };
                 return Delete(parameters);
             }
@@ -137,16 +137,16 @@ namespace BLL.BusinessDataModel
         /// <summary>
         /// Checks input value from UI.
         /// </summary>
-        /// <param name="textBoxValue"></param>
-        /// <param name="comboBoxValue"></param>
-        private void IdValueCheaker(object textBoxValue, string comboBoxValue)
+        /// <param name="inputValue"></param>
+        /// <param name="selectedItem"></param>
+        private void IdValueCheaker(object inputValue, string selectedItem)
         {
             long idValue;
             DateTime dateTimeValue;
 
-            if ((comboBoxValue == "TeamID" || comboBoxValue == "MemberID" || comboBoxValue == "ProjectID" || comboBoxValue == "MemberProjectID"))
+            if ((selectedItem == "TeamID" || selectedItem == "MemberID" || selectedItem == "ProjectID" || selectedItem == "MemberProjectID"))
             {
-                if (long.TryParse(textBoxValue.ToString(), out idValue))
+                if (long.TryParse(inputValue.ToString(), out idValue))
                 {
                     if (idValue <= 0)
                     {
@@ -158,9 +158,9 @@ namespace BLL.BusinessDataModel
                     throw new FormatException("Argument must be a number");
                 }
             }
-            else if (comboBoxValue == "ProjectCreatedDate" || comboBoxValue == "ProjectDueDate")
+            else if (selectedItem == "ProjectCreatedDate" || selectedItem == "ProjectDueDate")
             {
-                if (!DateTime.TryParse(textBoxValue.ToString(), out dateTimeValue))
+                if (!DateTime.TryParse(inputValue.ToString(), out dateTimeValue))
                 {
                     throw new FormatException("Argument must be Date format");
                 }
