@@ -3,7 +3,7 @@
 namespace FileGenerator
 {
     /// <summary>
-    /// Choose file type for generate
+    /// Chooses file type for generation.
     /// </summary>
     class ChooseFileType
     {
@@ -15,7 +15,7 @@ namespace FileGenerator
         }
 
         /// <summary>
-        /// Generation the file with choice type
+        /// Generats the file with chosen type.
         /// </summary>
         /// <param name="filetype"></param>
         /// <param name="fileinformation"></param>
@@ -43,7 +43,5 @@ namespace FileGenerator
             fileCreate.CreateAsync();
             return true;
         }
-
-
     }
 }
