@@ -7,6 +7,7 @@ using Logging;
 using System.Data;
 using System.Drawing;
 using UIForm.DBAction;
+using ProjectConfiguration;
 
 namespace UIForm
 {
@@ -17,6 +18,7 @@ namespace UIForm
     {
         FolderWatcher directoryWatcher;
         Lazy<StringBuilder> builder = new Lazy<StringBuilder>();
+        FileSystemWatcher directoryExist;
 
         public UIMainForm()
         {
@@ -39,7 +41,29 @@ namespace UIForm
 
             directoryWatcher = new FolderWatcher();
             directoryWatcher.Run();
+
+            directoryExist = new FileSystemWatcher()
+            {
+                Path = (Directory.GetParent(AppConfiguration.GetInstance.GetToMnitorDirectory)).FullName
+            };
+            directoryExist.Deleted += DirectoryExist_Deleted;
+            directoryExist.EnableRaisingEvents = true;
         }
+    
+
+
+        private void DirectoryExist_Deleted(object sender, FileSystemEventArgs e)
+        {
+            if (e.ChangeType == WatcherChangeTypes.Deleted)
+            {
+                if (Directory.Exists(AppConfiguration.GetInstance.GetToMnitorDirectory))
+                {
+                    Directory.CreateDirectory(AppConfiguration.GetInstance.GetToMnitorDirectory);
+                    (new DirectoryInfo(Directory.GetParent(AppConfiguration.GetInstance.GetToMnitorDirectory).FullName)).Refresh();
+                }
+            }
+        }
+
 
         /// <summary>
         /// Handle for showing logs in Messagebox.

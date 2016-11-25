@@ -100,6 +100,10 @@
       <Project>{b9d915bf-948c-4741-8c73-d6d1bf58e7d6}</Project>
       <Name>Logging</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\ProjectConfiguration\ProjectConfiguration.csproj">
+      <Project>{fd303408-22cb-434b-a763-fe2070cdab4e}</Project>
+      <Name>ProjectConfiguration</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resource\parse.png" />

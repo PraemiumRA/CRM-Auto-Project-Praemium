@@ -122,7 +122,11 @@ namespace FileGenerator
             if (isWork) RemoveNotExistFilesFromList();
 
             DirectoryInfo directory = new DirectoryInfo(this.fileDirectory);
-           // if(!directory.Exists)  //TODO: 
+           
+            if(!Directory.Exists(fileDirectory))
+            {
+                Directory.CreateDirectory(fileDirectory);
+            }
                 
             FileInfo[] files = directory.GetFiles();
             if (files.Length == 0) return;
