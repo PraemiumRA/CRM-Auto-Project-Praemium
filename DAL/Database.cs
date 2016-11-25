@@ -58,6 +58,7 @@ namespace DAL
                 {
                     transaction.Rollback();
                     LogManager.DoLogging(LogType.Error, exception, "Error in Database processing.");
+                    return -1;
                 }
                 return affectedRowsCount;
             }

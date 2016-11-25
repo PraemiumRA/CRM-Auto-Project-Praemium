@@ -26,6 +26,7 @@ namespace BLL.BusinessDataModel
         bool isJson = false;
         bool isDB = false;
         bool isWrittenDB = false;
+        int count;
 
         public TablesData()
         {
@@ -195,14 +196,9 @@ namespace BLL.BusinessDataModel
             {
                 DataSet dataSet = TablesCreation();
 
-                foreach (var currentDataModel in storeData.Read())
+                if (isDB)
                 {
-                    if (isJson)
-                    {
-                        jsonMaker = new JsonMaker(currentDataModel, path, jsonPath);
-                    }
-
-                    if (isDB)
+                    foreach (var currentDataModel in storeData.Read())
                     {
                         dataSet.Tables["Team"].Rows.Add(currentDataModel.TeamID, currentDataModel.TeamName);
                         dataSet.Tables["Member"].Rows.Add(currentDataModel.MemberID, currentDataModel.TeamID, currentDataModel.PassportNumber, currentDataModel.MemberName, currentDataModel.MemberSurname);
@@ -218,9 +214,22 @@ namespace BLL.BusinessDataModel
                             dataSet.Tables["MemberProject"].Rows.Add(currentDataModel.MemberID, currentDataModel.Projects[i].ProjectID);
                         }
                     }
+                    count = InsertBy(dataSet);
+
+                    //If there is a trouble with storing data in database then switch to Json.
+                    if (count == -1 && isJson == false)
+                    {
+                        isJson = true;
+                    }
                 }
 
-                InsertBy(dataSet);
+                if (isJson)
+                {
+                    foreach (var currentDataModel in storeData.Read())
+                    {
+                        jsonMaker = new JsonMaker(currentDataModel, path, jsonPath);
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -235,7 +244,7 @@ namespace BLL.BusinessDataModel
                 jsonMaker.isWrittenJson = true;
             }
 
-            if (isDB && !isWrittenDB)
+            if (isDB && !isWrittenDB && count != -1)
             {
                 LogManager.DoLogging(LogType.Success, null, "Data succesfuly stored in Data Base. ");
                 isWrittenDB = true;
