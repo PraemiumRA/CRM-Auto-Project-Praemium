@@ -3,7 +3,7 @@
 namespace FileGenerator
 {
     /// <summary>
-    /// Information class for generate file
+    /// Contains information about generation of file.
     /// </summary>
     class FileInformation
     {
@@ -36,8 +36,6 @@ namespace FileGenerator
         public FileInformation()
         {
 
-        }
-
-        
+        }       
     }
 }

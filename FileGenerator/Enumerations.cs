@@ -1,17 +1,7 @@
 ﻿namespace FileGenerator
 {
     /// <summary>
-    /// File count selection
-    /// </summary>
-    public enum FileCount : byte
-    {
-        Single = 0,
-        Multiple = 1,
-        Count = 2
-    }
-
-    /// <summary>
-    /// File Type selection
+    /// Contains selection of File Type. 
     /// </summary>
     public enum FileType : byte
     {
@@ -21,7 +11,7 @@
     }
 
     /// <summary>
-    /// Data model fields
+    /// Contains data model fields.
     /// </summary>
     public enum DataSource : byte
     {
@@ -36,8 +26,5 @@
         ProjectDueDate,
         ProjectDescription,
         count = ProjectDescription + 1
-
     }
-
-   
 }

@@ -3,7 +3,7 @@
 namespace FileGenerator
 {
     /// <summary>
-    /// Information of generating file
+    /// Contains information about generating file.
     /// </summary>
     class FileSyntax
     {
@@ -47,6 +47,5 @@ namespace FileGenerator
         {
             return (builder.Append(this.name)).Append(this.id).Append(this.extension).ToString();
         }
-
     }
 }

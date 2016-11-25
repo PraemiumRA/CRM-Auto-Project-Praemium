@@ -7,6 +7,9 @@ using System.IO;
 
 namespace FileGenerator
 {
+    /// <summary>
+    /// Gives names for files which must be created.
+    /// </summary>
     class FileNameGiver
     {
         public List<FileSyntax> fileList = new List<FileSyntax>();
@@ -23,7 +26,7 @@ namespace FileGenerator
         }
 
         /// <summary>
-        /// Get the file name for create
+        /// Gets the file name for creation.
         /// </summary>
         /// <param name="fileType"></param>
         /// <returns></returns>
@@ -51,7 +54,7 @@ namespace FileGenerator
         }
 
         /// <summary>
-        /// Calculate maximum index for the new generate file
+        /// Calculates maximum index for new generating file.
         /// </summary>
         /// <param name="fileSyntax"></param>
         /// <returns></returns>
@@ -71,7 +74,7 @@ namespace FileGenerator
         }
 
         /// <summary>
-        /// Check file name
+        /// Checks file name.
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
@@ -94,7 +97,7 @@ namespace FileGenerator
         }
 
         /// <summary>
-        /// Read file name from app.config
+        /// Reads file name from app.config.
         /// </summary>
         /// <returns></returns>
         private string GetFileNameFromAppConfig()
@@ -115,7 +118,7 @@ namespace FileGenerator
         }
 
         /// <summary>
-        /// Get all file names from directory
+        /// Gets all file names from directory.
         /// </summary>
         public void GetAllFilesInDirectory()
         {
@@ -168,7 +171,7 @@ namespace FileGenerator
         }
 
         /// <summary>
-        /// Remove file name from list, if the file not exists
+        /// Removes file name from list, if the file doesn't exist.
         /// </summary>
         private void RemoveNotExistFilesFromList()
         {
@@ -190,7 +193,5 @@ namespace FileGenerator
                 }
             }
         }
-
-
     }
 }

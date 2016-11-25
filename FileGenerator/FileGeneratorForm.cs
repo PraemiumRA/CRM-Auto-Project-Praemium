@@ -10,6 +10,9 @@ using DataModelLibrary;
 
 namespace FileGenerator
 {
+    /// <summary>
+    /// Main form of file generation.
+    /// </summary>
     public partial class BaseForm : Form
     {
         DirectoryChoose checkService;
@@ -29,6 +32,11 @@ namespace FileGenerator
             builder = new StringBuilder();
         }
 
+        /// <summary>
+        /// Loads settings of form application.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BaseForm_Load(object sender, EventArgs e)
         {
             this.dataGridViewLogging.DoubleClick += Logging_DoubleClick;
@@ -42,7 +50,7 @@ namespace FileGenerator
             checkService = new DirectoryChoose();
             chooseFileType = new ChooseFileType();
 
-            //Get directory for creating file
+            //Get directory for creating file.
             try
             {
                 fileDirectory = checkService.GetDirectoryPath();
@@ -55,16 +63,14 @@ namespace FileGenerator
             this.textBoxDestination.Text = fileDirectory;
             this.numericOfMemberCount.TextChanged += CheckInputText;
             this.numericOfProjectCount.TextChanged += CheckInputText;
-
         }
 
-      
         /// <summary>
-        /// Choose creating file directory
+        /// Handle, which is choosing directory.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private  void ButtonBrowse_Click(object sender, EventArgs e)
+        private void ButtonBrowse_Click(object sender, EventArgs e)
         {
             builder.Clear();
             folderBrowserDialog.ShowDialog();
@@ -75,13 +81,11 @@ namespace FileGenerator
             {
                 this.textBoxDestination.Text = builder.ToString();
                 this.fileDirectory = builder.ToString();
-            }
-                        
+            }                        
         }
-             
 
         /// <summary>
-        /// Generate button hundle
+        /// Handle for file generation.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -97,7 +101,6 @@ namespace FileGenerator
             }
             catch (Exception exceptin)
             {
-                //Loging
                 MessageBox.Show(exceptin.Message);
             }
 
@@ -123,7 +126,7 @@ namespace FileGenerator
                 this.textBoxDestination.BackColor = Color.FromArgb(90, 190, 255);
             }
 
-            //Collect information for creating file
+            //Collect information about file creation.
             fileInformation = new FileInformation()
             {
                 MemberCount = memberCount,
@@ -134,8 +137,8 @@ namespace FileGenerator
 
             try
             {
-                //Generate random data and create file
-                if(chooseFileType.GenerateTheFile(tempType, fileInformation))
+                //Generats random data and creates file.
+                if (chooseFileType.GenerateTheFile(tempType, fileInformation))
                 {
                     LoggingInWindow(tempType, fileInformation);
                 }
@@ -145,7 +148,7 @@ namespace FileGenerator
                 MessageBox.Show(exception.Message);
             }
 
-            //open file after generate
+            //Open file after generation.
             if (this.checkBoxAutoOpen.Checked)
             {
                 try
@@ -161,12 +164,11 @@ namespace FileGenerator
                     MessageBox.Show(ex.Message);
                 }
             }
-
         }
 
-        #region Logging in UI
+        #region Logging for UI
         /// <summary>
-        /// Handle for showing logs in MessageBox.
+        /// Handle for logs, which are showen in MessageBox.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -187,7 +189,6 @@ namespace FileGenerator
                 return;
             }
             StartProcesToOpenFile(row.Cells[0].ToolTipText);
-
         }
 
         /// <summary>
@@ -234,7 +235,7 @@ namespace FileGenerator
         #endregion
 
         /// <summary>
-        /// Open generated file after create
+        /// Open generated file after creation.
         /// </summary>
         /// <param name="fileInformation"></param>
         /// <param name="tempType"></param>
@@ -260,9 +261,8 @@ namespace FileGenerator
             builder.Clear();
         }
 
-
         /// <summary>
-        /// Process which will open file
+        /// Process which will open file.
         /// </summary>
         /// <param name="startPath"></param>
         private void StartProcesToOpenFile(string startPath)
@@ -288,12 +288,11 @@ namespace FileGenerator
             {
                 if (process != null)
                     process.Close();
-            }
-                        
+            }                       
         }
 
         /// <summary>
-        /// checker for input text
+        /// Checks input text for directory path.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -335,7 +334,7 @@ namespace FileGenerator
         }
 
         /// <summary>
-        /// Button handle for open selected directory
+        /// Button handle for opening directory.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -373,7 +372,6 @@ namespace FileGenerator
             {
                 MessageBox.Show(exception.Message);
             }
-
         }
     }
 }

@@ -5,14 +5,14 @@ using System.Configuration;
 namespace FileGenerator
 {
     /// <summary>
-    /// Directory choice class
+    /// Chooses directory.
     /// </summary>
     class DirectoryChoose
     {
         string fileDirectory;
 
         /// <summary>
-        /// Get Directory for creating file
+        /// Gets Directory of created file.
         /// </summary>
         /// <returns></returns>
         public string GetDirectoryPath()
@@ -20,24 +20,24 @@ namespace FileGenerator
             string tempDirectory = "";
             try
             {
-                tempDirectory = ConfigurationManager.AppSettings["Path"] ?? GetGenerateDirectory();
+                tempDirectory = ConfigurationManager.AppSettings["Path"] ?? GetDefaultDirectory();
             }
             catch 
             {
-                tempDirectory = GetGenerateDirectory();
+                tempDirectory = GetDefaultDirectory();
             }
 
             if (!IsDirectoryExist(tempDirectory))
-                tempDirectory = GetGenerateDirectory();
+                tempDirectory = GetDefaultDirectory();
 
             return tempDirectory;
         }
 
         /// <summary>
-        /// Generate
+        /// Gets default directory.
         /// </summary>
         /// <returns></returns>
-        private string GetGenerateDirectory()
+        private string GetDefaultDirectory()
         {
             string directoryName = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\GeneratedFile";
 
@@ -46,10 +46,9 @@ namespace FileGenerator
 
             return directoryName;
         }
-       
 
         /// <summary>
-        /// Test choice directory
+        /// Tests directory exsists or not.
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
@@ -65,8 +64,5 @@ namespace FileGenerator
             fileDirectory = path;
             return true;
         }
-
-
-
     }
 }
