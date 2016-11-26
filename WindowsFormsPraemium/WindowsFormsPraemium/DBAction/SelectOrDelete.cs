@@ -38,7 +38,7 @@ namespace UIForm.DBAction
                     }
                     else
                     {
-                        dataGridViewValue.DataSource = tablesData.SelectBy(value_textbox.Text, comboBoxValue.SelectedItem.ToString());
+                        dataGridViewValue.DataSource = ColumnNameGiver(tablesData.SelectBy(value_textbox.Text, comboBoxValue.SelectedItem.ToString()));
                         value_textbox.Clear();
                     }
                 }));
@@ -111,7 +111,7 @@ namespace UIForm.DBAction
                 value_textbox.Clear();
                 selectedRow = null;
                 wasException = false;
-                dataGridViewValue.DataSource = tablesData.SelectBy(value_textbox.Text, comboBoxValue.SelectedItem.ToString());
+                dataGridViewValue.DataSource = ColumnNameGiver(tablesData.SelectBy(value_textbox.Text, comboBoxValue.SelectedItem.ToString()));
             }
         }
 
@@ -119,7 +119,7 @@ namespace UIForm.DBAction
         /// Gives names for tables columns.
         /// </summary>
         /// <param name="table"></param>
-        private void ColumnNameGiver(DataTable table)
+        private DataTable ColumnNameGiver(DataTable table)
         {
             if (table != null)
             {
@@ -156,6 +156,7 @@ namespace UIForm.DBAction
                     table.Columns["ProjectDescription"].ColumnName = "Description";
                 }
             }
+            return table;
         }
     }
 }

@@ -32,6 +32,7 @@ namespace BLL.BusinessDataModel
         {
             isJson = appConfig.IsStoreToJson;
             isDB = appConfig.IsStoreDataBase;
+            jsonMaker = new JsonMaker() { isWrittenJson = false };
         }
         public TablesData(IStore storeData) : this()
         {
@@ -246,12 +247,13 @@ namespace BLL.BusinessDataModel
 
             if (isDB && !isWrittenDB && count != -1)
             {
-                LogManager.DoLogging(LogType.Success, null, "Data succesfuly stored in Data Base. ");
+                LogManager.DoLogging(LogType.Success, null, "Data succesfuly stored in Data Base.");
                 isWrittenDB = true;
             }
             try
             {
-                File.Delete(path);
+                if (AppConfiguration.GetInstance.IsStoreToJson || AppConfiguration.GetInstance.IsStoreDataBase)
+                    File.Delete(path);
             }
             catch (Exception ex)
             {

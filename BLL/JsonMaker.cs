@@ -20,6 +20,11 @@ namespace BLL
         static object locker = new object();
         public bool isWrittenJson = false;
 
+        public JsonMaker()
+        {
+                
+        }
+
         public JsonMaker(DataModel dataModel, string filePath, string jsonPath)
         {
             this.dataModel = dataModel;

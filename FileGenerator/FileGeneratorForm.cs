@@ -26,7 +26,6 @@ namespace FileGenerator
 
         public BaseForm()
         {
-
             InitializeComponent();
             random = new Random();
             builder = new StringBuilder();
