@@ -2,16 +2,12 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.Windows.Forms;
 using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Threading;
 using System.IO;
-using System.Diagnostics;
 using ProjectConfiguration;
 using System.Xml;
-using System.Windows.Forms;
 using Logging;
 
 namespace BLL

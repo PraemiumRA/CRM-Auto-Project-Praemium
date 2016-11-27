@@ -109,7 +109,7 @@ namespace FileGenerator
                 if(string.IsNullOrEmpty(temp))
                     temp = "file";
             }
-            catch (ConfigurationErrorsException configError)
+            catch
             {
                 temp = "file";
             }
