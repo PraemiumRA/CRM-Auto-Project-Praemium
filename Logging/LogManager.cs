@@ -20,6 +20,9 @@ namespace Logging
         #endregion
         public static DataGridView LogSource = null;
         public static Form form = null;
+        public static PictureBox loading = null;
+        private static int count = 0;
+
         public static object block = new object();
 
         /// <summary>
@@ -74,7 +77,7 @@ namespace Logging
         /// <param name="message"></param>
         private static void LogVisibleInWindow(LogType logType, Exception exception = null, string message = null)
         {
-            Lazy<StringBuilder> builder = new Lazy<StringBuilder>();
+            StringBuilder builder = new StringBuilder();
 
             lock (block)
             {
@@ -95,21 +98,35 @@ namespace Logging
                         }
                     case LogType.Appearance:
                         {
+                            count++;
                             color = appearanceColor;
                             break;
                         }
                     case LogType.WrongData:
                         {
+
                             color = wrongDataColor;
                             break;
                         }
                     case LogType.Delete:
-                        break;
+                        {
+                            count--;
+                            break;
+                        }
                     case LogType.Success:
-                        break;
+                        {
+                           
+                            break;
+                        }
                     default:
                         break;
                 }
+
+                if (count > 0)
+                    loading.Visible = true;
+                else
+                    loading.Visible = false;
+
                 LogSource.Rows[index].DefaultCellStyle.BackColor = color;
 
                 LogSource.Rows[index].Cells[0].ValueType = typeof(LogType);
@@ -121,12 +138,12 @@ namespace Logging
                 LogSource.Rows[index].Cells[2].ValueType = typeof(Exception);
                 if (exception != null)
                 {
-                    builder.Value.AppendLine("Namespace: " + exception.Source);
-                    builder.Value.AppendLine("Class Name: " + exception.TargetSite.ReflectedType.Name);
-                    builder.Value.AppendLine("Line: " + exception.StackTrace.Substring(exception.StackTrace.LastIndexOf(":line") + 5));
-                    builder.Value.AppendLine("Discription: " + exception.Message);
+                    builder.AppendLine("Namespace: " + exception.Source);
+                    builder.AppendLine("Class Name: " + exception.TargetSite.ReflectedType.Name);
+                    builder.AppendLine("Line: " + exception.StackTrace.Substring(exception.StackTrace.LastIndexOf(":line") + 5));
+                    builder.AppendLine("Discription: " + exception.Message);
                 }
-                LogSource.Rows[index].Cells[2].Value = builder.Value.ToString();
+                LogSource.Rows[index].Cells[2].Value = builder.ToString();
 
                 LogSource.Rows[index].Cells[3].ValueType = typeof(string);
                 LogSource.Rows[index].Cells[3].Value = message;

@@ -63,6 +63,16 @@ namespace WindowsFormsPraemium.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap cloud_load {
+            get {
+                object obj = ResourceManager.GetObject("cloud_load", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap praemium {
             get {
                 object obj = ResourceManager.GetObject("praemium", resourceCulture);

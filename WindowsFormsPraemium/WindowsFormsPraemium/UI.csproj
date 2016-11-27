@@ -106,6 +106,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resource\cloud_load.gif" />
     <Content Include="Resource\parse.png" />
     <Content Include="Resource\praemium.jpg" />
     <Content Include="Resource\Praemium_Icon.ico" />

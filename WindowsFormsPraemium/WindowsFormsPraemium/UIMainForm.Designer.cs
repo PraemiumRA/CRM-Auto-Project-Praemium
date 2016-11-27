@@ -35,14 +35,16 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UIMainForm));
             this.buttonSelect = new System.Windows.Forms.Button();
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.DataGridViewLogging = new System.Windows.Forms.DataGridView();
             this.LogType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LogDataTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LogExceptionCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LogMessage = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.pictureBoxCloud = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewLogging)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCloud)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonSelect
@@ -57,17 +59,6 @@
             this.buttonSelect.Text = "SELECT / DELETE";
             this.buttonSelect.UseVisualStyleBackColor = true;
             this.buttonSelect.Click += new System.EventHandler(this.ButtonSelectDelete_Click);
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.pictureBox2.BackgroundImage = global::WindowsFormsPraemium.Properties.Resources.praemium;
-            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox2.Location = new System.Drawing.Point(4, 21);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(208, 132);
-            this.pictureBox2.TabIndex = 3;
-            this.pictureBox2.TabStop = false;
             // 
             // DataGridViewLogging
             // 
@@ -168,15 +159,37 @@
             this.LogMessage.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.LogMessage.Width = 150;
             // 
+            // pictureBoxCloud
+            // 
+            this.pictureBoxCloud.Image = global::WindowsFormsPraemium.Properties.Resources.cloud_load;
+            this.pictureBoxCloud.Location = new System.Drawing.Point(18, 111);
+            this.pictureBoxCloud.Name = "pictureBoxCloud";
+            this.pictureBoxCloud.Size = new System.Drawing.Size(187, 117);
+            this.pictureBoxCloud.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxCloud.TabIndex = 7;
+            this.pictureBoxCloud.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.pictureBox2.BackgroundImage = global::WindowsFormsPraemium.Properties.Resources.praemium;
+            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox2.Location = new System.Drawing.Point(4, 2);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(208, 132);
+            this.pictureBox2.TabIndex = 3;
+            this.pictureBox2.TabStop = false;
+            // 
             // UIMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(634, 263);
-            this.Controls.Add(this.DataGridViewLogging);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.buttonSelect);
+            this.Controls.Add(this.pictureBoxCloud);
+            this.Controls.Add(this.DataGridViewLogging);
             this.ForeColor = System.Drawing.SystemColors.InfoText;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(650, 302);
@@ -185,8 +198,9 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "CRM Auto-Feed Project";
             this.Load += new System.EventHandler(this.UIMainForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewLogging)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCloud)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -200,6 +214,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn LogDataTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn LogExceptionCode;
         private System.Windows.Forms.DataGridViewTextBoxColumn LogMessage;
+        public System.Windows.Forms.PictureBox pictureBoxCloud;
     }
 }
 
